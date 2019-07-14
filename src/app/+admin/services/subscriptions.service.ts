@@ -8,7 +8,9 @@ import { SubscriptionsApi } from '../interfaces/subscriptions';
 })
 export class SubscriptionsService {
   private api = './assets/data/subscriptions.json';
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) {
+  }
 
   getJSON(): Observable<SubscriptionsApi[]> {
     return this.http.get<SubscriptionsApi[]>(`${this.api}`);

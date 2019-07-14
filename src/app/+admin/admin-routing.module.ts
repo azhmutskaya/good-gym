@@ -9,8 +9,8 @@ import { SubscriptionsComponent } from './modules/subscriptions/subscriptions.co
 const adminRoutes: Routes = [
   {
     path: '', component: AdminComponent, children: [
-      { path: '', component: ClientsComponent },
-      { path: 'subscriptions', component: SubscriptionsComponent }
+      { path: '', component: ClientsComponent},
+      { path: 'subscriptions', component: SubscriptionsComponent}
     ]
   }
 ];
@@ -20,4 +20,5 @@ const adminRoutes: Routes = [
   exports: [RouterModule]
 })
 
-export class AdminRoutingModule { }
+export class AdminRoutingModule {
+}

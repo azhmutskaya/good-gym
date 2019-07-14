@@ -15,4 +15,5 @@ const frontendRoutes: Routes = [
   exports: [RouterModule]
 })
 
-export class FrontendRoutingModule { }
+export class FrontendRoutingModule {
+}

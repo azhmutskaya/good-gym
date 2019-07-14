@@ -6,6 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { AdminModule } from './+admin/admin.module';
+import { FrontendModule } from './+frontend/frontend.module';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,9 +17,12 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AdminModule,
+    FrontendModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

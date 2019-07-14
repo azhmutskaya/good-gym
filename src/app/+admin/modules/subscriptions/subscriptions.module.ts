@@ -4,11 +4,11 @@ import { SubscriptionsComponent } from './subscriptions.component';
 import { ListComponent } from './components/list/list.component';
 
 
-
 @NgModule({
   declarations: [SubscriptionsComponent, ListComponent],
   imports: [
     CommonModule
   ]
 })
-export class SubscriptionsModule { }
+export class SubscriptionsModule {
+}

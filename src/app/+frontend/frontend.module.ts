@@ -11,4 +11,5 @@ import { FrontendRoutingModule } from './frontend-routing.module';
     FrontendRoutingModule
   ]
 })
-export class FrontendModule { }
+export class FrontendModule {
+}
