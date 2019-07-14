@@ -1,0 +1,96 @@
+@import '~src/assets/sass/styles';
+
+.clients-list {
+  &__loader {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__error {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $clr-error;
+  }
+  &__header {
+    font-size: 15px;
+    line-height: 20px;
+    color: $clr-font-light;
+    border-bottom: 1px solid $clr-line;
+    .clients-list {
+      &__row {
+        padding: 16px 0;
+      }
+    }
+  }
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 18px 0;
+  }
+  &__item {
+    flex: 0 0 16.66%;
+    max-width: 16.66%;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    &:nth-last-child(1),
+    &:nth-last-child(2) {
+      justify-content: flex-end;
+    }
+    .is-active {
+      width: 14px;
+      height: 8px;
+      border-left: 1px solid $clr-font;
+      border-bottom: 1px solid $clr-font;
+      transform: rotate(-45deg);
+    }
+    .no-active {
+      width: 14px;
+      height: 2px;
+      background: $clr-font-light;
+    }
+  }
+  &__cut {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__sort {
+    width: 8px;
+    height: 12px;
+    margin-right: 10px;
+    position: relative;
+    &:before,
+    &:after {
+      position: absolute;
+      content: '';
+      left: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      transition: all .3s;
+    }
+    &:before {
+      top: 0;
+      border-width: 0 4px 4px 4px;
+      border-color: transparent transparent $clr-font transparent;
+    }
+    &:after {
+      bottom: 0;
+      border-width: 4px 4px 0 4px;
+      border-color: $clr-line transparent transparent transparent;
+    }
+    &--revers {
+      &:before {
+        border-color: transparent transparent $clr-line transparent;
+      }
+      &:after {
+        border-color: $clr-font transparent transparent transparent;
+      }
+    }
+  }
+}
+
+

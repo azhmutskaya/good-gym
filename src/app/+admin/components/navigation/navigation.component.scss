@@ -1,0 +1,22 @@
+@import '~src/assets/sass/styles';
+
+.navigation {
+  &__link {
+    height: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    color: $clr-white;
+    &:hover,
+    &.active {
+      background: $clr-primary;
+    }
+    &::ng-deep {
+      .svg-icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}

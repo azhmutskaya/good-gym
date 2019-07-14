@@ -1,0 +1,96 @@
+<div class="client-form">
+  <button class="client-form__button" [class.client-form__button--hidden]="formIsVisible" (click)="showForm()">
+    <span></span></button>
+  <div class="client-form__overlay" [class.client-form__overlay--visible]="formIsVisible" (click)="hideForm()"></div>
+
+  <div class="client-form__wrapper" [class.client-form__wrapper--visible]="formIsVisible">
+    <div class="client-form__body">
+      <div class="client-form__header">
+        <h2 class="client-form__title admin-title">
+          New Client
+        </h2>
+        <button class="client-form__close" (click)="hideForm()"></button>
+      </div>
+      <div class="client-form__form">
+        <div class="form">
+          <div class="form__row">
+            <div class="form__field form__field--half form__field--moved">
+              <input type="text">
+              <label><span>First Name</span></label>
+            </div>
+            <div class="form__field form__field--half form__field--moved">
+              <input type="text">
+              <label><span>Last Name</span></label>
+            </div>
+          </div>
+          <div class="form__row form__row--ident">
+            <div class="form__field form__field--half form__field--moved">
+              <input type="text">
+              <label><span>Date of Birth</span></label>
+            </div>
+            <div class="form__field form__field--half">
+              <div class="form__radiobtns">
+                <label class="form__radiobtn">
+                  <input type="radio" checked>
+                  <span>Male</span>
+                </label>
+                <label class="form__radiobtn">
+                  <input type="radio">
+                  <span>Famale</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__field form__field--moved">
+              <input type="text">
+              <label><span>Email</span></label>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__field form__field--moved">
+              <input type="text">
+              <label><span>Address</span></label>
+            </div>
+          </div>
+          <div class="form__repeater">
+            <div class="form__list">
+              <div class="form__row">
+                <div class="form__field form__field--half form__field--moved">
+                  <input type="text">
+                  <label><span>Phone</span></label>
+                  <button class="form__remove"></button>
+                </div>
+              </div>
+            </div>
+            <button class="form__add" type="button">Add Phone</button>
+          </div>
+          <div class="form__row">
+            <div class="form__field form__field--half form__field--moved">
+              <select name="" id="">
+                <option>1</option>
+                <option>2</option>
+              </select>
+              <label><span>Subscriptions</span></label>
+            </div>
+            <div class="form__field form__field--half form__field--moved">
+              <input type="text">
+              <label><span>Expiration Date</span></label>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__field">
+              <label class="form__checkbox">
+                <input type="checkbox">
+                <span>Active</span>
+              </label>
+            </div>
+          </div>
+          <div class="form__footer">
+            <button type="submit" class="btn btn-admin">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

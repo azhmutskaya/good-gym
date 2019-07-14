@@ -1,0 +1,11 @@
+@import '~src/assets/sass/styles';
+
+.clients {
+  &__header {
+    padding-bottom: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
