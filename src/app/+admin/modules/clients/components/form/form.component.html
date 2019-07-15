@@ -11,92 +11,124 @@
         </h2>
         <button class="client-form__close" (click)="hideForm()"></button>
       </div>
-      <div class="client-form__form">
+      <form class="client-form__form" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
         <div class="form">
+
           <div class="form__row">
             <div class="form__field form__field--half form__field--moved">
-              <input type="text">
-              <label><span>First Name</span></label>
+              <div class="form__wrap">
+                <input type="text" [class.is-filled]="clientForm.value.firstName.trim()" formControlName="firstName">
+                <label><span>First Name</span></label>
+              </div>
             </div>
             <div class="form__field form__field--half form__field--moved">
-              <input type="text">
-              <label><span>Last Name</span></label>
+              <div class="form__wrap">
+                <input type="text" [class.is-filled]="clientForm.value.lastName.trim()" formControlName="lastName">
+                <label><span>Last Name</span></label>
+              </div>
             </div>
           </div>
+
           <div class="form__row form__row--ident">
-            <div class="form__field form__field--half form__field--moved">
-              <input type="text">
-              <label><span>Date of Birth</span></label>
+            <div class="form__field form__field--half form__field--moved form__field--icon">
+              <mat-form-field>
+                <input matInput #inputDateOfBirth [matDatepicker]="pickerDateOfBirth"
+                       (click)="pickerDateOfBirth.open()" formControlName="dateOfBirth">
+                <label class="mat-form-field-label"><span>Date of Birth</span></label>
+                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#calendar'"
+                                 [classes]="'svg-icon'"></svg-icon-sprite>
+                <mat-datepicker #pickerDateOfBirth (closed)="inputDateOfBirth.blur()"></mat-datepicker>
+              </mat-form-field>
             </div>
             <div class="form__field form__field--half">
-              <div class="form__radiobtns">
-                <label class="form__radiobtn">
-                  <input type="radio" checked>
-                  <span>Male</span>
-                </label>
-                <label class="form__radiobtn">
-                  <input type="radio">
-                  <span>Famale</span>
-                </label>
+              <div class="form__wrap">
+                <div class="form__radiobtns">
+                  <label class="form__radiobtn">
+                    <input type="radio" checked>
+                    <span>Male</span>
+                  </label>
+                  <label class="form__radiobtn">
+                    <input type="radio">
+                    <span>Female</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field form__field--moved">
+              <div class="form__wrap">
+                <input type="text" [class.is-filled]="clientForm.value.email.trim()" formControlName="email">
+                <label><span>Email</span></label>
               </div>
             </div>
           </div>
           <div class="form__row">
             <div class="form__field form__field--moved">
-              <input type="text">
-              <label><span>Email</span></label>
+              <div class="form__wrap">
+                <input type="text" [class.is-filled]="clientForm.value.address.trim()" formControlName="address">
+                <label><span>Address</span></label>
+              </div>
             </div>
           </div>
-          <div class="form__row">
-            <div class="form__field form__field--moved">
-              <input type="text">
-              <label><span>Address</span></label>
-            </div>
-          </div>
+
           <div class="form__repeater">
             <div class="form__list">
               <div class="form__row">
                 <div class="form__field form__field--half form__field--moved">
-                  <input type="text">
-                  <label><span>Phone</span></label>
-                  <button class="form__remove"></button>
+                  <div class="form__wrap">
+                    <input type="text" [class.is-filled]="clientForm.value.phones.trim()" formControlName="phones">
+                    <label><span>Phone</span></label>
+                    <button class="form__remove"></button>
+                  </div>
                 </div>
               </div>
             </div>
             <button class="form__add" type="button">Add Phone</button>
           </div>
+
           <div class="form__row">
             <div class="form__field form__field--half form__field--moved">
-              <select name="" id="">
-                <option>1</option>
-                <option>2</option>
-              </select>
-              <label><span>Subscriptions</span></label>
+              <div class="form__wrap">
+                <mat-form-field>
+                  <mat-label><span>Subscriptions</span></mat-label>
+                  <mat-select disableOptionCentering panelClass="mat-custom-select" formControlName="subscriptionId">
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                      {{food.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
-            <div class="form__field form__field--half form__field--moved">
-              <input type="text">
-              <label><span>Expiration Date</span></label>
+            <div class="form__field form__field--half form__field--moved form__field--icon">
+              <mat-form-field>
+                <input matInput #inputExpirationDate [matDatepicker]="pickerExpirationDate"
+                       (click)="pickerExpirationDate.open()" formControlName="expirationDate">
+                <label class="mat-form-field-label"><span>Expiration Date</span></label>
+                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#calendar'"
+                                 [classes]="'svg-icon'"></svg-icon-sprite>
+                <mat-datepicker #pickerExpirationDate (closed)="inputExpirationDate.blur()"></mat-datepicker>
+              </mat-form-field>
             </div>
           </div>
+
           <div class="form__row">
             <div class="form__field">
-              <label class="form__checkbox">
-                <input type="checkbox">
-                <span>Active</span>
-              </label>
+              <div class="form__wrap">
+                <label class="form__checkbox">
+                  <input type="checkbox" formControlName="isActive">
+                  <span>Active</span>
+                </label>
+              </div>
             </div>
           </div>
+
           <div class="form__footer">
             <button type="submit" class="btn btn-admin">Save</button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>
-
-<mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>

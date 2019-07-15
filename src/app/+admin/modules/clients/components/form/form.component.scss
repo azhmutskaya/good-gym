@@ -61,7 +61,7 @@
     left: 0;
     right: 0;
     background: rgba($clr-bg-dark, .1);
-    z-index: 1000;
+    z-index: 500;
     transition: all .3s;
     opacity: 0;
     visibility: hidden;
@@ -80,7 +80,7 @@
     width: 100%;
     max-width: 652px;
     background: $clr-white;
-    z-index: 1100;
+    z-index: 600;
     transition: all .3s;
     transform: translateX(100%);
     visibility: hidden;
@@ -147,8 +147,14 @@
     .form {
       &__radiobtn {
         span {
-          padding-right: 46px;
+          padding-right: 40px;
         }
+      }
+      &__repeater {
+        margin-bottom: 56px;
+      }
+      &__list {
+        margin-bottom: 34px;
       }
     }
   }

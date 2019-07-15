@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MatDatepickerModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { ReactiveFormsModule } from '@angular/forms';
+import { IconSpriteModule } from 'ng-svg-icon-sprite';
+
 import { ClientsComponent } from './clients.component';
 import { SearchComponent } from './components/search/search.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { ListComponent } from './components/list/list.component';
 import { FormComponent } from './components/form/form.component';
-
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -21,10 +23,12 @@ import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule } 
   imports: [
     CommonModule,
     MatDatepickerModule,
-    MatButtonModule,
+    MatMomentDateModule,
     MatFormFieldModule,
     MatInputModule,
-    MatRippleModule,
+    IconSpriteModule,
+    MatSelectModule,
+    ReactiveFormsModule,
   ]
 })
 export class ClientsModule {

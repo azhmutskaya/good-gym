@@ -16,7 +16,6 @@
   &__field {
     padding: 16px 24px 0;
     flex: 1 0 auto;
-    position: relative;
     @include breakpoint($mq-desktop-hd) {
       padding: 16px 16px 0;
     }
@@ -27,9 +26,9 @@
     &--moved {
       label {
         position: absolute;
-        top: 16px;
-        left: 24px;
-        right: 24px;
+        top: 0;
+        left: 0;
+        right: 0;
         bottom: 0;
         display: flex;
         align-items: center;
@@ -41,28 +40,56 @@
         text-overflow: ellipsis;
         overflow: hidden;
         color: $clr-font-light;
-        @include breakpoint($mq-desktop-hd) {
-          left: 16px;
-          right: 16px;
-        }
         span {
           transition: all .3s;
         }
       }
-      input:focus + label,
-      select:focus + label {
-        transform: scale(0.9) translateY(-50%);
-        color: $clr-primary;
-        span {
-          background: $clr-white;
-          padding: 0 4px;
+      input,
+      select {
+        &.is-filled + label {
+          transform: scale(0.9) translateY(-50%);
+          color: $clr-font-light;
+          span {
+            background: $clr-white;
+            padding: 0 4px;
+          }
+        }
+        &:focus + label {
+          transform: scale(0.9) translateY(-50%);
+          color: $clr-primary;
+          span {
+            background: $clr-white;
+            padding: 0 4px;
+          }
+        }
+      }
+    }
+    &--icon {
+      input {
+        padding-right: 48px;
+      }
+      &::ng-deep {
+        .svg-icon {
+          width: 24px;
+          height: 24px;
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          transform: translateY(-50%);
+          use {
+            fill: $clr-font-light;
+            transition: all .3s;
+          }
         }
       }
     }
   }
+  &__wrap {
+    position: relative;
+  }
   &__radiobtns {
     display: flex;
-    flex: wrap;
+    flex-wrap: wrap;
   }
   &__radiobtn {
     input {
@@ -147,8 +174,83 @@
       }
     }
   }
+  &__remove {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 48px;
+    height: 48px;
+    &:before,
+    &:after {
+      position: absolute;
+      content: '';
+      top: 50%;
+      left: 50%;
+      background: $clr-line;
+      width: 2px;
+      height: 20px;
+      transform-origin: 0 0;
+      transition: all .3s;
+    }
+    &:before {
+      transform: rotate(45deg) translate(-50%, -50%);
+    }
+    &:after {
+      transform: rotate(-45deg) translate(-50%, -50%);
+    }
+    &:hover {
+      &:before,
+      &:after {
+        background: $clr-primary;
+      }
+      &:before {
+        transform: rotate(135deg) translate(-50%, -50%);
+      }
+      &:after {
+        transform: rotate(45deg) translate(-50%, -50%);
+      }
+    }
+  }
+  &__add {
+    color: $clr-primary;
+    padding-left: 30px;
+    position: relative;
+    &:before,
+    &:after {
+      position: absolute;
+      content: '';
+      top: 50%;
+      left: 0;
+      background: $clr-primary;
+      transform: translateY(-50%);
+      width: 2px;
+      height: 20px;
+      transition: all .3s;
+    }
+    &:before {
+      width: 2px;
+      height: 14px;
+      left: 6px;
+    }
+    &:after {
+      width: 14px;
+      height: 2px;
+      left: 0;
+    }
+    &:hover {
+      color: $clr-secondary;
+      &:before,
+      &:after {
+        background: $clr-secondary;
+      }
+    }
+  }
+  &__footer {
+    margin-top: 88px;
+  }
   input,
-  select {
+  select,
+  .mat-select-trigger {
     font-family: $font-primary;
     width: 100%;
     border: 1px solid $clr-line;
@@ -164,4 +266,88 @@
     font-size: 17px;
     line-height: 24px;
   }
+  .mat-form-field {
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    width: 100%;
+    &-wrapper {
+      padding: 0;
+    }
+    &-flex {
+      display: block;
+    }
+    &-infix {
+      border: 0;
+      padding: 0;
+      width: 100%;
+    }
+    &-underline {
+      height: 0;
+      opacity: 0;
+    }
+    &-subscript-wrapper {
+      //display: none;
+    }
+    .mat-select {
+      &-arrow {
+        color: $clr-line;
+      }
+    }
+    &-label-wrapper {
+      top: 0;
+      padding: 0;
+      overflow: visible;
+    }
+    &-appearance-legacy {
+      .mat-form-field-label {
+        width: 100%;
+        top: 0;
+        transform: none;
+        color: $clr-font-light;
+      }
+      &.mat-form-field-should-float {
+        .mat-form-field-label {
+          transform: scale(0.9) translateY(-50%);
+          width: 100%;
+          color: $clr-font-light;
+          top: 0;
+          span {
+            background: $clr-white;
+            padding: 0 4px;
+          }
+        }
+      }
+    }
+    &.mat-focused {
+      .mat-select {
+        &-arrow {
+          color: $clr-line;
+        }
+      }
+      .mat-form-field-label {
+        color: $clr-primary;
+      }
+      .mat-select-trigger {
+        border-color: $clr-primary;
+      }
+    }
+  }
 }
+
+::ng-deep {
+  .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: $clr-primary;
+  }
+  .mat-custom-select {
+    margin: 50px 0 62px;
+  }
+  .mat-datepicker-popup {
+    margin: 2px 0 14px;
+  }
+  .mat-calendar-body-selected {
+    background: $clr-primary;
+  }
+}
+

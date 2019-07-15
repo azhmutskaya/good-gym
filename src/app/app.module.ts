@@ -6,9 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { AdminModule } from './+admin/admin.module';
-import { FrontendModule } from './+frontend/frontend.module';
-
 @NgModule({
   declarations: [
     AppComponent
@@ -17,9 +14,7 @@ import { FrontendModule } from './+frontend/frontend.module';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppRoutingModule,
-    AdminModule,
-    FrontendModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
