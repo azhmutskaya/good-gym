@@ -9,14 +9,20 @@ import { FormBuilder, Validators, FormArray } from '@angular/forms';
 
 export class FormComponent implements OnInit {
   formIsVisible = false;
+  isSubmited = false;
+  todayDate = new Date(Date.now());
+  minDate = new Date(this.todayDate.getFullYear() - 100, 0, 1);
+  maxDate = new Date(this.todayDate.getFullYear() + 100, 0, 1);
+
 
   foods: any = [
+    {value: 0, viewValue: 'None'},
     {value: 'steak-0', viewValue: 'Steak'},
     {value: 'pizza-1', viewValue: 'Pizza'},
     {value: 'tacos-2', viewValue: 'Tacos'}
   ];
 
-  clientForm = this.fb.group({
+  private clientForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     isActive: [''],
@@ -24,12 +30,20 @@ export class FormComponent implements OnInit {
     dateOfBirth: [''],
     email: ['', Validators.email],
     phones: this.fb.array([
-      this.fb.control('', Validators.pattern('\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{2})([ .-]?)([0-9]{2})'))
+      this.fb.control('', Validators.pattern('\\+?([0-9])( ?)\\(?([0-9]{3})\\)?([ ]?)([0-9]{3})([ -]?)([0-9]{4})'))
     ]),
     address: [''],
     subscriptionId: [''],
-    expirationDate: ['', Validators.required]
+    expirationDate: ['']
   });
+
+  dateOfBirthFilter = (date: Date): boolean => {
+    return Date.now() > date.valueOf();
+  };
+
+  expirationDateFilter = (date: Date): boolean => {
+    return Date.now() < date.valueOf();
+  };
 
   get phones() {
     return this.clientForm.get('phones') as FormArray;
@@ -39,47 +53,76 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.clientForm.get('subscriptionId').valueChanges.subscribe(val => {
+      if (val) {
+        this.clientForm.controls.expirationDate.setValidators([Validators.required]);
+        this.clientForm.controls.expirationDate.updateValueAndValidity();
+      } else {
+        this.clientForm.controls.expirationDate.clearValidators();
+        this.clientForm.controls.expirationDate.updateValueAndValidity();
+      }
+    });
   }
 
-  showForm(): void {
+  private showForm(): void {
     this.formIsVisible = true;
   }
 
-  hideForm(): void {
+  private hideForm(): void {
     this.formIsVisible = false;
+    this.isSubmited = false;
+    this.clientForm.reset();
   }
 
-  addPhone(): void {
-    this.phones.push(this.fb.control(''));
+  private addPhone(): void {
+    this.phones.push(this.fb.control('', Validators.pattern('\\+?([0-9])( ?)\\(?([0-9]{3})\\)?([ ]?)([0-9]{3})([ -]?)([0-9]{4})')));
   }
 
-  removePhone(index: number): void {
+  private removePhone(index: number): void {
     this.phones.removeAt(index);
   }
 
-  isFilled([key, index]: [string, number?]): boolean {
-    return index === undefined
-      ? !!this.clientForm.controls[key].value.trim()
-      : !!this[key].controls[index].value.trim();
+  private trimField([key, index]: [string, number?]): void {
+    const control = (index !== undefined)
+      ? this[key].controls[index]
+      : this.clientForm.controls[key];
+
+    control.setValue(control.value.trim());
   }
 
-  hasError([key, index]: [string, number?]): boolean {
-    if (index !== undefined) {
-      return this[key].controls[index].errors
-        && (this[key].controls[index].dirty
-          || this[key].controls[index].touched);
+  private isFilled([key, index]: [string, number?]): boolean {
+    const control = (index !== undefined)
+      ? this[key].controls[index]
+      : this.clientForm.controls[key];
+
+    return (control.value === null) || control.value.trim();
+  }
+
+  private hasError([key, index]: [string, number?]): boolean {
+    const control = (index !== undefined)
+      ? this[key].controls[index]
+      : this.clientForm.controls[key];
+
+    return control.errors && (control.dirty || control.touched || this.isSubmited);
+  }
+
+  private errorMessages([key, index]: [string, number?], name: string): string[] {
+    const control = (index !== undefined)
+      ? this[key].controls[index]
+      : this.clientForm.controls[key];
+    const errorMessages: string[] = [];
+
+    if (control.errors.required) {
+      errorMessages.push(`${name} is required.`);
     }
-    return this.clientForm.controls[key].errors
-      && (this.clientForm.controls[key].dirty
-        || this.clientForm.controls[key].touched);
+    if (control.errors.email || control.errors.pattern || control.errors.matDatepickerParse) {
+      errorMessages.push(`${name} isn't correct.`);
+    }
+    return errorMessages;
   }
 
-  errorMessages(key: string, name: string): [string] {
-
-    return ['dfdf'];
-  }
-
-  onSubmit() {
+  private onSubmit() {
+    this.isSubmited = true;
     // TODO: Use EventEmitter with form value
     console.warn(this.clientForm);
   }

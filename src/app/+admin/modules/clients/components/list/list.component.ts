@@ -43,7 +43,7 @@ export class ListComponent implements OnInit {
 
   }
 
-  sortClients(key): void {
+  private sortClients(key): void {
     key = key === 'subscriptions'
       ? this.errors.subscriptionsIsSuccessful
         ? 'subscriptionName'

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MatDatepickerModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatDatepickerModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatNativeDateModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IconSpriteModule } from 'ng-svg-icon-sprite';
@@ -26,6 +26,7 @@ import { FormComponent } from './components/form/form.component';
     MatDatepickerModule,
     MatMomentDateModule,
     MatFormFieldModule,
+    MatNativeDateModule,
     MatInputModule,
     IconSpriteModule,
     MatSelectModule,

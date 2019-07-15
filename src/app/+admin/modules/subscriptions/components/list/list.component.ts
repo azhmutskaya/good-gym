@@ -32,7 +32,7 @@ export class ListComponent implements OnInit {
 
   }
 
-  sortSubscriptions(key): void {
+  private sortSubscriptions(key): void {
     this.sortType = this.sortKey !== key
       ? true
       : !this.sortType;
