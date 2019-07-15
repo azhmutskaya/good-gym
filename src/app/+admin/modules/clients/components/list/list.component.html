@@ -10,28 +10,28 @@
       <div class="clients-list__header">
         <div class="clients-list__row">
           <button class="clients-list__item" (click)="sortClients('firstName')">
-            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortField == 'firstName'"></span>
+            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'firstName'"></span>
             First Name
           </button>
           <button class="clients-list__item" (click)="sortClients('lastName')">
-            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortField == 'lastName'"></span>
+            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'lastName'"></span>
             Last Name
           </button>
           <button class="clients-list__item" (click)="sortClients('isActive')">
-            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortField == 'isActive'"></span>
+            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'isActive'"></span>
             Active
           </button>
           <button class="clients-list__item" (click)="sortClients('subscriptions')">
             <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType"
-                  *ngIf="sortField == 'subscriptionId' || sortField == 'subscriptionName'"></span>
+                  *ngIf="sortKey == 'subscriptionId' || sortKey == 'subscriptionName'"></span>
             Subscription
           </button>
           <button class="clients-list__item" (click)="sortClients('expirationDate')">
-            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortField == 'expirationDate'"></span>
+            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'expirationDate'"></span>
             Expiration Date
           </button>
           <button class="clients-list__item" (click)="sortClients('balance')">
-            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortField == 'balance'"></span>
+            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'balance'"></span>
             Current Balance
           </button>
         </div>

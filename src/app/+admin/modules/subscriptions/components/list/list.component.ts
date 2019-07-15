@@ -16,7 +16,7 @@ export class ListComponent implements OnInit {
     subscriptionsIsLoaded: false,
     subscriptionsIsSuccessful: false
   };
-  sortField = '';
+  sortKey = '';
   sortType = true;
 
   constructor(
@@ -32,17 +32,17 @@ export class ListComponent implements OnInit {
 
   }
 
-  sortSubscriptions(field): void {
-    this.sortType = this.sortField !== field
+  sortSubscriptions(key): void {
+    this.sortType = this.sortKey !== key
       ? true
       : !this.sortType;
 
-    this.sortField = field;
+    this.sortKey = key;
 
     this.subscriptions.sort((a, b) => {
       return this.sortType
-        ? +(a[field] > b[field]) || -1
-        : +(a[field] < b[field]) || -1;
+        ? +(a[key] > b[key]) || -1
+        : +(a[key] < b[key]) || -1;
     });
   }
 

@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { FormArray } from '@angular/forms';
-
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -27,11 +24,11 @@ export class FormComponent implements OnInit {
     dateOfBirth: [''],
     email: ['', Validators.email],
     phones: this.fb.array([
-      this.fb.control('')
+      this.fb.control('', Validators.pattern('\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{2})([ .-]?)([0-9]{2})'))
     ]),
     address: [''],
     subscriptionId: [''],
-    expirationDate: ['']
+    expirationDate: ['', Validators.required]
   });
 
   get phones() {
@@ -52,18 +49,34 @@ export class FormComponent implements OnInit {
     this.formIsVisible = false;
   }
 
-  isFilled(field: string, index: number): boolean {
-    return index === undefined
-      ? !!this.clientForm.value[field].trim()
-      : !!this.clientForm.value[field][index].trim();
-  }
-
   addPhone(): void {
     this.phones.push(this.fb.control(''));
   }
 
   removePhone(index: number): void {
     this.phones.removeAt(index);
+  }
+
+  isFilled([key, index]: [string, number?]): boolean {
+    return index === undefined
+      ? !!this.clientForm.controls[key].value.trim()
+      : !!this[key].controls[index].value.trim();
+  }
+
+  hasError([key, index]: [string, number?]): boolean {
+    if (index !== undefined) {
+      return this[key].controls[index].errors
+        && (this[key].controls[index].dirty
+          || this[key].controls[index].touched);
+    }
+    return this.clientForm.controls[key].errors
+      && (this.clientForm.controls[key].dirty
+        || this.clientForm.controls[key].touched);
+  }
+
+  errorMessages(key: string, name: string): [string] {
+
+    return ['dfdf'];
   }
 
   onSubmit() {

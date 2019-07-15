@@ -5,6 +5,7 @@ import { MatDatepickerModule, MatFormFieldModule, MatInputModule, MatSelectModul
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IconSpriteModule } from 'ng-svg-icon-sprite';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { ClientsComponent } from './clients.component';
 import { SearchComponent } from './components/search/search.component';
@@ -29,6 +30,7 @@ import { FormComponent } from './components/form/form.component';
     IconSpriteModule,
     MatSelectModule,
     ReactiveFormsModule,
+    NgxMaskModule.forRoot()
   ]
 })
 export class ClientsModule {

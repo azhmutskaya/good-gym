@@ -1,62 +1,66 @@
 .form {
-  &__row {
-    margin: 0 -24px 22px;
-    width: calc(100% + 48px);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    @include breakpoint($mq-desktop-hd) {
-      margin: 0 -16px 22px;
-      width: calc(100% + 32px);
-    }
-    &--ident {
-      margin-bottom: 64px;
+  input,
+  select,
+  .mat-select-trigger {
+    font-family: $font-primary;
+    width: 100%;
+    border: 1px solid $clr-line;
+    font-size: 17px;
+    line-height: 24px;
+    padding: 12px 16px;
+    transition: all .3s;
+    &:focus {
+      border-color: $clr-primary;
     }
   }
-  &__field {
-    padding: 16px 24px 0;
-    flex: 1 0 auto;
-    @include breakpoint($mq-desktop-hd) {
-      padding: 16px 16px 0;
+  label {
+    font-size: 17px;
+    line-height: 24px;
+  }
+  .mat-form-field {
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    width: 100%;
+    &-wrapper {
+      padding: 0;
     }
-    &--half {
-      flex: 0 0 50%;
-      max-width: 50%;
+    &-flex {
+      display: block;
     }
-    &--moved {
-      label {
-        position: absolute;
+    &-infix {
+      border: 0;
+      padding: 0;
+      width: 100%;
+    }
+    &-underline {
+      height: 0;
+      opacity: 0;
+    }
+    .mat-select {
+      &-arrow {
+        color: $clr-line;
+      }
+    }
+    &-label-wrapper {
+      top: 0;
+      padding: 0;
+      overflow: visible;
+    }
+    &-appearance-legacy {
+      .mat-form-field-label {
+        width: 100%;
         top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        align-items: center;
-        padding: 12px 16px;
-        pointer-events: none;
-        transition: all .3s, color .1s;
-        transform-origin: 0 0;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
+        transform: none;
         color: $clr-font-light;
-        span {
-          transition: all .3s;
-        }
       }
-      input,
-      select {
-        &.is-filled + label {
+      &.mat-form-field-should-float {
+        .mat-form-field-label {
           transform: scale(0.9) translateY(-50%);
+          width: 100%;
           color: $clr-font-light;
-          span {
-            background: $clr-white;
-            padding: 0 4px;
-          }
-        }
-        &:focus + label {
-          transform: scale(0.9) translateY(-50%);
-          color: $clr-primary;
+          top: 0;
           span {
             background: $clr-white;
             padding: 0 4px;
@@ -64,28 +68,19 @@
         }
       }
     }
-    &--icon {
-      input {
-        padding-right: 48px;
-      }
-      &::ng-deep {
-        .svg-icon {
-          width: 24px;
-          height: 24px;
-          position: absolute;
-          top: 50%;
-          right: 10px;
-          transform: translateY(-50%);
-          use {
-            fill: $clr-font-light;
-            transition: all .3s;
-          }
+    &.mat-focused {
+      .mat-select {
+        &-arrow {
+          color: $clr-line;
         }
       }
+      .mat-form-field-label {
+        color: $clr-primary;
+      }
+      .mat-select-trigger {
+        border-color: $clr-primary;
+      }
     }
-  }
-  &__wrap {
-    position: relative;
   }
   &__radiobtns {
     display: flex;
@@ -174,6 +169,126 @@
       }
     }
   }
+  &__row {
+    margin: 0 -24px 22px;
+    width: calc(100% + 48px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    @include breakpoint($mq-desktop-hd) {
+      margin: 0 -16px 22px;
+      width: calc(100% + 32px);
+    }
+    &--ident {
+      margin-bottom: 64px;
+    }
+  }
+  &__field {
+    padding: 16px 24px 0;
+    flex: 1 0 auto;
+    @include breakpoint($mq-desktop-hd) {
+      padding: 16px 16px 0;
+    }
+    &--half {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+    &--moved {
+      label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        pointer-events: none;
+        transition: all .3s, color .1s;
+        transform-origin: 0 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        color: $clr-font-light;
+        span {
+          transition: all .3s;
+        }
+      }
+      input,
+      select {
+        &.is-filled + label {
+          transform: scale(0.9) translateY(-50%);
+          color: $clr-font-light;
+          span {
+            background: $clr-white;
+            padding: 0 4px;
+          }
+        }
+        &:focus + label {
+          transform: scale(0.9) translateY(-50%);
+          color: $clr-primary;
+          span {
+            background: $clr-white;
+            padding: 0 4px;
+          }
+        }
+      }
+    }
+    &--icon {
+      input {
+        padding-right: 48px;
+      }
+      &::ng-deep {
+        .svg-icon {
+          width: 24px;
+          height: 24px;
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          transform: translateY(-50%);
+          use {
+            fill: $clr-font-light;
+            transition: all .3s;
+          }
+        }
+      }
+    }
+    &--error {
+      input,
+      select {
+        border: 1px solid $clr-error;
+        &.is-filled + label {
+          color: $clr-error;
+        }
+      }
+      label {
+        color: $clr-error;
+      }
+      .mat-form-field {
+        &-appearance-legacy {
+          .mat-form-field-label {
+            color: $clr-error;
+          }
+          &.mat-form-field-should-float {
+            .mat-form-field-label {
+              color: $clr-error;
+            }
+          }
+        }
+        &.mat-focused {
+          .mat-form-field-label {
+            color: $clr-primary;
+          }
+          .mat-select-trigger {
+            border-color: $clr-primary;
+          }
+        }
+      }
+    }
+  }
+  &__wrap {
+    position: relative;
+  }
   &__remove {
     position: absolute;
     top: 0;
@@ -248,91 +363,17 @@
   &__footer {
     margin-top: 88px;
   }
-  input,
-  select,
-  .mat-select-trigger {
-    font-family: $font-primary;
-    width: 100%;
-    border: 1px solid $clr-line;
-    font-size: 17px;
-    line-height: 24px;
-    padding: 12px 16px;
-    transition: all .3s;
-    &:focus {
-      border-color: $clr-primary;
-    }
-  }
-  label {
-    font-size: 17px;
-    line-height: 24px;
-  }
-  .mat-form-field {
-    font-size: inherit;
-    font-family: inherit;
-    font-weight: inherit;
-    line-height: inherit;
-    width: 100%;
-    &-wrapper {
-      padding: 0;
-    }
-    &-flex {
-      display: block;
-    }
-    &-infix {
-      border: 0;
-      padding: 0;
-      width: 100%;
-    }
-    &-underline {
-      height: 0;
-      opacity: 0;
-    }
-    &-subscript-wrapper {
-      //display: none;
-    }
-    .mat-select {
-      &-arrow {
-        color: $clr-line;
-      }
-    }
-    &-label-wrapper {
-      top: 0;
-      padding: 0;
-      overflow: visible;
-    }
-    &-appearance-legacy {
-      .mat-form-field-label {
-        width: 100%;
-        top: 0;
-        transform: none;
-        color: $clr-font-light;
-      }
-      &.mat-form-field-should-float {
-        .mat-form-field-label {
-          transform: scale(0.9) translateY(-50%);
-          width: 100%;
-          color: $clr-font-light;
-          top: 0;
-          span {
-            background: $clr-white;
-            padding: 0 4px;
-          }
-        }
-      }
-    }
-    &.mat-focused {
-      .mat-select {
-        &-arrow {
-          color: $clr-line;
-        }
-      }
-      .mat-form-field-label {
-        color: $clr-primary;
-      }
-      .mat-select-trigger {
-        border-color: $clr-primary;
-      }
-    }
+  &__error {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    line-height: 20px;
+    color: $clr-error;
   }
 }
 

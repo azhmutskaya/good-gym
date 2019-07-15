@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
     clientsIsSuccessful: false,
     subscriptionsIsSuccessful: false
   };
-  sortField = '';
+  sortKey = '';
   sortType = true;
 
   private subscriptions: Subscriptions[] = [];
@@ -43,23 +43,23 @@ export class ListComponent implements OnInit {
 
   }
 
-  sortClients(field): void {
-    field = field === 'subscriptions'
+  sortClients(key): void {
+    key = key === 'subscriptions'
       ? this.errors.subscriptionsIsSuccessful
         ? 'subscriptionName'
         : 'subscriptionId'
-      : field;
+      : key;
 
-    this.sortType = this.sortField !== field
+    this.sortType = this.sortKey !== key
       ? true
       : !this.sortType;
 
-    this.sortField = field;
+    this.sortKey = key;
 
     this.clients.sort((a, b) => {
       return this.sortType
-        ? +(a[field] > b[field]) || -1
-        : +(a[field] < b[field]) || -1;
+        ? +(a[key] > b[key]) || -1
+        : +(a[key] < b[key]) || -1;
     });
   }
 

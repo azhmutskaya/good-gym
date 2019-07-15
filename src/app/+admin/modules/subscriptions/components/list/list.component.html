@@ -10,11 +10,11 @@
       <div class="subscriptions-list__header">
         <div class="subscriptions-list__row">
           <button class="subscriptions-list__item" (click)="sortSubscriptions('name')">
-            <span class="subscriptions-list__sort" [class.subscriptions-list__sort--revers]="!sortType" *ngIf="sortField == 'name'"></span>
+            <span class="subscriptions-list__sort" [class.subscriptions-list__sort--revers]="!sortType" *ngIf="sortKey == 'name'"></span>
             Title
           </button>
           <button class="subscriptions-list__item" (click)="sortSubscriptions('cost')">
-            <span class="subscriptions-list__sort" [class.subscriptions-list__sort--revers]="!sortType" *ngIf="sortField == 'cost'"></span>
+            <span class="subscriptions-list__sort" [class.subscriptions-list__sort--revers]="!sortType" *ngIf="sortKey == 'cost'"></span>
             Cost
           </button>
         </div>

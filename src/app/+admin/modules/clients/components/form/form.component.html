@@ -1,6 +1,7 @@
 <div class="client-form">
   <button class="client-form__button" [class.client-form__button--hidden]="formIsVisible" (click)="showForm()">
-    <span></span></button>
+    <span></span>
+  </button>
   <div class="client-form__overlay" [class.client-form__overlay--visible]="formIsVisible" (click)="hideForm()"></div>
 
   <div class="client-form__wrapper" [class.client-form__wrapper--visible]="formIsVisible">
@@ -15,19 +16,28 @@
         <div class="form">
 
           <div class="form__row">
-            <div class="form__field form__field--half form__field--moved">
+            <div class="form__field form__field--half form__field--moved"
+                 [class.form__field--error]="hasError(['firstName'])">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="isFilled('firstName')" formControlName="firstName">
+                <input type="text" [class.is-filled]="isFilled(['firstName'])" formControlName="firstName">
                 <label><span>First Name</span></label>
-                <span *ngIf="clientForm.controls['firstName'].invalid && (clientForm.controls['firstName'].dirty || clientForm.controls['firstName'].touched)">
-  Mobile is required.
-</span>
+                <ng-template [ngIf]="hasError(['firstName'])">
+                  <div class="form__error" *ngFor="let errorMessage of errorMessages('firstName', 'First Name')">
+                    <i>{{ errorMessage }}</i>
+                  </div>
+                </ng-template>
               </div>
             </div>
-            <div class="form__field form__field--half form__field--moved">
+            <div class="form__field form__field--half form__field--moved"
+                 [class.form__field--error]="hasError(['lastName'])">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="isFilled('lastName')" formControlName="lastName">
+                <input type="text" [class.is-filled]="isFilled(['lastName'])" formControlName="lastName">
                 <label><span>Last Name</span></label>
+                <ng-template [ngIf]="hasError(['lastName'])">
+                  <div class="form__error" *ngFor="let errorMessage of errorMessages('lastName', 'Last Name')">
+                    <i>{{ errorMessage }}</i>
+                  </div>
+                </ng-template>
               </div>
             </div>
           </div>
@@ -60,30 +70,41 @@
           </div>
 
           <div class="form__row">
-            <div class="form__field form__field--moved">
+            <div class="form__field form__field--moved" [class.form__field--error]="hasError(['email'])">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="isFilled('email')" formControlName="email">
+                <input type="text" [class.is-filled]="isFilled(['email'])" formControlName="email">
                 <label><span>Email</span></label>
+                <ng-template [ngIf]="hasError(['email'])">
+                  <div class="form__error" *ngFor="let errorMessage of errorMessages('email', 'Email')">
+                    <i>{{ errorMessage }}</i>
+                  </div>
+                </ng-template>
               </div>
             </div>
           </div>
           <div class="form__row">
             <div class="form__field form__field--moved">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="isFilled('address')" formControlName="address">
+                <input type="text" [class.is-filled]="isFilled(['address'])" formControlName="address">
                 <label><span>Address</span></label>
               </div>
             </div>
           </div>
 
-          <div class="form__repeater" formArrayName="phones" >
+          <div class="form__repeater" formArrayName="phones">
             <div class="form__list" *ngFor="let phone of phones.controls; let i = index">
               <div class="form__row">
-                <div class="form__field form__field--half form__field--moved">
+                <div class="form__field form__field--half form__field--moved"
+                     [class.form__field--error]="hasError(['phones', i])">
                   <div class="form__wrap">
-                    <input type="text" [class.is-filled]="isFilled('phones', i)" [formControlName]="i">
+                    <input type="text" [class.is-filled]="isFilled(['phones', i])" [formControlName]="i" mask="000-000-00-00">
                     <label><span>Phone</span></label>
                     <button class="form__remove" type="button" (click)="removePhone(i)"></button>
+                    <ng-template [ngIf]="hasError(['phones', i])">
+                      <div class="form__error" *ngFor="let errorMessage of errorMessages('phones', 'Phone')">
+                        <i>{{ errorMessage }}</i>
+                      </div>
+                    </ng-template>
                   </div>
                 </div>
               </div>
@@ -104,13 +125,19 @@
                 </mat-form-field>
               </div>
             </div>
-            <div class="form__field form__field--half form__field--moved form__field--icon">
+            <div class="form__field form__field--half form__field--moved form__field--icon"
+                 [class.form__field--error]="hasError(['expirationDate'])">
               <mat-form-field>
                 <input matInput #inputExpirationDate [matDatepicker]="pickerExpirationDate"
                        (click)="pickerExpirationDate.open()" formControlName="expirationDate">
                 <label class="mat-form-field-label"><span>Expiration Date</span></label>
                 <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#calendar'"
                                  [classes]="'svg-icon'"></svg-icon-sprite>
+                <ng-template [ngIf]="hasError(['expirationDate'])">
+                  <div class="form__error" *ngFor="let errorMessage of errorMessages('expirationDate', 'Expiration Date')">
+                    <i>{{ errorMessage }}</i>
+                  </div>
+                </ng-template>
                 <mat-datepicker #pickerExpirationDate (closed)="inputExpirationDate.blur()"></mat-datepicker>
               </mat-form-field>
             </div>
