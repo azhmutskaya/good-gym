@@ -19,7 +19,7 @@ export class FormComponent implements OnInit {
     firstName: new FormControl(''),
     lastName: new FormControl(''),
     isActive: new FormControl(''),
-    gender: new FormControl(''),
+    gender: new FormControl('male'),
     dateOfBirth: new FormControl(''),
     email: new FormControl(''),
     phones: new FormControl(''),

@@ -44,11 +44,11 @@
               <div class="form__wrap">
                 <div class="form__radiobtns">
                   <label class="form__radiobtn">
-                    <input type="radio" checked>
+                    <input type="radio" value="male" checked formControlName="gender">
                     <span>Male</span>
                   </label>
                   <label class="form__radiobtn">
-                    <input type="radio">
+                    <input type="radio" value="female" formControlName="gender">
                     <span>Female</span>
                   </label>
                 </div>
@@ -117,7 +117,7 @@
             <div class="form__field">
               <div class="form__wrap">
                 <label class="form__checkbox">
-                  <input type="checkbox" formControlName="isActive">
+                  <input type="checkbox" value="true" formControlName="isActive">
                   <span>Active</span>
                 </label>
               </div>
