@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { FormArray } from '@angular/forms';
+
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
+
 export class FormComponent implements OnInit {
   formIsVisible = false;
 
@@ -15,20 +19,26 @@ export class FormComponent implements OnInit {
     {value: 'tacos-2', viewValue: 'Tacos'}
   ];
 
-  clientForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    isActive: new FormControl(''),
-    gender: new FormControl('male'),
-    dateOfBirth: new FormControl(''),
-    email: new FormControl(''),
-    phones: new FormControl(''),
-    address: new FormControl(''),
-    subscriptionId: new FormControl(''),
-    expirationDate: new FormControl('')
+  clientForm = this.fb.group({
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    isActive: [''],
+    gender: ['male', Validators.required],
+    dateOfBirth: [''],
+    email: ['', Validators.email],
+    phones: this.fb.array([
+      this.fb.control('')
+    ]),
+    address: [''],
+    subscriptionId: [''],
+    expirationDate: ['']
   });
 
-  constructor() {
+  get phones() {
+    return this.clientForm.get('phones') as FormArray;
+  }
+
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
@@ -42,9 +52,23 @@ export class FormComponent implements OnInit {
     this.formIsVisible = false;
   }
 
+  isFilled(field: string, index: number): boolean {
+    return index === undefined
+      ? !!this.clientForm.value[field].trim()
+      : !!this.clientForm.value[field][index].trim();
+  }
+
+  addPhone(): void {
+    this.phones.push(this.fb.control(''));
+  }
+
+  removePhone(index: number): void {
+    this.phones.removeAt(index);
+  }
+
   onSubmit() {
     // TODO: Use EventEmitter with form value
-    console.warn(this.clientForm.value);
+    console.warn(this.clientForm);
   }
 
 }

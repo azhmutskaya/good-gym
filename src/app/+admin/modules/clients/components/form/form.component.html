@@ -17,13 +17,16 @@
           <div class="form__row">
             <div class="form__field form__field--half form__field--moved">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="clientForm.value.firstName.trim()" formControlName="firstName">
+                <input type="text" [class.is-filled]="isFilled('firstName')" formControlName="firstName">
                 <label><span>First Name</span></label>
+                <span *ngIf="clientForm.controls['firstName'].invalid && (clientForm.controls['firstName'].dirty || clientForm.controls['firstName'].touched)">
+  Mobile is required.
+</span>
               </div>
             </div>
             <div class="form__field form__field--half form__field--moved">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="clientForm.value.lastName.trim()" formControlName="lastName">
+                <input type="text" [class.is-filled]="isFilled('lastName')" formControlName="lastName">
                 <label><span>Last Name</span></label>
               </div>
             </div>
@@ -59,7 +62,7 @@
           <div class="form__row">
             <div class="form__field form__field--moved">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="clientForm.value.email.trim()" formControlName="email">
+                <input type="text" [class.is-filled]="isFilled('email')" formControlName="email">
                 <label><span>Email</span></label>
               </div>
             </div>
@@ -67,25 +70,25 @@
           <div class="form__row">
             <div class="form__field form__field--moved">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="clientForm.value.address.trim()" formControlName="address">
+                <input type="text" [class.is-filled]="isFilled('address')" formControlName="address">
                 <label><span>Address</span></label>
               </div>
             </div>
           </div>
 
-          <div class="form__repeater">
-            <div class="form__list">
+          <div class="form__repeater" formArrayName="phones" >
+            <div class="form__list" *ngFor="let phone of phones.controls; let i = index">
               <div class="form__row">
                 <div class="form__field form__field--half form__field--moved">
                   <div class="form__wrap">
-                    <input type="text" [class.is-filled]="clientForm.value.phones.trim()" formControlName="phones">
+                    <input type="text" [class.is-filled]="isFilled('phones', i)" [formControlName]="i">
                     <label><span>Phone</span></label>
-                    <button class="form__remove"></button>
+                    <button class="form__remove" type="button" (click)="removePhone(i)"></button>
                   </div>
                 </div>
               </div>
             </div>
-            <button class="form__add" type="button">Add Phone</button>
+            <button class="form__add" type="button" (click)="addPhone()">Add Phone</button>
           </div>
 
           <div class="form__row">
@@ -127,6 +130,12 @@
           <div class="form__footer">
             <button type="submit" class="btn btn-admin">Save</button>
           </div>
+
+
+          Form Status: {{ clientForm.status }}
+          Form Value: {{ clientForm.value | json }}
+
+
         </div>
       </form>
     </div>
