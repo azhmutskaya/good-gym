@@ -76,24 +76,10 @@ export class FormComponent implements OnInit {
     const control = (index !== undefined)
       ? this.clientForm.get(key).get(`${index}`)
       : this.clientForm.get(key);
-    if (control.value !== null) {
+
+    if (typeof control.value !== 'object' ) {
       control.setValue(control.value.trim());
     }
-  }
-
-  private validateExpirationDate(): void {
-    this.clientForm.get('subscriptionId').valueChanges.subscribe(val => {
-      const expirationDate = this.clientForm.get('expirationDate');
-      if (val) {
-        expirationDate.setValidators([Validators.required]);
-        expirationDate.updateValueAndValidity();
-        expirationDate.enable();
-      } else {
-        expirationDate.clearValidators();
-        expirationDate.updateValueAndValidity();
-        expirationDate.disable();
-      }
-    });
   }
 
   isFilled([key, index]: [string, number?]): boolean {
@@ -101,7 +87,7 @@ export class FormComponent implements OnInit {
       ? this.clientForm.get(key).get(`${index}`)
       : this.clientForm.get(key);
 
-    return (control.value === null) || control.value.trim();
+    return (typeof control.value !== 'object') || control.value.trim();
   }
 
   hasError([key, index]: [string, number?]): boolean {
@@ -134,6 +120,26 @@ export class FormComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
 
-    console.log(this.clientForm);
+    if (this.clientForm.valid) {
+      this.clients.push(this.clientForm.getRawValue());
+      console.log(this.clients);
+    } else {
+
+    }
+  }
+
+  private validateExpirationDate(): void {
+    this.clientForm.get('subscriptionId').valueChanges.subscribe(val => {
+      const expirationDate = this.clientForm.get('expirationDate');
+      if (val) {
+        expirationDate.setValidators([Validators.required]);
+        expirationDate.updateValueAndValidity();
+        expirationDate.enable();
+      } else {
+        expirationDate.clearValidators();
+        expirationDate.updateValueAndValidity();
+        expirationDate.disable();
+      }
+    });
   }
 }
