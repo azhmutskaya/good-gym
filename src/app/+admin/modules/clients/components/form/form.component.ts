@@ -74,9 +74,8 @@ export class FormComponent implements OnInit {
 
   trimField([key, index]: [string, number?]): void {
     const control = (index !== undefined)
-      ? this[key].controls[index]
-      : this.clientForm.controls[key];
-
+      ? this.clientForm.get(key).get(`${index}`)
+      : this.clientForm.get(key);
     if (control.value !== null) {
       control.setValue(control.value.trim());
     }
@@ -99,24 +98,24 @@ export class FormComponent implements OnInit {
 
   isFilled([key, index]: [string, number?]): boolean {
     const control = (index !== undefined)
-      ? this[key].controls[index]
-      : this.clientForm.controls[key];
+      ? this.clientForm.get(key).get(`${index}`)
+      : this.clientForm.get(key);
 
     return (control.value === null) || control.value.trim();
   }
 
   hasError([key, index]: [string, number?]): boolean {
     const control = (index !== undefined)
-      ? this[key].controls[index]
-      : this.clientForm.controls[key];
+      ? this.clientForm.get(key).get(`${index}`)
+      : this.clientForm.get(key);
 
     return control.errors && (control.dirty || control.touched || this.isSubmitted);
   }
 
   errorMessages([key, index]: [string, number?], name: string): string[] {
     const control = (index !== undefined)
-      ? this[key].controls[index]
-      : this.clientForm.controls[key];
+      ? this.clientForm.get(key).get(`${index}`)
+      : this.clientForm.get(key);
     const errorMessages: string[] = [];
 
     if (control.errors.required) {
