@@ -1,5 +1,5 @@
 export interface Clients {
-  id: string;
+  id?: string;
   isActive: boolean;
   gender: string;
   firstName: string;
@@ -9,9 +9,9 @@ export interface Clients {
   phones: [string];
   address: string;
   subscriptionId: string;
-  subscriptionName: string;
+  subscriptionName?: string;
   expirationDate: Date;
-  balance: number;
+  balance?: number;
 }
 
 export interface ClientsApi {
@@ -29,3 +29,4 @@ export interface ClientsApi {
   ExpirationDate: string;
   Balance: string;
 }
+

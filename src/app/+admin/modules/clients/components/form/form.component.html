@@ -11,7 +11,7 @@
         </h2>
         <button class="client-form__close" (click)="hideForm()"></button>
       </div>
-      <form class="client-form__form" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+      <form class="client-form__form" [formGroup]="clientForm" (ngSubmit)="onSubmit()" ngxScrollToFirstInvalid>
         <div class="form">
           <div class="form__row">
             <div class="form__field form__field--half form__field--moved"

@@ -1,15 +1,37 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 
+import { Clients } from '../../interfaces/clients';
+
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'LL',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  styleUrls: ['./form.component.scss'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
 
 export class FormComponent implements OnInit {
   @Input() clients;
   @Input() subscriptions;
+  @Input() subscriptionsName;
   @Input() errors;
 
   formIsVisible = false;
@@ -121,10 +143,10 @@ export class FormComponent implements OnInit {
     this.isSubmitted = true;
 
     if (this.clientForm.valid) {
-      this.clients.push(this.clientForm.getRawValue());
-      console.log(this.clients);
+      this.addNewClient(this.clientForm.getRawValue());
+      this.hideForm();
     } else {
-
+      console.log(1);
     }
   }
 
@@ -141,5 +163,14 @@ export class FormComponent implements OnInit {
         expirationDate.disable();
       }
     });
+  }
+
+  private addNewClient(newClient: Clients): void {
+    newClient.id = btoa(Math.random().toString()).substring(0, 24);
+    newClient.balance = 0;
+    newClient.subscriptionName = this.subscriptionsName[newClient.subscriptionId];
+
+
+    this.clients.push(newClient);
   }
 }

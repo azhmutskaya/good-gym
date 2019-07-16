@@ -22,6 +22,6 @@
     </div>
   </div>
   <div class="clients__form" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">
-    <app-form [clients]="clients" [subscriptions]="subscriptions" [errors]="errors"></app-form>
+    <app-form [clients]="clients" [subscriptions]="subscriptions" [subscriptionsName]="subscriptionsName" [errors]="errors"></app-form>
   </div>
 </div>

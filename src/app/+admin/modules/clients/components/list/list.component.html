@@ -29,7 +29,7 @@
   </div>
 </div>
   <div class="clients-list__list" *ngFor="let client of clients">
-    <div class="clients-list__row">
+    <div class="clients-list__row" [id]="client.id">
       <div class="clients-list__item">
         {{ client.firstName }}
       </div>
