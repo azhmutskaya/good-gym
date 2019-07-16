@@ -5,6 +5,7 @@ import { IconSpriteModule } from 'ng-svg-icon-sprite';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { ClientsModule } from './modules/clients/clients.module';
+import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
 
 import { AdminComponent } from './admin.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -15,7 +16,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     CommonModule,
     IconSpriteModule,
     AdminRoutingModule,
-    ClientsModule
+    ClientsModule,
+    SubscriptionsModule
   ]
 })
 export class AdminModule {

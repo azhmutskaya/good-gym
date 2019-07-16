@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
   }
 
-  private sortClients(key): void {
+  sortClients(key): void {
     key = key === 'subscriptions'
       ? this.errors.subscriptionsIsSuccessful
         ? 'subscriptionName'

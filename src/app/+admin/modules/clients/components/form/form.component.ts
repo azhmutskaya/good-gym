@@ -10,7 +10,6 @@ import { FormBuilder, Validators, FormArray } from '@angular/forms';
 export class FormComponent implements OnInit {
   @Input() clients;
   @Input() subscriptions;
-  @Input() subscriptionsName;
   @Input() errors;
 
   formIsVisible = false;
@@ -20,7 +19,7 @@ export class FormComponent implements OnInit {
 
   private isSubmitted = false;
 
-  private clientForm = this.fb.group({
+  clientForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     isActive: [''],
@@ -32,19 +31,15 @@ export class FormComponent implements OnInit {
     ]),
     address: [''],
     subscriptionId: [''],
-    expirationDate: ['']
+    expirationDate: [{ value: '', disabled: true }]
   });
 
   dateOfBirthFilter = (date: Date): boolean => {
     return Date.now() > date.valueOf();
-  };
+  }
 
   expirationDateFilter = (date: Date): boolean => {
     return Date.now() < date.valueOf();
-  };
-
-  get phones() {
-    return this.clientForm.get('phones') as FormArray;
   }
 
   constructor(
@@ -52,28 +47,32 @@ export class FormComponent implements OnInit {
   ) {
   }
 
+  get phones() {
+    return this.clientForm.get('phones') as FormArray;
+  }
+
   ngOnInit() {
     this.validateExpirationDate();
   }
 
-  private showForm(): void {
+  showForm(): void {
     this.formIsVisible = true;
   }
 
-  private hideForm(): void {
+  hideForm(): void {
     this.formIsVisible = false;
     this.isSubmitted = false;
   }
 
-  private addPhone(): void {
+  addPhone(): void {
     this.phones.push(this.fb.control('', Validators.pattern('\\+?([0-9])( ?)\\(?([0-9]{3})\\)?([ ]?)([0-9]{3})([ -]?)([0-9]{4})')));
   }
 
-  private removePhone(index: number): void {
+  removePhone(index: number): void {
     this.phones.removeAt(index);
   }
 
-  private trimField([key, index]: [string, number?]): void {
+  trimField([key, index]: [string, number?]): void {
     const control = (index !== undefined)
       ? this[key].controls[index]
       : this.clientForm.controls[key];
@@ -85,17 +84,20 @@ export class FormComponent implements OnInit {
 
   private validateExpirationDate(): void {
     this.clientForm.get('subscriptionId').valueChanges.subscribe(val => {
+      const expirationDate = this.clientForm.get('expirationDate');
       if (val) {
-        this.clientForm.controls.expirationDate.setValidators([Validators.required]);
-        this.clientForm.controls.expirationDate.updateValueAndValidity();
+        expirationDate.setValidators([Validators.required]);
+        expirationDate.updateValueAndValidity();
+        expirationDate.enable();
       } else {
-        this.clientForm.controls.expirationDate.clearValidators();
-        this.clientForm.controls.expirationDate.updateValueAndValidity();
+        expirationDate.clearValidators();
+        expirationDate.updateValueAndValidity();
+        expirationDate.disable();
       }
     });
   }
 
-  private isFilled([key, index]: [string, number?]): boolean {
+  isFilled([key, index]: [string, number?]): boolean {
     const control = (index !== undefined)
       ? this[key].controls[index]
       : this.clientForm.controls[key];
@@ -103,7 +105,7 @@ export class FormComponent implements OnInit {
     return (control.value === null) || control.value.trim();
   }
 
-  private hasError([key, index]: [string, number?]): boolean {
+  hasError([key, index]: [string, number?]): boolean {
     const control = (index !== undefined)
       ? this[key].controls[index]
       : this.clientForm.controls[key];
@@ -111,7 +113,7 @@ export class FormComponent implements OnInit {
     return control.errors && (control.dirty || control.touched || this.isSubmitted);
   }
 
-  private errorMessages([key, index]: [string, number?], name: string): string[] {
+  errorMessages([key, index]: [string, number?], name: string): string[] {
     const control = (index !== undefined)
       ? this[key].controls[index]
       : this.clientForm.controls[key];
@@ -130,7 +132,7 @@ export class FormComponent implements OnInit {
     return errorMessages;
   }
 
-  private onSubmit() {
+  onSubmit() {
     this.isSubmitted = true;
 
     console.log(this.clientForm);

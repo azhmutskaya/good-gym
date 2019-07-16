@@ -19,7 +19,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
   }
 
-  private sortSubscriptions(key): void {
+  sortSubscriptions(key): void {
     this.sortType = this.sortKey !== key
       ? true
       : !this.sortType;

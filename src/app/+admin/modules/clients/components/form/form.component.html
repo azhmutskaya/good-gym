@@ -109,13 +109,12 @@
             </div>
             <button class="form__add" type="button" (click)="addPhone()">Add Phone</button>
           </div>
-          <div class="form__row">
+          <div class="form__row" *ngIf="errors.subscriptionsIsSuccessful">
             <div class="form__field form__field--half form__field--moved">
               <div class="form__wrap">
                 <mat-form-field>
                   <mat-label><span>Subscriptions</span></mat-label>
-                  <mat-select disableOptionCentering panelClass="mat-custom-select" formControlName="subscriptionId"
-                              [disabled]="!errors.subscriptionsIsSuccessful">
+                  <mat-select disableOptionCentering panelClass="mat-custom-select" formControlName="subscriptionId">
                     <mat-option *ngFor="let subscription of subscriptions" [value]="subscription.id">
                       {{ subscription.name }}
                     </mat-option>
@@ -123,16 +122,11 @@
                 </mat-form-field>
               </div>
             </div>
-            <div class="form__field form__field--half form__field--moved form__field--icon"
-                 [ngClass]="{
-                 'form__field--error': hasError(['expirationDate']),
-                 'form__field--disabled': !errors.subscriptionsIsSuccessful || !clientForm.controls.subscriptionId.value
-                 }">
+            <div class="form__field form__field--half form__field--moved form__field--icon" [class.form__field--error]="hasError(['expirationDate'])">
               <mat-form-field>
                 <input matInput #inputExpirationDate [matDatepicker]="pickerExpirationDate"
                        [max]="maxDate" [min]="todayDate"
                        [matDatepickerFilter]="expirationDateFilter"
-                       [disabled]="!errors.subscriptionsIsSuccessful || !clientForm.controls.subscriptionId.value"
                        (click)="pickerExpirationDate.open()" (blur)="trimField(['expirationDate'])"
                        formControlName="expirationDate">
                 <label class="mat-form-field-label"><span>Expiration Date</span></label>

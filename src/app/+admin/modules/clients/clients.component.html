@@ -18,10 +18,10 @@
       <app-filters></app-filters>
     </div>
     <div class="clients__list" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">
-      <app-list [clients]="clients" [subscriptions]="subscriptions" [errors]="errors" [subscriptionsName]="subscriptionsName"></app-list>
+      <app-list [clients]="clients" [subscriptions]="subscriptions" [subscriptionsName]="subscriptionsName" [errors]="errors"></app-list>
     </div>
   </div>
   <div class="clients__form" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">
-    <app-form [clients]="clients" [errors]="errors" [subscriptions]="subscriptions"></app-form>
+    <app-form [clients]="clients" [subscriptions]="subscriptions" [errors]="errors"></app-form>
   </div>
 </div>
