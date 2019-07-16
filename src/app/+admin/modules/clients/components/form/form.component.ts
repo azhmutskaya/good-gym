@@ -170,7 +170,12 @@ export class FormComponent implements OnInit {
     newClient.balance = 0;
     newClient.subscriptionName = this.subscriptionsName[newClient.subscriptionId];
 
-
     this.clients.push(newClient);
+
+    setTimeout(() => {
+      document.getElementById(newClient.id).scrollIntoView({ behavior: 'smooth' });
+    }, 0);
+
+
   }
 }
