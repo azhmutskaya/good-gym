@@ -1,5 +1,5 @@
 export interface Subscriptions {
-  id: string;
+  id: string | number;
   name: string;
   cost: number;
 }

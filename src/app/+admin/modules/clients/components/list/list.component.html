@@ -1,77 +1,67 @@
 <div class="clients-list">
-  <div class="clients-list__loader" *ngIf="!errors.clientsIsLoaded; else clientsList">
-    <div class="loader-main"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-  </div>
-  <ng-template #clientsList>
-    <div class="clients-list__error" *ngIf="!errors.clientsIsSuccessful; else clientsList">
-    Something went wrong with "Clients"
-    </div>
-    <ng-template #clientsList>
-      <div class="clients-list__header">
-        <div class="clients-list__row">
-          <button class="clients-list__item" (click)="sortClients('firstName')">
-            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'firstName'"></span>
-            First Name
-          </button>
-          <button class="clients-list__item" (click)="sortClients('lastName')">
-            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'lastName'"></span>
-            Last Name
-          </button>
-          <button class="clients-list__item" (click)="sortClients('isActive')">
-            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'isActive'"></span>
-            Active
-          </button>
-          <button class="clients-list__item" (click)="sortClients('subscriptions')">
+  <div class="clients-list__header">
+  <div class="clients-list__row">
+    <button class="clients-list__item" (click)="sortClients('firstName')">
+      <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'firstName'"></span>
+      First Name
+    </button>
+    <button class="clients-list__item" (click)="sortClients('lastName')">
+      <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'lastName'"></span>
+      Last Name
+    </button>
+    <button class="clients-list__item" (click)="sortClients('isActive')">
+      <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'isActive'"></span>
+      Active
+    </button>
+    <button class="clients-list__item" (click)="sortClients('subscriptions')">
             <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType"
                   *ngIf="sortKey == 'subscriptionId' || sortKey == 'subscriptionName'"></span>
-            Subscription
-          </button>
-          <button class="clients-list__item" (click)="sortClients('expirationDate')">
-            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'expirationDate'"></span>
-            Expiration Date
-          </button>
-          <button class="clients-list__item" (click)="sortClients('balance')">
-            <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'balance'"></span>
-            Current Balance
-          </button>
-        </div>
+      Subscription
+    </button>
+    <button class="clients-list__item" (click)="sortClients('expirationDate')">
+      <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'expirationDate'"></span>
+      Expiration Date
+    </button>
+    <button class="clients-list__item" (click)="sortClients('balance')">
+      <span class="clients-list__sort" [class.clients-list__sort--revers]="!sortType" *ngIf="sortKey == 'balance'"></span>
+      Current Balance
+    </button>
+  </div>
+</div>
+  <div class="clients-list__list" *ngFor="let client of clients">
+    <div class="clients-list__row">
+      <div class="clients-list__item">
+        {{ client.firstName }}
       </div>
-      <div class="clients-list__list" *ngFor="let client of clients">
-        <div class="clients-list__row">
-          <div class="clients-list__item">
-            {{ client.firstName }}
-          </div>
-          <div class="clients-list__item">
-            {{ client.lastName }}
-          </div>
-          <div class="clients-list__item">
-            <div class="is-active" *ngIf="client.isActive; else notActive"></div>
-            <ng-template #notActive><div class="no-active"></div></ng-template>
-          </div>
-          <div class="clients-list__item">
-            <div class="clients-list__loader-min" *ngIf="!errors.subscriptionsIsLoaded; else subscriptionName">
-              <div class="loader-min"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-            </div>
-            <ng-template #subscriptionName>
-              <div class="clients-list__cut" *ngIf="!errors.subscriptionsIsSuccessful; else subscriptionName" title="{{ client.subscriptionId }}">
-                {{ client.subscriptionId }}
-              </div>
-              <ng-template #subscriptionName>
-                {{ client.subscriptionName }}
-              </ng-template>
-            </ng-template>
-          </div>
-          <div class="clients-list__item">
-            {{ client.expirationDate | date:'mediumDate' }}
-          </div>
-          <div class="clients-list__item">
-            ${{ client.balance }}
-          </div>
-        </div>
+      <div class="clients-list__item">
+        {{ client.lastName }}
       </div>
-    </ng-template>
-  </ng-template>
+      <div class="clients-list__item">
+        <div class="is-active" *ngIf="client.isActive; else notActive"></div>
+        <ng-template #notActive><div class="no-active"></div></ng-template>
+      </div>
+      <div class="clients-list__item">
+        <div class="clients-list__loader-min" *ngIf="!errors.subscriptionsIsLoaded; else subscriptionName">
+          <div class="loader-min"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+        <ng-template #subscriptionName>
+          <div class="clients-list__cut" *ngIf="!errors.subscriptionsIsSuccessful; else subscriptionName" title="{{ client.subscriptionId }}">
+            {{ client.subscriptionId }}
+          </div>
+          <ng-template #subscriptionName>
+            {{ client.subscriptionName }}
+          </ng-template>
+        </ng-template>
+      </div>
+      <div class="clients-list__item">
+        {{ client.expirationDate | date:'mediumDate' }}
+      </div>
+      <div class="clients-list__item">
+        ${{ client.balance }}
+      </div>
+    </div>
+  </div>
   <div class="clients-list__notification notification notification--error" *ngIf="errors.subscriptionsIsLoaded && !errors.subscriptionsIsSuccessful">
-      Something went wrong with "Subsriptions". We will display ID of Subscription
+      Something went wrong with "Subsriptions"
   </div>
 </div>

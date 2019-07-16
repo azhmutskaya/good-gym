@@ -1,34 +1,24 @@
 <div class="subscriptions-list">
-  <div class="subscriptions-list__loader" *ngIf="!errors.subscriptionsIsLoaded; else subscriptionsList">
-    <div class="loader-main"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-  </div>
-  <ng-template #subscriptionsList>
-    <div class="subscriptions-list__error" *ngIf="!errors.subscriptionsIsSuccessful; else subscriptionsList">
-      Something went wrong with "Subscriptions"
+  <div class="subscriptions-list__header">
+    <div class="subscriptions-list__row">
+      <button class="subscriptions-list__item" (click)="sortSubscriptions('name')">
+        <span class="subscriptions-list__sort" [class.subscriptions-list__sort--revers]="!sortType" *ngIf="sortKey == 'name'"></span>
+        Title
+      </button>
+      <button class="subscriptions-list__item" (click)="sortSubscriptions('cost')">
+        <span class="subscriptions-list__sort" [class.subscriptions-list__sort--revers]="!sortType" *ngIf="sortKey == 'cost'"></span>
+        Cost
+      </button>
     </div>
-    <ng-template #subscriptionsList>
-      <div class="subscriptions-list__header">
-        <div class="subscriptions-list__row">
-          <button class="subscriptions-list__item" (click)="sortSubscriptions('name')">
-            <span class="subscriptions-list__sort" [class.subscriptions-list__sort--revers]="!sortType" *ngIf="sortKey == 'name'"></span>
-            Title
-          </button>
-          <button class="subscriptions-list__item" (click)="sortSubscriptions('cost')">
-            <span class="subscriptions-list__sort" [class.subscriptions-list__sort--revers]="!sortType" *ngIf="sortKey == 'cost'"></span>
-            Cost
-          </button>
-        </div>
+  </div>
+  <div class="subscriptions-list__list" *ngFor="let subscription of subscriptions">
+    <div class="subscriptions-list__row">
+      <div class="subscriptions-list__item">
+        {{ subscription.name }}
       </div>
-      <div class="subscriptions-list__list" *ngFor="let subscription of subscriptions">
-        <div class="subscriptions-list__row">
-          <div class="subscriptions-list__item">
-            {{ subscription.name }}
-          </div>
-          <div class="subscriptions-list__item">
-            ${{ subscription.cost }}
-          </div>
-        </div>
+      <div class="subscriptions-list__item">
+        ${{ subscription.cost }}
       </div>
-    </ng-template>
-  </ng-template>
+    </div>
+  </div>
 </div>

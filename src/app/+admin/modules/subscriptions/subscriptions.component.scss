@@ -4,4 +4,17 @@
   &__header {
     padding-bottom: 26px;
   }
+  &__loader {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__error {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $clr-error;
+  }
 }

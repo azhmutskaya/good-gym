@@ -1,19 +1,6 @@
 @import '~src/assets/sass/styles';
 
 .clients-list {
-  &__loader {
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  &__error {
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: $clr-error;
-  }
   &__header {
     font-size: 15px;
     line-height: 20px;

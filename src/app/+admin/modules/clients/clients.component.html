@@ -4,18 +4,24 @@
       <div class="clients__title">
         <h1 class="admin-title">Clients</h1>
       </div>
-      <div class="clients__search">
-        <app-search></app-search>
-      </div>
+        <div class="clients__search" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">
+          <app-search></app-search>
+        </div>
     </header>
-    <div class="clients__filters">
+    <div class="clients__loader" *ngIf="!errors.clientsIsLoaded">
+      <div class="loader-main"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div class="clients__error" *ngIf="errors.clientsIsLoaded && !errors.clientsIsSuccessful">
+      Something went wrong with "Clients"
+    </div>
+    <div class="clients__filters" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">
       <app-filters></app-filters>
     </div>
-    <div class="clients__list">
-      <app-list></app-list>
+    <div class="clients__list" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">
+      <app-list [clients]="clients" [subscriptions]="subscriptions" [errors]="errors" [subscriptionsName]="subscriptionsName"></app-list>
     </div>
   </div>
-  <div class="clients__form">
-    <app-form></app-form>
+  <div class="clients__form" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">
+    <app-form [clients]="clients" [errors]="errors" [subscriptions]="subscriptions"></app-form>
   </div>
 </div>

@@ -3,7 +3,6 @@
     <span></span>
   </button>
   <div class="client-form__overlay" [class.client-form__overlay--visible]="formIsVisible" (click)="hideForm()"></div>
-
   <div class="client-form__wrapper" [class.client-form__wrapper--visible]="formIsVisible">
     <div class="client-form__body">
       <div class="client-form__header">
@@ -14,12 +13,12 @@
       </div>
       <form class="client-form__form" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
         <div class="form">
-
           <div class="form__row">
             <div class="form__field form__field--half form__field--moved"
                  [class.form__field--error]="hasError(['firstName'])">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="isFilled(['firstName'])" formControlName="firstName" (blur)="trimField(['firstName'])">
+                <input type="text" [class.is-filled]="isFilled(['firstName'])"
+                       (blur)="trimField(['firstName'])" formControlName="firstName">
                 <label><span>First Name</span></label>
                 <div class="form__error" *ngIf="hasError(['firstName'])">
                   <i *ngFor="let errorMessage of errorMessages(['firstName'], 'First Name')"> {{ errorMessage }} </i>
@@ -29,7 +28,8 @@
             <div class="form__field form__field--half form__field--moved"
                  [class.form__field--error]="hasError(['lastName'])">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="isFilled(['lastName'])" formControlName="lastName" (blur)="trimField(['lastName'])">
+                <input type="text" [class.is-filled]="isFilled(['lastName'])" formControlName="lastName"
+                       (blur)="trimField(['lastName'])">
                 <label><span>Last Name</span></label>
                 <div class="form__error" *ngIf="hasError(['lastName'])">
                   <i *ngFor="let errorMessage of errorMessages(['lastName'], 'Last Name')"> {{ errorMessage }} </i>
@@ -37,12 +37,14 @@
               </div>
             </div>
           </div>
-
           <div class="form__row form__row--ident">
-            <div class="form__field form__field--half form__field--moved form__field--icon" [class.form__field--error]="hasError(['dateOfBirth'])">
+            <div class="form__field form__field--half form__field--moved form__field--icon"
+                 [class.form__field--error]="hasError(['dateOfBirth'])">
               <mat-form-field>
-                <input matInput #inputDateOfBirth [matDatepicker]="pickerDateOfBirth" [max]="todayDate" [min]="minDate" [matDatepickerFilter]="dateOfBirthFilter"
-                       (click)="pickerDateOfBirth.open()" (blur)="trimField(['dateOfBirth'])" formControlName="dateOfBirth">
+                <input matInput #inputDateOfBirth [matDatepicker]="pickerDateOfBirth" [max]="todayDate" [min]="minDate"
+                       [matDatepickerFilter]="dateOfBirthFilter"
+                       (click)="pickerDateOfBirth.open()" (blur)="trimField(['dateOfBirth'])"
+                       formControlName="dateOfBirth">
                 <label class="mat-form-field-label"><span>Date of Birth</span></label>
                 <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#calendar'"
                                  [classes]="'svg-icon'"></svg-icon-sprite>
@@ -67,11 +69,11 @@
               </div>
             </div>
           </div>
-
           <div class="form__row">
             <div class="form__field form__field--moved" [class.form__field--error]="hasError(['email'])">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="isFilled(['email'])" formControlName="email" (blur)="trimField(['email'])">
+                <input type="text" [class.is-filled]="isFilled(['email'])" formControlName="email"
+                       (blur)="trimField(['email'])">
                 <label><span>Email</span></label>
                 <div class="form__error" *ngIf="hasError(['email'])">
                   <i *ngFor="let errorMessage of errorMessages(['email'], 'Email')"> {{ errorMessage }} </i>
@@ -82,12 +84,12 @@
           <div class="form__row">
             <div class="form__field form__field--moved">
               <div class="form__wrap">
-                <input type="text" [class.is-filled]="isFilled(['address'])" formControlName="address" (blur)="trimField(['address'])">
+                <input type="text" [class.is-filled]="isFilled(['address'])" formControlName="address"
+                       (blur)="trimField(['address'])">
                 <label><span>Address</span></label>
               </div>
             </div>
           </div>
-
           <div class="form__repeater" formArrayName="phones">
             <div class="form__list" *ngFor="let phone of phones.controls; let i = index">
               <div class="form__row">
@@ -107,25 +109,32 @@
             </div>
             <button class="form__add" type="button" (click)="addPhone()">Add Phone</button>
           </div>
-
           <div class="form__row">
             <div class="form__field form__field--half form__field--moved">
               <div class="form__wrap">
                 <mat-form-field>
                   <mat-label><span>Subscriptions</span></mat-label>
-                  <mat-select disableOptionCentering panelClass="mat-custom-select" formControlName="subscriptionId">
-                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                      {{food.viewValue}}
+                  <mat-select disableOptionCentering panelClass="mat-custom-select" formControlName="subscriptionId"
+                              [disabled]="!errors.subscriptionsIsSuccessful">
+                    <mat-option *ngFor="let subscription of subscriptions" [value]="subscription.id">
+                      {{ subscription.name }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
             </div>
             <div class="form__field form__field--half form__field--moved form__field--icon"
-                 [class.form__field--error]="hasError(['expirationDate'])">
+                 [ngClass]="{
+                 'form__field--error': hasError(['expirationDate']),
+                 'form__field--disabled': !errors.subscriptionsIsSuccessful || !clientForm.controls.subscriptionId.value
+                 }">
               <mat-form-field>
-                <input matInput #inputExpirationDate [matDatepicker]="pickerExpirationDate" [max]="maxDate" [min]="todayDate" [matDatepickerFilter]="expirationDateFilter"
-                        (click)="pickerExpirationDate.open()" (blur)="trimField(['expirationDate'])" formControlName="expirationDate">
+                <input matInput #inputExpirationDate [matDatepicker]="pickerExpirationDate"
+                       [max]="maxDate" [min]="todayDate"
+                       [matDatepickerFilter]="expirationDateFilter"
+                       [disabled]="!errors.subscriptionsIsSuccessful || !clientForm.controls.subscriptionId.value"
+                       (click)="pickerExpirationDate.open()" (blur)="trimField(['expirationDate'])"
+                       formControlName="expirationDate">
                 <label class="mat-form-field-label"><span>Expiration Date</span></label>
                 <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#calendar'"
                                  [classes]="'svg-icon'"></svg-icon-sprite>
@@ -136,7 +145,6 @@
               </mat-form-field>
             </div>
           </div>
-
           <div class="form__row">
             <div class="form__field">
               <div class="form__wrap">
@@ -147,16 +155,9 @@
               </div>
             </div>
           </div>
-
           <div class="form__footer">
             <button type="submit" class="btn btn-admin">Save</button>
           </div>
-
-
-          Form Status: {{ clientForm.status }}
-          Form Value: {{ clientForm.value | json }}
-
-
         </div>
       </form>
     </div>

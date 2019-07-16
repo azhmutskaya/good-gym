@@ -23,6 +23,9 @@
     font-weight: inherit;
     line-height: inherit;
     width: 100%;
+    &-disabled {
+      opacity: .5;
+    }
     &-wrapper {
       padding: 0;
     }
@@ -234,6 +237,10 @@
         }
       }
     }
+    &--disabled {
+      opacity: .5;
+      pointer-events: none;
+    }
     &--icon {
       input {
         padding-right: 48px;
@@ -246,6 +253,7 @@
           top: 50%;
           right: 10px;
           transform: translateY(-50%);
+          pointer-events: none;
           use {
             fill: $clr-font-light;
             transition: all .3s;

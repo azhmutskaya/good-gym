@@ -1,8 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Subscriptions, SubscriptionsApi } from '../../../../interfaces/subscriptions';
-
-import { SubscriptionsService } from '../../../../services/subscriptions.service';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-list',
@@ -11,25 +7,16 @@ import { SubscriptionsService } from '../../../../services/subscriptions.service
 })
 export class ListComponent implements OnInit {
 
-  subscriptions: Subscriptions[] = [];
-  errors = {
-    subscriptionsIsLoaded: false,
-    subscriptionsIsSuccessful: false
-  };
+  @Input() subscriptions;
+  @Input() errors;
+
   sortKey = '';
   sortType = true;
 
-  constructor(
-    private subscriptionsService: SubscriptionsService
-  ) {
+  constructor() {
   }
 
   ngOnInit() {
-
-    setTimeout(() => {
-      this.getSubscriptions();
-    }, 1000);
-
   }
 
   private sortSubscriptions(key): void {
@@ -46,25 +33,4 @@ export class ListComponent implements OnInit {
     });
   }
 
-  private getSubscriptions(): void {
-    this.subscriptionsService.getJSON().subscribe(
-      (data: SubscriptionsApi[]) => {
-        data.forEach((item) => {
-          const id = item.Id;
-          const name = item.Name;
-          const cost = +(item.Cost.substring(1));
-
-          this.subscriptions.push({
-            id,
-            name,
-            cost
-          });
-        });
-        this.errors.subscriptionsIsLoaded = true;
-        this.errors.subscriptionsIsSuccessful = true;
-      },
-      () => {
-        this.errors.subscriptionsIsLoaded = true;
-      });
-  }
 }

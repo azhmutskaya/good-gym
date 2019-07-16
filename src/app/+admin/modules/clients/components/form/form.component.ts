@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
@@ -8,19 +8,17 @@ import { FormBuilder, Validators, FormArray } from '@angular/forms';
 })
 
 export class FormComponent implements OnInit {
+  @Input() clients;
+  @Input() subscriptions;
+  @Input() subscriptionsName;
+  @Input() errors;
+
   formIsVisible = false;
-  isSubmited = false;
   todayDate = new Date(Date.now());
   minDate = new Date(this.todayDate.getFullYear() - 100, 0, 1);
   maxDate = new Date(this.todayDate.getFullYear() + 100, 0, 1);
 
-
-  foods: any = [
-    {value: 0, viewValue: 'None'},
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
-  ];
+  private isSubmitted = false;
 
   private clientForm = this.fb.group({
     firstName: ['', Validators.required],
@@ -49,19 +47,13 @@ export class FormComponent implements OnInit {
     return this.clientForm.get('phones') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder
+  ) {
   }
 
   ngOnInit() {
-    this.clientForm.get('subscriptionId').valueChanges.subscribe(val => {
-      if (val) {
-        this.clientForm.controls.expirationDate.setValidators([Validators.required]);
-        this.clientForm.controls.expirationDate.updateValueAndValidity();
-      } else {
-        this.clientForm.controls.expirationDate.clearValidators();
-        this.clientForm.controls.expirationDate.updateValueAndValidity();
-      }
-    });
+    this.validateExpirationDate();
   }
 
   private showForm(): void {
@@ -70,8 +62,7 @@ export class FormComponent implements OnInit {
 
   private hideForm(): void {
     this.formIsVisible = false;
-    this.isSubmited = false;
-    this.clientForm.reset();
+    this.isSubmitted = false;
   }
 
   private addPhone(): void {
@@ -87,7 +78,21 @@ export class FormComponent implements OnInit {
       ? this[key].controls[index]
       : this.clientForm.controls[key];
 
-    control.setValue(control.value.trim());
+    if (control.value !== null) {
+      control.setValue(control.value.trim());
+    }
+  }
+
+  private validateExpirationDate(): void {
+    this.clientForm.get('subscriptionId').valueChanges.subscribe(val => {
+      if (val) {
+        this.clientForm.controls.expirationDate.setValidators([Validators.required]);
+        this.clientForm.controls.expirationDate.updateValueAndValidity();
+      } else {
+        this.clientForm.controls.expirationDate.clearValidators();
+        this.clientForm.controls.expirationDate.updateValueAndValidity();
+      }
+    });
   }
 
   private isFilled([key, index]: [string, number?]): boolean {
@@ -103,7 +108,7 @@ export class FormComponent implements OnInit {
       ? this[key].controls[index]
       : this.clientForm.controls[key];
 
-    return control.errors && (control.dirty || control.touched || this.isSubmited);
+    return control.errors && (control.dirty || control.touched || this.isSubmitted);
   }
 
   private errorMessages([key, index]: [string, number?], name: string): string[] {
@@ -115,16 +120,19 @@ export class FormComponent implements OnInit {
     if (control.errors.required) {
       errorMessages.push(`${name} is required.`);
     }
-    if (control.errors.email || control.errors.pattern || control.errors.matDatepickerParse) {
+    if (control.errors.email
+      || control.errors.pattern
+      || control.errors.matDatepickerParse
+      || control.errors.matDatepickerMin
+      || control.errors.matDatepickerMax) {
       errorMessages.push(`${name} isn't correct.`);
     }
     return errorMessages;
   }
 
   private onSubmit() {
-    this.isSubmited = true;
-    // TODO: Use EventEmitter with form value
-    console.warn(this.clientForm);
-  }
+    this.isSubmitted = true;
 
+    console.log(this.clientForm);
+  }
 }

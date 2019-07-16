@@ -1,12 +1,18 @@
 <div class="subscriptions">
   <div class="subscriptions__main">
-    <header class="clients__header">
-      <div class="clients__title">
+    <header class="subscriptions__header">
+      <div class="subscriptions__title">
         <h1 class="admin-title">Subscriptions</h1>
       </div>
     </header>
-    <div class="subscriptions__list">
-      <app-list></app-list>
+    <div class="subscriptions__loader" *ngIf="!errors.subscriptionsIsLoaded">
+      <div class="loader-main"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div class="subscriptions__error" *ngIf="errors.subscriptionsIsLoaded && !errors.subscriptionsIsSuccessful">
+      Something went wrong with "Subscriptions"
+    </div>
+    <div class="subscriptions__list"*ngIf="errors.subscriptionsIsLoaded && errors.subscriptionsIsSuccessful">
+      <app-list [subscriptions]="subscriptions" [errors]="errors"></app-list>
     </div>
   </div>
 </div>
