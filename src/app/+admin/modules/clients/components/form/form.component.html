@@ -1,5 +1,10 @@
 <div class="client-form">
-  <button class="client-form__button" [class.client-form__button--hidden]="formIsVisible" (click)="showForm()">
+  isNewClient {{ isNewClient }}<br>
+  clientBlank<br>
+  {{ clientBlank | json }}<br>
+  currentClient<br>
+  {{ currentClient | json }}<br>
+  <button class="client-form__button" [class.client-form__button--hidden]="formIsVisible" (click)="createNewClient()">
     <span></span>
   </button>
   <div class="client-form__overlay" [class.client-form__overlay--visible]="formIsVisible" (click)="hideForm()"></div>
@@ -7,7 +12,12 @@
     <div class="client-form__body">
       <div class="client-form__header">
         <h2 class="client-form__title admin-title">
-          New Client
+          <div *ngIf="isNewClient">
+            New Client
+          </div>
+          <div *ngIf="!isNewClient">
+            Edit Client
+          </div>
         </h2>
         <button class="client-form__close" (click)="hideForm()"></button>
       </div>

@@ -28,8 +28,8 @@
     </button>
   </div>
 </div>
-  <div class="clients-list__list" *ngFor="let client of clients">
-    <div class="clients-list__row" [id]="client.id">
+  <div class="clients-list__list" @list>
+    <div class="clients-list__row" [id]="client.id" *ngFor="let client of clients" (click)="getClient(client)" @items>
       <div class="clients-list__item">
         {{ client.firstName }}
       </div>
@@ -41,7 +41,7 @@
         <ng-template #notActive><div class="no-active"></div></ng-template>
       </div>
       <div class="clients-list__item">
-        <div class="clients-list__loader-min" *ngIf="!errors.subscriptionsIsLoaded; else subscriptionName">
+        <div class="clients-list__loader" *ngIf="!errors.subscriptionsIsLoaded; else subscriptionName">
           <div class="loader-min"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         </div>
         <ng-template #subscriptionName>
@@ -51,10 +51,12 @@
           <ng-template #subscriptionName>
             {{ client.subscriptionName }}
           </ng-template>
+          <div class="no-active" *ngIf="!client.subscriptionId"></div>
         </ng-template>
       </div>
       <div class="clients-list__item">
         {{ client.expirationDate | date:'mediumDate' }}
+        <div class="no-active" *ngIf="!client.expirationDate"></div>
       </div>
       <div class="clients-list__item">
         ${{ client.balance }}

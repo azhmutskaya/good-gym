@@ -5,6 +5,7 @@ import { Subscriptions, SubscriptionsApi } from '../../interfaces/subscriptions'
 
 import { ClientsService } from './services/clients.service';
 import { SubscriptionsService } from '../../services/subscriptions.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-clients',
@@ -23,17 +24,25 @@ export class ClientsComponent implements OnInit {
     subscriptionsIsSuccessful: false
   };
 
+  currentClient: Clients;
+  editClient: Subject<void> = new Subject<void>();
+
   constructor(
     private clientsService: ClientsService,
     private subscriptionsService: SubscriptionsService
   ) {
   }
 
+  getCurrentClient(currentClient) {
+    this.currentClient = currentClient;
+    this.editClient.next();
+  }
+
   ngOnInit() {
 
     setTimeout(() => {
       this.getSubscriptions();
-    }, 2000);
+    }, 3000);
 
     setTimeout(() => {
       this.getClients();
@@ -110,6 +119,5 @@ export class ClientsComponent implements OnInit {
         this.errors.clientsIsLoaded = true;
       });
   }
-
 
 }

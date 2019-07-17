@@ -8,7 +8,7 @@ export interface Clients {
   email: string;
   phones: [string];
   address: string;
-  subscriptionId: string;
+  subscriptionId: string | null;
   subscriptionName?: string;
   expirationDate: Date;
   balance?: number;

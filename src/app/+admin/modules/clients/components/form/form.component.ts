@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { Clients } from '../../interfaces/clients';
 
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { Observable } from 'rxjs';
 
 export const MY_FORMATS = {
   parse: {
@@ -28,23 +29,56 @@ export const MY_FORMATS = {
   ],
 })
 
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
   @Input() clients;
   @Input() subscriptions;
   @Input() subscriptionsName;
   @Input() errors;
+  @Input() currentClient;
+  @Input() editClient: Observable<void>;
 
-  formIsVisible = false;
   todayDate = new Date(Date.now());
   minDate = new Date(this.todayDate.getFullYear() - 100, 0, 1);
   maxDate = new Date(this.todayDate.getFullYear() + 100, 0, 1);
 
+  private expirationDateSubscription: any;
+  private editClientSubscription: any;
+
   private isSubmitted = false;
+
+  formIsVisible = false;
+  isNewClient = true;
+
+  clientBlank = this.currentClient !== undefined ? this.currentClient : {
+    isActive: '',
+    gender: 'male',
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    email: '',
+    phones: [''],
+    address: '',
+    subscriptionId: '',
+    expirationDate: ''
+  };
+
+  temp = {
+    isActive: '',
+    gender: 'male',
+    firstName: this.currentClient !== undefined ? this.currentClient.firstName : '',
+    lastName: '',
+    dateOfBirth: '',
+    email: '',
+    phones: [''],
+    address: '',
+    subscriptionId: '',
+    expirationDate: ''
+  };
 
   clientForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    isActive: [''],
+    isActive: [false],
     gender: ['male', Validators.required],
     dateOfBirth: [''],
     email: ['', Validators.email],
@@ -52,7 +86,7 @@ export class FormComponent implements OnInit {
       this.fb.control('', Validators.pattern('\\+?([0-9])( ?)\\(?([0-9]{3})\\)?([ ]?)([0-9]{3})([ -]?)([0-9]{4})'))
     ]),
     address: [''],
-    subscriptionId: [''],
+    subscriptionId: [null],
     expirationDate: [{ value: '', disabled: true }]
   });
 
@@ -75,15 +109,43 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
     this.validateExpirationDate();
+    this.editClientSubscription = this.editClient.subscribe(() => {
+      this.isNewClient = false;
+      this.formIsVisible = true;
+      console.log('edit');
+      console.log(this.temp.firstName);
+      setTimeout(() => {
+        console.log('edit timeout');
+        console.log(this.temp.firstName);
+        console.log(this.currentClient);
+        this.clientForm.patchValue({
+          firstName: this.currentClient.firstName,
+          lastName: this.currentClient.lastName,
+        });
+      }, 500);
+    });
   }
 
-  showForm(): void {
+  ngOnDestroy() {
+    this.expirationDateSubscription.unsubscribe();
+  }
+
+  createNewClient(): void {
     this.formIsVisible = true;
+    this.isNewClient = true;
+    this.currentClient = this.clientBlank;
+    console.log('new');
+    console.log(this.temp.firstName);
+    console.log(this.currentClient);
   }
 
   hideForm(): void {
+    //console.log(this.currentClient);
+    //console.log(this.clientForm);
     this.formIsVisible = false;
     this.isSubmitted = false;
+    this.isNewClient = false;
+    this.currentClient = null;
   }
 
   addPhone(): void {
@@ -99,7 +161,7 @@ export class FormComponent implements OnInit {
       ? this.clientForm.get(key).get(`${index}`)
       : this.clientForm.get(key);
 
-    if (typeof control.value !== 'object' ) {
+    if (typeof control.value !== 'object') {
       control.setValue(control.value.trim());
     }
   }
@@ -109,7 +171,7 @@ export class FormComponent implements OnInit {
       ? this.clientForm.get(key).get(`${index}`)
       : this.clientForm.get(key);
 
-    return (typeof control.value !== 'object') || control.value.trim();
+    return (typeof control.value !== 'object') && control.value.trim();
   }
 
   hasError([key, index]: [string, number?]): boolean {
@@ -143,15 +205,16 @@ export class FormComponent implements OnInit {
     this.isSubmitted = true;
 
     if (this.clientForm.valid) {
-      this.addNewClient(this.clientForm.getRawValue());
+      this.isNewClient
+        ? this.addNewClient(this.clientForm.getRawValue())
+        : this.updateClient(this.clientForm.getRawValue());
       this.hideForm();
-    } else {
-      console.log(1);
+      this.resetForm();
     }
   }
 
   private validateExpirationDate(): void {
-    this.clientForm.get('subscriptionId').valueChanges.subscribe(val => {
+    this.expirationDateSubscription = this.clientForm.get('subscriptionId').valueChanges.subscribe(val => {
       const expirationDate = this.clientForm.get('expirationDate');
       if (val) {
         expirationDate.setValidators([Validators.required]);
@@ -165,17 +228,49 @@ export class FormComponent implements OnInit {
     });
   }
 
+  private resetForm(): void {
+    this.isSubmitted = false;
+
+    this.clientForm.reset();
+
+    this.clientForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      isActive: [false],
+      gender: ['male', Validators.required],
+      dateOfBirth: [''],
+      email: ['', Validators.email],
+      phones: this.fb.array([
+        this.fb.control('', Validators.pattern('\\+?([0-9])( ?)\\(?([0-9]{3})\\)?([ ]?)([0-9]{3})([ -]?)([0-9]{4})'))
+      ]),
+      address: [''],
+      subscriptionId: [null],
+      expirationDate: [{ value: '', disabled: true }]
+    });
+
+    this.validateExpirationDate();
+
+  }
+
   private addNewClient(newClient: Clients): void {
     newClient.id = btoa(Math.random().toString()).substring(0, 24);
     newClient.balance = 0;
-    newClient.subscriptionName = this.subscriptionsName[newClient.subscriptionId];
+    newClient.subscriptionName = newClient.subscriptionId ? this.subscriptionsName[newClient.subscriptionId] : null;
 
     this.clients.push(newClient);
 
+    // crutch
     setTimeout(() => {
       document.getElementById(newClient.id).scrollIntoView({ behavior: 'smooth' });
-    }, 0);
-
-
+    }, 500);
   }
+
+  private updateClient(newClient: Clients): void {
+    console.log(this.currentClient.id);
+    this.clientForm.patchValue({
+      firstName: this.currentClient.firstName,
+      lastName: this.currentClient.lastName,
+    });
+  }
+
 }

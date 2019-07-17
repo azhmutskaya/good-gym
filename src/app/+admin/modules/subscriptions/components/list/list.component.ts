@@ -1,9 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { animate, animateChild, query, stagger, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  animations: [
+    trigger('items', [
+      transition(':enter', [
+        style({ transform: 'translateY(-40px)', opacity: 0 }),
+        animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)',
+          style({ transform: 'translateY(0)', opacity: 1 }))
+      ])
+    ]),
+    trigger('list', [
+      transition(':enter', [
+        query('@items', stagger(100, animateChild()))
+      ]),
+    ])
+  ]
 })
 export class ListComponent implements OnInit {
 

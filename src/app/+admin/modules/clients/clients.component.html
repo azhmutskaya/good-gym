@@ -14,14 +14,18 @@
     <div class="clients__error" *ngIf="errors.clientsIsLoaded && !errors.clientsIsSuccessful">
       Something went wrong with "Clients"
     </div>
-    <div class="clients__filters" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">
+    <div class="clients__filters">
       <app-filters></app-filters>
     </div>
     <div class="clients__list" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">
-      <app-list [clients]="clients" [subscriptions]="subscriptions" [subscriptionsName]="subscriptionsName" [errors]="errors"></app-list>
+      <app-list [clients]="clients" [subscriptions]="subscriptions"
+                [subscriptionsName]="subscriptionsName" [errors]="errors"
+                (currentClient)="getCurrentClient($event)"></app-list>
     </div>
   </div>
   <div class="clients__form" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">
-    <app-form [clients]="clients" [subscriptions]="subscriptions" [subscriptionsName]="subscriptionsName" [errors]="errors"></app-form>
+    <app-form [clients]="clients" [subscriptions]="subscriptions" [subscriptionsName]="subscriptionsName"
+              [errors]="errors" [currentClient]="currentClient"
+              [editClient]="editClient.asObservable()"></app-form>
   </div>
 </div>
