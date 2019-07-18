@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { animate, animateChild, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Clients } from '../../interfaces/clients';
 import { ClientsService } from '../../services/clients.service';
@@ -23,7 +23,7 @@ import { ClientsService } from '../../services/clients.service';
   ]
 })
 
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
 
   @Input() clients;
   @Input() subscriptions;
@@ -32,11 +32,19 @@ export class ListComponent implements OnInit {
 
   sortKey = '';
   sortType = true;
+  searchTerms;
+
+  private termsSearchSubscribe;
 
   constructor(private clientsService: ClientsService) {
   }
 
   ngOnInit() {
+    this.termsSearchSubscribe = this.clientsService.termsSearch.subscribe(searchTerms => this.searchTerms = searchTerms);
+  }
+
+  ngOnDestroy() {
+    this.termsSearchSubscribe.unsubscribe();
   }
 
   editClient(client: Clients): void {

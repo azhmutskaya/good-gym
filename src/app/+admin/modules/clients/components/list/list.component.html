@@ -29,7 +29,9 @@
   </div>
 </div>
   <div class="clients-list__list" @list>
-    <div class="clients-list__row" [id]="client.id" *ngFor="let client of clients" (click)="editClient(client)" @items>
+    <div class="clients-list__row"
+         *ngFor="let client of clients | search: searchTerms : ['firstName', 'lastName', 'subscriptionName']"
+         (click)="editClient(client)" @items>
       <div class="clients-list__item">
         <div class="clients-list__cut">{{ client.firstName }}</div>
       </div>

@@ -13,6 +13,9 @@ export class ClientsService {
   private currentClientSource = new BehaviorSubject(null);
   currentClient = this.currentClientSource.asObservable();
 
+  private termsSearchSource = new BehaviorSubject(['']);
+  termsSearch = this.termsSearchSource.asObservable();
+
   constructor(private http: HttpClient) {}
 
   getClients(): Observable<ClientsApi[]> {
@@ -23,6 +26,10 @@ export class ClientsService {
 
   editClient(currentClient: Clients | null) {
     this.currentClientSource.next(currentClient);
+  }
+
+  searchClient(termsSearch: string[]) {
+    this.termsSearchSource.next(termsSearch);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

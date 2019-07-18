@@ -12,6 +12,7 @@ import { SearchComponent } from './components/search/search.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { ListComponent } from './components/list/list.component';
 import { FormComponent } from './components/form/form.component';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormComponent } from './components/form/form.component';
     FiltersComponent,
     ListComponent,
     FormComponent,
+    SearchPipe,
   ],
   imports: [
     CommonModule,

@@ -11,7 +11,7 @@
         <div class="form__row">
           <div class="form__field form__field--moved form__field--icon">
             <div class="form__wrap">
-              <input type="text">
+              <input type="text" [formControl]="search" [class.is-filled]="search.value.trim()">
               <label>
                 <span>Search</span>
               </label>
