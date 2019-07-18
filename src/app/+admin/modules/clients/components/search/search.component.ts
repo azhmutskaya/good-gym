@@ -12,16 +12,14 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   formIsVisible = false;
   filterIsActive = false;
-
   search = new FormControl('');
 
-  searchSubscription;
+  private searchSubscription;
 
   constructor(private clientsService: ClientsService) {
   }
 
   ngOnInit() {
-
     this.searchSubscription = this.search.valueChanges.pipe(
       map((value: string) => value.trim()),
       debounceTime(300),
@@ -29,7 +27,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     ).subscribe((value: string) => {
       this.searchClient(value.toLowerCase().split(/\s+/));
     });
-
   }
 
   searchClient(searchTerms: string[]): void {
@@ -37,6 +34,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.searchClient(['']); // crutch
     this.searchSubscription.unsubscribe();
   }
 
