@@ -14,7 +14,7 @@
     <div class="clients__error" *ngIf="errors.clientsIsLoaded && !errors.clientsIsSuccessful">
       Something went wrong with "Clients"
     </div>
-    <div class="clients__filters">
+    <div class="clients__filters" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">
       <app-filters></app-filters>
     </div>
     <div class="clients__list" *ngIf="errors.clientsIsLoaded && errors.clientsIsSuccessful">

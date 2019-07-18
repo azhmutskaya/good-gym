@@ -252,10 +252,8 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   private updateClient(currentClient: Clients): void {
-
     this.currentClient.subscriptionName = currentClient.subscriptionId ? this.subscriptionsName[currentClient.subscriptionId] : null;
     Object.assign(this.currentClient, currentClient);
-
   }
 
 }
