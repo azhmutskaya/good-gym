@@ -29,7 +29,7 @@ export class SubscriptionsComponent implements OnInit {
   }
 
   private getSubscriptions(): void {
-    this.subscriptionsService.getJSON().subscribe(
+    this.subscriptionsService.getSubscriptions().subscribe(
       (data: SubscriptionsApi[]) => {
         data.forEach((item) => {
           const id = item.Id;

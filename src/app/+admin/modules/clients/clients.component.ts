@@ -5,7 +5,6 @@ import { Subscriptions, SubscriptionsApi } from '../../interfaces/subscriptions'
 
 import { ClientsService } from './services/clients.service';
 import { SubscriptionsService } from '../../services/subscriptions.service';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-clients',
@@ -24,18 +23,10 @@ export class ClientsComponent implements OnInit {
     subscriptionsIsSuccessful: false
   };
 
-  currentClient: Clients;
-  editClient: Subject<void> = new Subject<void>();
-
   constructor(
     private clientsService: ClientsService,
     private subscriptionsService: SubscriptionsService
   ) {
-  }
-
-  getCurrentClient(currentClient) {
-    this.currentClient = currentClient;
-    this.editClient.next();
   }
 
   ngOnInit() {
@@ -51,7 +42,7 @@ export class ClientsComponent implements OnInit {
   }
 
   private getSubscriptions(): void {
-    this.subscriptionsService.getJSON().subscribe(
+    this.subscriptionsService.getSubscriptions().subscribe(
       (data: SubscriptionsApi[]) => {
         data.forEach((item) => {
           const id = item.Id;
@@ -79,7 +70,7 @@ export class ClientsComponent implements OnInit {
   }
 
   private getClients(): void {
-    this.clientsService.getJSON().subscribe(
+    this.clientsService.getClients().subscribe(
       (data: ClientsApi[]) => {
         data.forEach((item) => {
           const id = item.Id;

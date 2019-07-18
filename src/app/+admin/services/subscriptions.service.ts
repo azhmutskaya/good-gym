@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { SubscriptionsApi } from '../interfaces/subscriptions';
 
 @Injectable({
@@ -12,7 +13,16 @@ export class SubscriptionsService {
   constructor(private http: HttpClient) {
   }
 
-  getJSON(): Observable<SubscriptionsApi[]> {
-    return this.http.get<SubscriptionsApi[]>(`${this.api}`);
+  getSubscriptions(): Observable<SubscriptionsApi[]> {
+    return this.http.get<SubscriptionsApi[]>(this.api).pipe(
+      catchError(this.handleError<SubscriptionsApi[]>('getSubscriptions', []))
+    );
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return throwError(error);
+    };
   }
 }

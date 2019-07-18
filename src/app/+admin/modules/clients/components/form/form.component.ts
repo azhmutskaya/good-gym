@@ -2,10 +2,11 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { Clients } from '../../interfaces/clients';
+import { ClientsService } from '../../services/clients.service';
 
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { Observable } from 'rxjs';
+
 
 export const MY_FORMATS = {
   parse: {
@@ -34,46 +35,17 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() subscriptions;
   @Input() subscriptionsName;
   @Input() errors;
-  @Input() currentClient;
-  @Input() editClient: Observable<void>;
 
   todayDate = new Date(Date.now());
   minDate = new Date(this.todayDate.getFullYear() - 100, 0, 1);
   maxDate = new Date(this.todayDate.getFullYear() + 100, 0, 1);
 
-  private expirationDateSubscription: any;
-  private editClientSubscription: any;
-
-  private isSubmitted = false;
-
   formIsVisible = false;
   isNewClient = true;
+  currentClient: Clients;
 
-  clientBlank = this.currentClient !== undefined ? this.currentClient : {
-    isActive: '',
-    gender: 'male',
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    email: '',
-    phones: [''],
-    address: '',
-    subscriptionId: '',
-    expirationDate: ''
-  };
-
-  temp = {
-    isActive: '',
-    gender: 'male',
-    firstName: this.currentClient !== undefined ? this.currentClient.firstName : '',
-    lastName: '',
-    dateOfBirth: '',
-    email: '',
-    phones: [''],
-    address: '',
-    subscriptionId: '',
-    expirationDate: ''
-  };
+  private expirationDateSubscription;
+  private editClientSubscription;
 
   clientForm = this.fb.group({
     firstName: ['', Validators.required],
@@ -99,7 +71,8 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private clientsService: ClientsService
   ) {
   }
 
@@ -109,43 +82,23 @@ export class FormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.validateExpirationDate();
-    this.editClientSubscription = this.editClient.subscribe(() => {
-      this.isNewClient = false;
-      this.formIsVisible = true;
-      console.log('edit');
-      console.log(this.temp.firstName);
-      setTimeout(() => {
-        console.log('edit timeout');
-        console.log(this.temp.firstName);
-        console.log(this.currentClient);
-        this.clientForm.patchValue({
-          firstName: this.currentClient.firstName,
-          lastName: this.currentClient.lastName,
-        });
-      }, 500);
-    });
+    this.editCurrentClient();
   }
 
   ngOnDestroy() {
     this.expirationDateSubscription.unsubscribe();
+    this.editClientSubscription.unsubscribe();
   }
 
   createNewClient(): void {
     this.formIsVisible = true;
     this.isNewClient = true;
-    this.currentClient = this.clientBlank;
-    console.log('new');
-    console.log(this.temp.firstName);
-    console.log(this.currentClient);
+    this.resetForm();
   }
 
   hideForm(): void {
-    //console.log(this.currentClient);
-    //console.log(this.clientForm);
     this.formIsVisible = false;
-    this.isSubmitted = false;
-    this.isNewClient = false;
-    this.currentClient = null;
+    this.resetForm();
   }
 
   addPhone(): void {
@@ -179,7 +132,7 @@ export class FormComponent implements OnInit, OnDestroy {
       ? this.clientForm.get(key).get(`${index}`)
       : this.clientForm.get(key);
 
-    return control.errors && (control.dirty || control.touched || this.isSubmitted);
+    return control.errors && (control.dirty || control.touched);
   }
 
   errorMessages([key, index]: [string, number?], name: string): string[] {
@@ -202,8 +155,6 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.isSubmitted = true;
-
     if (this.clientForm.valid) {
       this.isNewClient
         ? this.addNewClient(this.clientForm.getRawValue())
@@ -228,9 +179,38 @@ export class FormComponent implements OnInit, OnDestroy {
     });
   }
 
-  private resetForm(): void {
-    this.isSubmitted = false;
+  private editCurrentClient(): void {
+    this.editClientSubscription = this.clientsService.currentClient.subscribe(currentClient => {
+      this.formIsVisible = !!currentClient;
+      this.isNewClient = false;
 
+      this.currentClient = currentClient;
+
+      if (this.currentClient) {
+        this.clientForm.patchValue({
+          firstName: this.currentClient.firstName,
+          lastName: this.currentClient.lastName,
+          isActive: this.currentClient.isActive,
+          gender: this.currentClient.gender,
+          dateOfBirth: this.currentClient.dateOfBirth,
+          email: this.currentClient.email,
+          address: this.currentClient.address,
+          subscriptionId: this.currentClient.subscriptionId,
+          expirationDate: this.currentClient.expirationDate,
+        });
+
+        this.currentClient.phones.forEach((value, index) => {
+          if (index) {
+            this.addPhone();
+          }
+        });
+
+        this.phones.patchValue(this.currentClient.phones);
+      }
+    });
+  }
+
+  private resetForm(): void {
     this.clientForm.reset();
 
     this.clientForm = this.fb.group({
@@ -249,7 +229,6 @@ export class FormComponent implements OnInit, OnDestroy {
     });
 
     this.validateExpirationDate();
-
   }
 
   private addNewClient(newClient: Clients): void {
@@ -265,12 +244,11 @@ export class FormComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-  private updateClient(newClient: Clients): void {
-    console.log(this.currentClient.id);
-    this.clientForm.patchValue({
-      firstName: this.currentClient.firstName,
-      lastName: this.currentClient.lastName,
-    });
+  private updateClient(currentClient: Clients): void {
+
+    this.currentClient.subscriptionName = currentClient.subscriptionId ? this.subscriptionsName[currentClient.subscriptionId] : null;
+    Object.assign(this.currentClient, currentClient);
+
   }
 
 }

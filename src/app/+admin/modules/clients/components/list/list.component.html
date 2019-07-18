@@ -29,12 +29,12 @@
   </div>
 </div>
   <div class="clients-list__list" @list>
-    <div class="clients-list__row" [id]="client.id" *ngFor="let client of clients" (click)="getClient(client)" @items>
+    <div class="clients-list__row" [id]="client.id" *ngFor="let client of clients" (click)="editClient(client)" @items>
       <div class="clients-list__item">
-        {{ client.firstName }}
+        <div class="clients-list__cut">{{ client.firstName }}</div>
       </div>
       <div class="clients-list__item">
-        {{ client.lastName }}
+        <div class="clients-list__cut">{{ client.lastName }}</div>
       </div>
       <div class="clients-list__item">
         <div class="is-active" *ngIf="client.isActive; else notActive"></div>

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { animate, animateChild, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Clients } from '../../interfaces/clients';
+import { ClientsService } from '../../services/clients.service';
 
 @Component({
   selector: 'app-list',
@@ -9,9 +10,9 @@ import { Clients } from '../../interfaces/clients';
   animations: [
     trigger('items', [
       transition(':enter', [
-        style({ transform: 'translateY(-40px)', opacity: 0 }),  // initial
+        style({transform: 'translateY(-40px)', opacity: 0}),
         animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)',
-          style({ transform: 'translateY(0)', opacity: 1 }))  // final
+          style({transform: 'translateY(0)', opacity: 1}))
       ])
     ]),
     trigger('list', [
@@ -21,6 +22,7 @@ import { Clients } from '../../interfaces/clients';
     ])
   ]
 })
+
 export class ListComponent implements OnInit {
 
   @Input() clients;
@@ -31,16 +33,14 @@ export class ListComponent implements OnInit {
   sortKey = '';
   sortType = true;
 
-  @Output() currentClient = new EventEmitter<Clients>();
-
-  constructor() {
+  constructor(private clientsService: ClientsService) {
   }
 
   ngOnInit() {
   }
 
-  getClient(client: Clients): void {
-    this.currentClient.emit(client);
+  editClient(client: Clients): void {
+    this.clientsService.editClient(client);
   }
 
   sortClients(key): void {

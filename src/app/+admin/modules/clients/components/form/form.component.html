@@ -1,9 +1,4 @@
 <div class="client-form">
-  isNewClient {{ isNewClient }}<br>
-  clientBlank<br>
-  {{ clientBlank | json }}<br>
-  currentClient<br>
-  {{ currentClient | json }}<br>
   <button class="client-form__button" [class.client-form__button--hidden]="formIsVisible" (click)="createNewClient()">
     <span></span>
   </button>
@@ -101,8 +96,8 @@
             </div>
           </div>
           <div class="form__repeater" formArrayName="phones">
-            <div class="form__list" *ngFor="let phone of phones.controls; let i = index">
-              <div class="form__row">
+            <div class="form__list">
+              <div class="form__row" *ngFor="let phone of phones.controls; let i = index">
                 <div class="form__field form__field--half form__field--moved"
                      [class.form__field--error]="hasError(['phones', i])">
                   <div class="form__wrap">
