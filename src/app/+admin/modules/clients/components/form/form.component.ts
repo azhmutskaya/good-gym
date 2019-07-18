@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { Clients } from '../../interfaces/clients';
@@ -36,6 +36,9 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() subscriptionsName;
   @Input() errors;
 
+  @ViewChild('pageBottom', {static: true}) pageBottom: ElementRef;
+  @ViewChild('formElement', {static: true}) formElement: ElementRef;
+
   todayDate = new Date(Date.now());
   minDate = new Date(this.todayDate.getFullYear() - 100, 0, 1);
   maxDate = new Date(this.todayDate.getFullYear() + 100, 0, 1);
@@ -46,6 +49,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   private expirationDateSubscription;
   private editClientSubscription;
+  private isSubmitted = false;
 
   clientForm = this.fb.group({
     firstName: ['', Validators.required],
@@ -132,7 +136,7 @@ export class FormComponent implements OnInit, OnDestroy {
       ? this.clientForm.get(key).get(`${index}`)
       : this.clientForm.get(key);
 
-    return control.errors && (control.dirty || control.touched);
+    return control.errors && (control.dirty || control.touched || this.isSubmitted);
   }
 
   errorMessages([key, index]: [string, number?], name: string): string[] {
@@ -155,12 +159,16 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
+
     if (this.clientForm.valid) {
       this.isNewClient
         ? this.addNewClient(this.clientForm.getRawValue())
         : this.updateClient(this.clientForm.getRawValue());
       this.hideForm();
       this.resetForm();
+    } else {
+      this.formElement.nativeElement.scrollIntoView({ behavior: 'smooth' });
     }
   }
 
@@ -211,6 +219,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   private resetForm(): void {
+    this.isSubmitted = false;
     this.clientForm.reset();
 
     this.clientForm = this.fb.group({
@@ -238,10 +247,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
     this.clients.push(newClient);
 
-    // crutch
-    setTimeout(() => {
-      document.getElementById(newClient.id).scrollIntoView({ behavior: 'smooth' });
-    }, 500);
+    this.pageBottom.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
 
   private updateClient(currentClient: Clients): void {
