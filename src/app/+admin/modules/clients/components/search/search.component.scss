@@ -1,0 +1,138 @@
+@import '~src/assets/sass/styles';
+
+.client-search {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  &__btn {
+    top: 0;
+    right: 0;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &::ng-deep {
+      .svg-icon {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        use {
+          fill: $clr-font-light;
+          transition: all .3s;
+        }
+      }
+    }
+    &:hover {
+      &::ng-deep {
+        .svg-icon {
+          use {
+            fill: $clr-primary;
+          }
+        }
+      }
+    }
+  }
+  &__body {
+    display: flex;
+    flex-wrap: wrap;
+    visibility: hidden;
+    width: 100%;
+    &--visible {
+      visibility: visible;
+      .client-search {
+        &__filters {
+          opacity: 1;
+          transition: all .3s, opacity .3s .9s;
+        }
+        &__form {
+          transform: scaleX(1);
+          opacity: 1;
+          transition-delay: .3s;
+          .form {
+            label {
+              transition: all .3s, color .1s, opacity .3s .6s;
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+  &__filters {
+    flex: 1 0 48px;
+    max-width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s;
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+    &::ng-deep {
+      .svg-icon {
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        use {
+          fill: $clr-line-dark;
+          transition: all .3s;
+        }
+      }
+    }
+    &:hover {
+      &::ng-deep {
+        .svg-icon {
+          use {
+            fill: $clr-primary;
+          }
+        }
+      }
+    }
+    &--active {
+      background: $clr-primary;
+      &::ng-deep {
+        .svg-icon {
+          use {
+            fill: $clr-white;
+          }
+        }
+      }
+      &:hover {
+        background: $clr-secondary;
+        &::ng-deep {
+          .svg-icon {
+            use {
+              fill: $clr-white;
+            }
+          }
+        }
+      }
+    }
+  }
+  &__form {
+    flex: 1 0 0;
+    transition: transform .5s cubic-bezier(0.23, 0.59, 0.36, 1), opacity .1s .2s;
+    transform-origin: 100% 50%;
+    transform: scaleX(.12);
+    opacity: 0;
+    .form {
+      &__field {
+        padding-top: 0;
+      }
+      label {
+        transition: all .3s, color .1s, opacity .3s;
+        opacity: 0;
+      }
+    }
+  }
+}

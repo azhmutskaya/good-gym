@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
+  formIsVisible = false;
+  filterIsActive = false;
+
   constructor() {
   }
 

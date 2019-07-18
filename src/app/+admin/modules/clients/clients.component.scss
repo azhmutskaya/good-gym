@@ -18,4 +18,10 @@
       padding: 20px;
       background: rgba($clr-error, .3);
   }
+  &__search {
+    max-width: 450px;
+    width: 100%;
+    flex: 1 1 0;
+    padding-left: 20px;
+  }
 }
