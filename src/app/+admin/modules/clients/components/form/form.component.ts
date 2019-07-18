@@ -87,6 +87,7 @@ export class FormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.validateExpirationDate();
     this.editCurrentClient();
+    this.formIsVisible = false;
   }
 
   ngOnDestroy() {
