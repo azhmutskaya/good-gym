@@ -103,7 +103,6 @@ export class FormComponent implements OnInit, OnDestroy {
 
   hideForm(): void {
     this.formIsVisible = false;
-    this.resetForm();
   }
 
   addPhone(): void {

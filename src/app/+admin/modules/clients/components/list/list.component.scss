@@ -89,4 +89,8 @@
   &__loader {
     position: absolute;
   }
+  &__empty {
+    padding: 18px 12px;
+    color: $clr-primary;
+  }
 }

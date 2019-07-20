@@ -30,7 +30,7 @@
 </div>
   <div class="clients-list__list" @list>
     <div class="clients-list__row"
-         *ngFor="let client of clients | search: searchTerms : ['firstName', 'lastName', 'subscriptionName']"
+         *ngFor="let client of clients | filterBy: filter"
          (click)="editClient(client)" @items>
       <div class="clients-list__item">
         <div class="clients-list__cut">{{ client.firstName }}</div>
@@ -63,6 +63,9 @@
       <div class="clients-list__item">
         ${{ client.balance }}
       </div>
+    </div>
+    <div class="clients-list__empty" *ngIf="(clients | filterBy: filter).length === 0">
+      No matching clients
     </div>
   </div>
   <div class="clients-list__notification notification notification--error" *ngIf="errors.subscriptionsIsLoaded && !errors.subscriptionsIsSuccessful">

@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { ClientsService } from '../../services/clients.service';
+import { Filter } from '../../interfaces/filter';
 
 @Component({
   selector: 'app-search',
@@ -10,9 +11,15 @@ import { ClientsService } from '../../services/clients.service';
 })
 export class SearchComponent implements OnInit, OnDestroy {
 
-  formIsVisible = false;
+  searchIsVisible = false;
   filterIsActive = false;
   search = new FormControl('');
+
+  private searchParams: Filter = {
+    fields: ['firstName', 'lastName', 'subscriptionName'],
+    params: null,
+    strictDependency: false,
+  };
 
   private searchSubscription;
 
@@ -22,19 +29,20 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.searchSubscription = this.search.valueChanges.pipe(
       map((value: string) => value.trim()),
-      debounceTime(300),
+      debounceTime(1000),
       distinctUntilChanged((x: string, y: string) => x === y)
-    ).subscribe((value: string) => {
-      this.searchClient(value.toLowerCase().split(/\s+/));
+    ).subscribe((searchTerm: string) => {
+      this.searchParams.params = searchTerm.split(/\s+/);
+      this.searchClient(this.searchParams);
     });
   }
 
-  searchClient(searchTerms: string[]): void {
-    this.clientsService.searchClient(searchTerms);
+  searchClient(filterParams: Filter): void {
+    this.clientsService.filterClient(filterParams);
   }
 
   ngOnDestroy() {
-    this.searchClient(['']); // crutch
+    //this.searchParams.dependency.params = null; // crutch
     this.searchSubscription.unsubscribe();
   }
 

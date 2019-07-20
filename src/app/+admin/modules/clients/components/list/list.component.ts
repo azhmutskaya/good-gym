@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { animate, animateChild, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Clients } from '../../interfaces/clients';
 import { ClientsService } from '../../services/clients.service';
+import { Filter } from '../../interfaces/filter';
 
 @Component({
   selector: 'app-list',
@@ -32,19 +33,22 @@ export class ListComponent implements OnInit, OnDestroy {
 
   sortKey = '';
   sortType = true;
-  searchTerms;
 
-  private termsSearchSubscribe;
+  filter: Filter;
+
+  private clientsFilterSubscribe;
 
   constructor(private clientsService: ClientsService) {
   }
 
   ngOnInit() {
-    this.termsSearchSubscribe = this.clientsService.termsSearch.subscribe(searchTerms => this.searchTerms = searchTerms);
+    this.clientsFilterSubscribe = this.clientsService.filterClientsParam.subscribe((filter) => {
+      this.filter = filter;
+    });
   }
 
   ngOnDestroy() {
-    this.termsSearchSubscribe.unsubscribe();
+    this.clientsFilterSubscribe.unsubscribe();
   }
 
   editClient(client: Clients): void {
