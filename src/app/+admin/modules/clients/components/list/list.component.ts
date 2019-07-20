@@ -34,7 +34,7 @@ export class ListComponent implements OnInit, OnDestroy {
   sortKey = '';
   sortType = true;
 
-  filter: Filter;
+  filter: Filter = null;
 
   private clientsFilterSubscribe;
 
@@ -53,6 +53,10 @@ export class ListComponent implements OnInit, OnDestroy {
 
   editClient(client: Clients): void {
     this.clientsService.editClient(client);
+  }
+
+  trackId(index: number, client: any) {
+    return client.id;
   }
 
   sortClients(key): void {

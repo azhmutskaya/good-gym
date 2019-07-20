@@ -10,10 +10,13 @@ export class FilterPipe implements PipeTransform {
 
   private searchFilter(fields, params): <T>(item: T) => boolean {
     return <T>(item: T): boolean => {
+      const currentParams = [...params];
+      if (!currentParams.length) {
+        return true;
+      }
       return fields.some((field: string): boolean => {
-        const currentParams = [...params];
-        if (!item[field] || currentParams.length === 0) {
-          return true;
+        if (!item[field]) {
+         return false;
         }
         return currentParams.every((param, index): boolean => {
           if (currentParams.length === 0) {
@@ -25,7 +28,7 @@ export class FilterPipe implements PipeTransform {
               return true;
             }
           }
-          if (this.filterByString(item[field], param)) {
+          if (this.filterByFullString(item[field], param)) {
             currentParams.splice(index, 1);
             return true;
           }

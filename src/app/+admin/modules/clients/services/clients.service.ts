@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, share } from 'rxjs/operators';
 import { Clients, ClientsApi } from '../interfaces/clients';
 import { Filter } from '../interfaces/filter';
 
@@ -12,10 +12,10 @@ export class ClientsService {
   private api = './assets/data/clients.json';
 
   private currentClientSource = new BehaviorSubject(null);
-  currentClient = this.currentClientSource.asObservable();
+  currentClient = this.currentClientSource.asObservable().pipe(share());
 
   private filterClientsParamSource = new BehaviorSubject(null);
-  filterClientsParam = this.filterClientsParamSource.asObservable();
+  filterClientsParam = this.filterClientsParamSource.asObservable().pipe(share());
 
   constructor(private http: HttpClient) {}
 

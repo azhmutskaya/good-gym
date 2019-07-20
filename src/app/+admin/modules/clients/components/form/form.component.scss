@@ -60,6 +60,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    min-height: 100vh;
     background: rgba($clr-bg-dark, .1);
     z-index: 500;
     transition: all .3s;
