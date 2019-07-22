@@ -69,6 +69,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.onValueChangeSubscription();
     this.onFiltersChangeSubscription();
     this.onFiltersToggle();
+    this.filterIsActive = false;
   }
 
   ngOnDestroy() {
