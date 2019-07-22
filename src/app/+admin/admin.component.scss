@@ -12,6 +12,7 @@
     left: 0;
     bottom: 0;
     width: 60px;
+    justify-content: space-between;
   }
   &__body {
     padding: 26px 48px 184px;
@@ -29,6 +30,35 @@
       background: linear-gradient(to bottom, rgba($clr-white,0) 0%,rgba($clr-white,1) 100%);
       z-index: 100;
       pointer-events: none;
+    }
+  }
+  &__controls {
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  &__logout {
+    width: 40px;
+    height: 40px;
+    background: $clr-primary;
+    transition: all .3s;
+    border-radius: 50%;
+    color: $clr-white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background: $clr-secondary;
+    }
+    &::ng-deep {
+      .svg-icon {
+        width: 24px;
+        height: 24px;
+        display: block;
+        use {
+          fill: $clr-white;
+        }
+      }
     }
   }
 }

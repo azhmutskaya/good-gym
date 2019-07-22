@@ -4,20 +4,23 @@ import { CommonModule } from '@angular/common';
 import { IconSpriteModule } from 'ng-svg-icon-sprite';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { ClientsModule } from './modules/clients/clients.module';
-import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
+import { ClientsModule } from './modules/+clients/clients.module';
+import { SubscriptionsModule } from './modules/+subscriptions/subscriptions.module';
+import { LoginModule } from './modules/+login/login.module';
 
 import { AdminComponent } from './admin.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { ClearnLayoutComponent } from './components/clearn-layout/clearn-layout.component';
 
 @NgModule({
-  declarations: [AdminComponent, NavigationComponent],
+  declarations: [AdminComponent, NavigationComponent, ClearnLayoutComponent],
   imports: [
     CommonModule,
-    IconSpriteModule,
     AdminRoutingModule,
+    IconSpriteModule,
     ClientsModule,
-    SubscriptionsModule
+    SubscriptionsModule,
+    LoginModule
   ]
 })
 export class AdminModule {

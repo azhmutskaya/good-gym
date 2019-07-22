@@ -1,6 +1,11 @@
 <div class="admin-panel">
   <div class="admin-panel__navigation">
     <app-navigation></app-navigation>
+    <div class="admin-panel__controls">
+      <button class="admin-panel__logout">
+        <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#logout'" [classes]="'svg-icon'"></svg-icon-sprite>
+      </button>
+    </div>
   </div>
   <div class="admin-panel__body">
     <router-outlet></router-outlet>

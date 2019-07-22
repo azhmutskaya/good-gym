@@ -2,15 +2,18 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminComponent } from './admin.component';
-import { ClientsComponent } from './modules/clients/clients.component';
-import { SubscriptionsComponent } from './modules/subscriptions/subscriptions.component';
-
+import { ClearnLayoutComponent } from './components/clearn-layout/clearn-layout.component';
 
 const adminRoutes: Routes = [
   {
+    path: '', component: ClearnLayoutComponent, children: [
+      {path: 'login', loadChildren: () => import('./modules/+login/login.module').then(m => m.LoginModule)}
+    ]
+  },
+  {
     path: '', component: AdminComponent, children: [
-      { path: '', component: ClientsComponent },
-      { path: 'subscriptions', component: SubscriptionsComponent }
+      {path: '', loadChildren: () => import('./modules/+clients/clients.module').then(m => m.ClientsModule)},
+      {path: 'subscriptions', loadChildren: () => import('./modules/+subscriptions/subscriptions.module').then(m => m.SubscriptionsModule)},
     ]
   }
 ];

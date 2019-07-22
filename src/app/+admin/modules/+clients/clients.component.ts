@@ -30,7 +30,6 @@ export class ClientsComponent implements OnInit {
   }
 
   ngOnInit() {
-
     setTimeout(() => {
       this.getSubscriptions();
     }, 3000);
