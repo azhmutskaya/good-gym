@@ -7,7 +7,6 @@ import { ClientsService } from '../../services/clients.service';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -65,14 +64,6 @@ export class FormComponent implements OnInit, OnDestroy {
     subscriptionId: [null],
     expirationDate: [{ value: '', disabled: true }]
   });
-
-  dateOfBirthFilter = (date: Date): boolean => {
-    return Date.now() > date.valueOf();
-  }
-
-  expirationDateFilter = (date: Date): boolean => {
-    return Date.now() < date.valueOf();
-  }
 
   constructor(
     private fb: FormBuilder,

@@ -16,7 +16,7 @@
         </h2>
         <button class="client-form__close" (click)="hideForm()"></button>
       </div>
-      <form class="client-form__form" [formGroup]="clientForm" (ngSubmit)="onSubmit()" ngxScrollToFirstInvalid #formElement>
+      <form class="client-form__form" [formGroup]="clientForm" (ngSubmit)="onSubmit()" #formElement>
         <div class="form">
           <div class="form__row">
             <div class="form__field form__field--half form__field--moved"
@@ -47,7 +47,6 @@
                  [class.form__field--error]="hasError(['dateOfBirth'])">
               <mat-form-field>
                 <input matInput #inputDateOfBirth [matDatepicker]="pickerDateOfBirth" [max]="todayDate" [min]="minDate"
-                       [matDatepickerFilter]="dateOfBirthFilter"
                        (click)="pickerDateOfBirth.open()" (blur)="trimField(['dateOfBirth'])"
                        formControlName="dateOfBirth">
                 <label class="mat-form-field-label"><span>Date of Birth</span></label>
@@ -132,7 +131,6 @@
               <mat-form-field>
                 <input matInput #inputExpirationDate [matDatepicker]="pickerExpirationDate"
                        [max]="maxDate" [min]="todayDate"
-                       [matDatepickerFilter]="expirationDateFilter"
                        (click)="pickerExpirationDate.open()" (blur)="trimField(['expirationDate'])"
                        formControlName="expirationDate">
                 <label class="mat-form-field-label"><span>Expiration Date</span></label>

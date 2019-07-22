@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="subscriptions-list__list" @list>
-    <div class="subscriptions-list__row" *ngFor="let subscription of subscriptions" @items>
+    <div class="subscriptions-list__row" *ngFor="let subscription of subscriptions; trackBy: trackId" @items>
       <div class="subscriptions-list__item">
         {{ subscription.name }}
       </div>

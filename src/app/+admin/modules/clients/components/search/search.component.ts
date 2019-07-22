@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Input, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { ClientsService } from '../../services/clients.service';
@@ -11,8 +11,9 @@ import { Filter } from '../../interfaces/filter';
 })
 export class SearchComponent implements OnInit, OnDestroy {
 
-  searchIsVisible = false;
   filterIsActive = false;
+
+  searchIsVisible = false;
   search = new FormControl('');
 
   private searchParams: Filter = {
@@ -22,19 +23,14 @@ export class SearchComponent implements OnInit, OnDestroy {
   };
 
   private searchSubscription;
+  private paramsSubscription;
 
   constructor(private clientsService: ClientsService) {
   }
 
   ngOnInit() {
-    this.searchSubscription = this.search.valueChanges.pipe(
-      map((value: string) => value.trim()),
-      debounceTime(1000),
-      distinctUntilChanged((x: string, y: string) => x === y)
-    ).subscribe((searchTerm: string) => {
-      this.searchParams.params = searchTerm.split(/\s+/);
-      this.searchClient(this.searchParams);
-    });
+    this.onValueChangeSubscription();
+    this.onFiltersChangeSubscription();
   }
 
   searchClient(filterParams: Filter): void {
@@ -42,8 +38,43 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    //this.searchParams.dependency.params = null; // crutch
+    this.searchClient(null); // crutch
     this.searchSubscription.unsubscribe();
+    this.paramsSubscription.unsubscribe();
+  }
+
+  toggleSearch() {
+    this.searchIsVisible = !this.searchIsVisible;
+    if (!this.searchIsVisible) {
+      this.filterIsActive = false;
+      this.clientsService.openFilter(this.filterIsActive);
+      this.search.reset('', {emitEvent: false});
+      this.searchClient(null);
+    }
+  }
+
+  toggleFilter() {
+    this.filterIsActive = !this.filterIsActive;
+    this.clientsService.openFilter(this.filterIsActive);
+  }
+
+  onValueChangeSubscription() {
+    this.searchSubscription = this.search.valueChanges.pipe(
+      map((value: string) => value.trim()),
+      debounceTime(300),
+      distinctUntilChanged((x: string, y: string) => x === y)
+    ).subscribe((searchTerm: string) => {
+      this.searchParams.params = searchTerm.split(/\s+/);
+      this.searchClient(this.searchParams);
+    });
+  }
+
+  onFiltersChangeSubscription() {
+    this.paramsSubscription = this.clientsService.filterClientsParam.subscribe((searchParams) => {
+      if (searchParams && !searchParams.fields && this.search.value) {
+        this.search.reset('', {emitEvent: false});
+      }
+    });
   }
 
 }

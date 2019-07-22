@@ -15,8 +15,8 @@ export class FilterPipe implements PipeTransform {
         return true;
       }
       return fields.some((field: string): boolean => {
-        if (!item[field]) {
-         return false;
+        if (item[field] === null) {
+          return false;
         }
         return currentParams.every((param, index): boolean => {
           if (currentParams.length === 0) {
@@ -40,11 +40,17 @@ export class FilterPipe implements PipeTransform {
   private filterByFields(dependencies: Dependency[]): <T>(item: T) => boolean {
     return <T>(item: T): boolean => {
       return dependencies.every((dependency) => {
+        if (item[dependency.field] === null) {
+          if (!dependency.fullEntry) {
+            return true;
+          }
+          return dependency.param === null;
+        }
         switch (typeof dependency.param) {
           case 'boolean':
-            return this.filterByDefault(item[dependency.field], dependency.param);
+            return this.filterByDefault(!!item[dependency.field], dependency.param);
           case 'number':
-            return this.filterByDefault(item[dependency.field], dependency.param);
+            return this.filterByDefault(+item[dependency.field], dependency.param);
           case 'string':
             if (dependency.fullEntry) {
               return this.filterByFullString(item[dependency.field], dependency.param);
@@ -52,6 +58,9 @@ export class FilterPipe implements PipeTransform {
             return this.filterByString(item[dependency.field], dependency.param);
           case 'object':
             if (dependency.param === null) {
+              if (dependency.fullEntry) {
+                return this.filterByDefault(item[dependency.field], null);
+              }
               return true;
             }
             if (dependency.param instanceof Date) {
@@ -65,7 +74,6 @@ export class FilterPipe implements PipeTransform {
             console.error('Something went wrong');
             return true;
         }
-
       });
     };
   }
@@ -78,7 +86,7 @@ export class FilterPipe implements PipeTransform {
     return currentValue.toString().toLowerCase().indexOf(compareValue.toString().toLowerCase()) !== -1;
   }
 
-  private filterByDefault(currentValue: boolean | number, compareValue: boolean | number): boolean {
+  private filterByDefault(currentValue: boolean | number | null, compareValue: boolean | number | null): boolean {
     return currentValue === compareValue;
   }
 
@@ -93,13 +101,13 @@ export class FilterPipe implements PipeTransform {
     }
 
     if (!range.from || !range.to) {
-      if (!range.from) {
-        return currentValue <= range.to;
-      }
-      if (!range.to) {
-        return currentValue >= range.from;
-      }
       return true;
+    }
+    if (!range.from) {
+      return currentValue <= range.to;
+    }
+    if (!range.to) {
+      return currentValue >= range.from;
     }
     return (currentValue >= range.from) && (currentValue <= range.to);
   }

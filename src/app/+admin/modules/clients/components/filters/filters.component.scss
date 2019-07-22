@@ -1,1 +1,115 @@
+@import '~src/assets/sass/styles';
 
+.clients-filters {
+  transition: all .7s;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  margin: 0 -48px;
+  width: calc(100% + 96px);
+  @include breakpoint($mq-desktop-hd) {
+    margin: 0 -20px;
+    padding: 0 20px;
+    width: calc(100% + 40px);
+  }
+  &--visible {
+    overflow: visible;
+    opacity: 1;
+    visibility: visible;
+    max-height: 200px;
+  }
+  &__form {
+    position: relative;
+    padding: 10px 48px 26px;
+    margin-bottom: 24px;
+    @include breakpoint($mq-desktop-hd) {
+      padding: 10px 20px 26px;
+    }
+    &:before {
+      position: absolute;
+      content: '';
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: $clr-bg-light;
+      z-index: -1;
+    }
+    &:after {
+      position: absolute;
+      content: '';
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: 644px;
+      height: 2px;
+      background-image: linear-gradient(90deg, $clr-font 33.33%, $clr-bg-light 33.33%, $clr-bg-light 50%, $clr-font 50%, $clr-font 83.33%, $clr-bg-light 83.33%, $clr-bg-light 100%);
+      background-size: 24px 24px;
+    }
+  }
+  .form {
+    &::ng-deep, & {
+      .mat-form-field {
+        &-appearance-legacy {
+          &.mat-form-field-should-float {
+            .mat-form-field-label {
+              span {
+                background: $clr-bg-light;
+              }
+            }
+          }
+        }
+      }
+    }
+    &__row {
+      margin-bottom: 0;
+    }
+    &__field {
+      @include breakpoint($mq-desktop-medium) {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      @include breakpoint($mq-desktop-hd) {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      &--moved {
+        input, select {
+          &:focus,
+          &.is-filled {
+            & + label span {
+              background: $clr-bg-light;
+            }
+          }
+        }
+      }
+      &--flex {
+        flex: 0 0 16.6%;
+        max-width: 16.6%;
+        @include breakpoint($mq-desktop-hd) {
+          flex: 0 0 33.3333%;
+          max-width: 33.3333%;
+        }
+        &-max {
+          flex: 0 0 25%;
+          max-width: 25%;
+          @include breakpoint($mq-desktop-hd) {
+            order: 4;
+            flex: 0 0 66.6666%;
+            max-width: 66.6666%;
+          }
+        }
+        &-min {
+          flex: 1 1 0;
+          @include breakpoint($mq-desktop-hd) {
+            order: 5;
+          }
+        }
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+  }
+}

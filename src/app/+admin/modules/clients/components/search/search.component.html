@@ -1,9 +1,9 @@
 <div class="client-search">
-  <button class="client-search__btn" (click)="searchIsVisible = !searchIsVisible">
+  <button class="client-search__btn" (click)="toggleSearch()">
     <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#search'" [classes]="'svg-icon'"></svg-icon-sprite>
   </button>
   <div class="client-search__body" [class.client-search__body--visible]="searchIsVisible">
-    <button class="client-search__filters" [class.client-search__filters--active]="filterIsActive" (click)="filterIsActive = !filterIsActive">
+    <button class="client-search__filters" [class.client-search__filters--active]="filterIsActive" (click)="toggleFilter()">
       <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#filter'" [classes]="'svg-icon'"></svg-icon-sprite>
     </button>
     <div class="client-search__form">

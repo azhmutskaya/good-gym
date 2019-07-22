@@ -34,6 +34,11 @@ export class ListComponent implements OnInit {
   ngOnInit() {
   }
 
+  trackId(index: number, subscriptions: any) {
+    return subscriptions.id;
+  }
+
+
   sortSubscriptions(key): void {
     this.sortType = this.sortKey !== key
       ? true

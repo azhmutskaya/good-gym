@@ -2,11 +2,10 @@
 
 .clients {
   &__header {
-    padding-bottom: 26px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
   }
   &__loader {
     min-height: 200px;
@@ -19,7 +18,7 @@
       background: rgba($clr-error, .3);
   }
   &__search {
-    max-width: 450px;
+    max-width: 468px;
     width: 100%;
     flex: 1 1 0;
     padding-left: 20px;

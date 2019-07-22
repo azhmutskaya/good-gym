@@ -17,6 +17,9 @@ export class ClientsService {
   private filterClientsParamSource = new BehaviorSubject(null);
   filterClientsParam = this.filterClientsParamSource.asObservable().pipe(share());
 
+  private filterIsAciveSourse = new BehaviorSubject(false);
+  filterIsAcive = this.filterIsAciveSourse.asObservable().pipe(share());
+
   constructor(private http: HttpClient) {}
 
   getClients(): Observable<ClientsApi[]> {
@@ -31,6 +34,10 @@ export class ClientsService {
 
   filterClient(filter: Filter) {
     this.filterClientsParamSource.next(filter);
+  }
+
+  openFilter(state: boolean) {
+    this.filterIsAciveSourse.next(state);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

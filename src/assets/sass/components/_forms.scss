@@ -9,6 +9,7 @@
     line-height: 24px;
     padding: 11px 16px;
     transition: all .3s;
+    background: transparent;
     &:focus {
       border-color: $clr-primary;
     }
@@ -173,13 +174,13 @@
     }
   }
   &__row {
-    margin: 0 -24px 22px;
+    margin: 0 -24px 24px;
     width: calc(100% + 48px);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     @include breakpoint($mq-desktop-hd) {
-      margin: 0 -16px 22px;
+      margin: 0 -16px 24px;
       width: calc(100% + 32px);
     }
     &--ident {
@@ -191,6 +192,9 @@
     flex: 1 0 auto;
     @include breakpoint($mq-desktop-hd) {
       padding: 16px 16px 0;
+    }
+    &--flex {
+      flex: 1 0 0;
     }
     &--half {
       flex: 0 0 50%;
@@ -296,6 +300,15 @@
   &__wrap {
     position: relative;
   }
+  &__reset {
+    transition: all .3s;
+    color: $clr-primary;
+    text-transform: uppercase;
+    white-space: nowrap;
+    &:hover {
+      color: $clr-secondary;
+    }
+  }
   &__remove {
     position: absolute;
     top: 0;
@@ -391,6 +404,17 @@
 ::ng-deep {
   .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
     color: $clr-primary;
+  }
+  .mat-calendar-cell-semi-selected {
+    background-color: rgba($clr-primary, .4);
+  }
+  .mat-calendar-body-begin-range:not(.mat-calendar-body-end-range) {
+    border-radius: 100% 0 0 100%;
+    background-color: rgba($clr-primary, .4);
+  }
+  .mat-calendar-body-end-range:not(.mat-calendar-body-begin-range) {
+    border-radius: 0 100% 100% 0;
+    background-color: rgba($clr-primary, .4);
   }
   .mat-custom-select {
     margin: 50px 0 62px;

@@ -1,3 +1,61 @@
-<div class="filters">
-  <p>filters works!</p>
+<div class="clients-filters" [class.clients-filters--visible]="filterIsActive">
+  <div class="clients-filters__form">
+    <form class="form" [formGroup]="clientFilter">
+      <div class="form__row form__row--flex">
+        <div class="form__field form__field--flex form__field--moved">
+          <div class="form__wrap">
+            <input type="text" [class.is-filled]="isFilled(['firstName'])"
+                   (blur)="trimField(['firstName'])" formControlName="firstName">
+            <label><span>First Name</span></label>
+          </div>
+        </div>
+        <div class="form__field form__field--flex form__field--moved">
+          <div class="form__wrap">
+            <input type="text" [class.is-filled]="isFilled(['lastName'])"
+                   (blur)="trimField(['lastName'])" formControlName="lastName">
+            <label><span>First Name</span></label>
+          </div>
+        </div>
+        <div class="form__field form__field--flex form__field--flex-max form__field--moved form__field--icon">
+          <mat-form-field>
+            <input matInput #inputExpirationDate [satDatepicker]="pickerExpirationDate"
+                   [max]="maxDate" [min]="minDate"
+                   (click)="pickerExpirationDate.open()" (blur)="trimField(['expirationDate'])"
+                   formControlName="expirationDate">
+            <label class="mat-form-field-label"><span>Expiration Date</span></label>
+            <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#calendar'"
+                             [classes]="'svg-icon'"></svg-icon-sprite>
+            <sat-datepicker #pickerExpirationDate (closed)="inputExpirationDate.blur()" [rangeMode]="true"></sat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form__field form__field--flex form__field--moved" *ngIf="errors.subscriptionsIsSuccessful">
+          <div class="form__wrap">
+            <mat-form-field>
+              <mat-label><span>Subscriptions</span></mat-label>
+              <mat-select disableOptionCentering panelClass="mat-custom-select" formControlName="subscriptionId">
+                <mat-option value="All">All</mat-option>
+                <mat-option value="None">None</mat-option>
+                <mat-option *ngFor="let subscription of subscriptions" [value]="subscription.id">
+                  {{ subscription.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form__field form__field--flex form__field--flex-min">
+          <div class="form__wrap">
+            <label class="form__checkbox">
+              <input type="checkbox" value="true" formControlName="isActive">
+              <span>Active Only</span>
+            </label>
+          </div>
+        </div>
+        <div class="form__field form__field--flex form__field--flex form__field--flex-min">
+          <div class="form__wrap">
+            <button class="button" class="form__reset" (click)="resetFilters()">Clear Filter</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
