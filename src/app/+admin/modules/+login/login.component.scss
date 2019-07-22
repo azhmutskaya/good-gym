@@ -1,0 +1,66 @@
+@import '~src/assets/sass/styles';
+
+.login {
+  background-size: cover;
+  background-position: 50% 50%;
+  background-image: url('~src/assets/images/content/login.jpg');
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  &__body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 16.5vh;
+    @include breakpoint($mq-desktop-medium) {
+      padding-top: 11vh;
+    }
+  }
+  &__logo {
+    &::ng-deep {
+      .svg-icon {
+        width: 612px;
+        height: 150px;
+      }
+    }
+  }
+  &__title {
+    font-size: 22px;
+    line-height: 24px;
+    margin-bottom: 24px;
+  }
+  &__form {
+    padding: 40px;
+    background: $clr-white;
+    max-width: 480px;
+    width: 100%;
+    margin-top: 7vh;
+    @include breakpoint($mq-desktop-medium) {
+      margin-top: 0;
+    }
+    .form {
+      &__password-toggle {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        top: 0;
+        right: 0;
+        &:hover {
+          &::ng-deep {
+            .svg-icon {
+              use {
+                fill: $clr-primary
+              }
+            }
+          }
+        }
+      }
+      &__footer {
+        margin-top: 42px;
+        .btn {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

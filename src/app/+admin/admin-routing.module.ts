@@ -6,8 +6,8 @@ import { ClearnLayoutComponent } from './components/clearn-layout/clearn-layout.
 
 const adminRoutes: Routes = [
   {
-    path: '', component: ClearnLayoutComponent, children: [
-      {path: 'login', loadChildren: () => import('./modules/+login/login.module').then(m => m.LoginModule)}
+    path: 'login', component: ClearnLayoutComponent, children: [
+      {path: '', loadChildren: () => import('./modules/+login/login.module').then(m => m.LoginModule)}
     ]
   },
   {

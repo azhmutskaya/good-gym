@@ -1,1 +1,37 @@
-<p>login works!</p>
+<div class="login">
+  <div class="login__body">
+    <div class="login__logo">
+      <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#logo'" [classes]="'svg-icon'"></svg-icon-sprite>
+    </div>
+    <div class="login__form">
+      <h1 class="login__title">
+        Admin Login
+      </h1>
+      <form class="form">
+        <div class="form__row">
+          <div class="form__field form__field--moved">
+            <div class="form__wrap">
+              <input type="text">
+              <label><span>User Name</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="form__field form__field--moved form__field--icon">
+            <div class="form__wrap">
+              <input type="password">
+              <label><span>Password</span></label>
+              <button class="form__password-toggle">
+                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#eye'" [classes]="'svg-icon'"></svg-icon-sprite>
+                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#shut-eye'" [classes]="'svg-icon'"></svg-icon-sprite>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form__footer">
+          <button type="submit" class="btn btn-admin">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
