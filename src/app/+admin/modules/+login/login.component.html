@@ -7,11 +7,11 @@
       <h1 class="login__title">
         Admin Login
       </h1>
-      <form class="form">
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form__row">
           <div class="form__field form__field--moved">
             <div class="form__wrap">
-              <input type="text">
+              <input type="text" [class.is-filled]="isFilled(['userName'])" (blur)="trimField(['userName'])" formControlName="userName">
               <label><span>User Name</span></label>
             </div>
           </div>
@@ -19,17 +19,21 @@
         <div class="form__row">
           <div class="form__field form__field--moved form__field--icon">
             <div class="form__wrap">
-              <input type="password">
+              <input type="password" [class.is-filled]="isFilled(['password'])" (blur)="trimField(['password'])" formControlName="password" #password>
               <label><span>Password</span></label>
-              <button class="form__password-toggle">
-                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#eye'" [classes]="'svg-icon'"></svg-icon-sprite>
-                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#shut-eye'" [classes]="'svg-icon'"></svg-icon-sprite>
+              <button class="form__password-toggle" (click)="togglePassword(password)" type="button">
+                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#eye'" [classes]="'svg-icon'" *ngIf="!passwordIsVisible"></svg-icon-sprite>
+                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#shut-eye'" [classes]="'svg-icon'" *ngIf="passwordIsVisible"></svg-icon-sprite>
               </button>
             </div>
           </div>
         </div>
+        <div *ngIf="error" class="form__error">
+          <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#error'" [classes]="'svg-icon'"></svg-icon-sprite>
+          Incorrect user name or password!
+        </div>
         <div class="form__footer">
-          <button type="submit" class="btn btn-admin">Login</button>
+          <button type="submit" class="btn btn-admin" [disabled]="loginForm.invalid">Login</button>
         </div>
       </form>
     </div>

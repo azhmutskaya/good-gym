@@ -34,7 +34,7 @@
     background: $clr-white;
     max-width: 480px;
     width: 100%;
-    margin-top: 7vh;
+    margin-top: 6.6vh;
     @include breakpoint($mq-desktop-medium) {
       margin-top: 0;
     }
@@ -55,10 +55,29 @@
           }
         }
       }
+      &__error {
+        position: relative;
+        padding-left: 30px;
+        line-height: 20px;
+        font-size: 17px;
+        margin-top: 36px;
+        &::ng-deep {
+          .svg-icon {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            top: -2px;
+            left: 0;
+          }
+        }
+      }
       &__footer {
         margin-top: 42px;
         .btn {
           width: 100%;
+          &:disabled {
+            background: $clr-line;
+          }
         }
       }
     }
