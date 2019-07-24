@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { ClearnLayoutComponent } from './components/clearn-layout/clearn-layout.component';
 
+import { AuthGuard } from './helpers/auth.guard';
+
 const adminRoutes: Routes = [
   {
     path: 'login', component: ClearnLayoutComponent, children: [
@@ -11,11 +13,12 @@ const adminRoutes: Routes = [
     ]
   },
   {
-    path: '', component: AdminComponent, children: [
+    path: '', component: AdminComponent, canActivate: [AuthGuard], children: [
       {path: '', loadChildren: () => import('./modules/+clients/clients.module').then(m => m.ClientsModule)},
       {path: 'subscriptions', loadChildren: () => import('./modules/+subscriptions/subscriptions.module').then(m => m.SubscriptionsModule)},
     ]
-  }
+  },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

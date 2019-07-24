@@ -2,9 +2,9 @@
   <div class="admin-panel__navigation">
     <app-navigation></app-navigation>
     <div class="admin-panel__controls">
-      <a class="admin-panel__logout" [routerLink]="['login']">
+      <button class="admin-panel__logout" (click)="logout()">
         <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#logout'" [classes]="'svg-icon'"></svg-icon-sprite>
-      </a>
+      </button>
     </div>
   </div>
   <div class="admin-panel__body">

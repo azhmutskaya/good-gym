@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+
+import { AuthenticationService } from '../../services/authentication.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -12,18 +16,26 @@ export class LoginComponent implements OnInit {
 
   error = false;
 
+  returnUrl: string;
+
   loginForm = this.fb.group({
     userName: [null, Validators.required],
     password: [null, Validators.required],
   });
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService
   ) {
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/admin']);
+    }
   }
 
   ngOnInit() {
-
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   trimField([key, index]: [string, number?]): void {
@@ -47,12 +59,17 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      if (this.loginForm.get('userName').value  === 'Admin' && this.loginForm.get('password').value === 'Admin') { // facepalm
-        console.log('login');
-        this.error = false;
-      } else {
-        this.error = true;
-      }
+      console.log('login');
+      this.error = false;
+      this.authenticationService.login(this.loginForm.get('userName').value, this.loginForm.get('password').value)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.router.navigate([this.returnUrl]);
+          },
+          error => {
+            this.error = true;
+          });
     }
   }
 
