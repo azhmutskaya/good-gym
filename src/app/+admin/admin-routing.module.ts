@@ -13,12 +13,20 @@ const adminRoutes: Routes = [
     ]
   },
   {
-    path: '', component: AdminComponent, canActivate: [AuthGuard], children: [
-      {path: '', loadChildren: () => import('./modules/+clients/clients.module').then(m => m.ClientsModule)},
-      {path: 'subscriptions', loadChildren: () => import('./modules/+subscriptions/subscriptions.module').then(m => m.SubscriptionsModule)},
+    path: '', component: AdminComponent, children: [
+      {
+        path: '',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./modules/+clients/clients.module').then(m => m.ClientsModule)
+      },
+      {
+        path: 'subscriptions',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./modules/+subscriptions/subscriptions.module').then(m => m.SubscriptionsModule)
+      },
     ]
   },
-  { path: '**', redirectTo: '' }
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({

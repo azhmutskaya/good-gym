@@ -10,7 +10,6 @@
   width: calc(100% + 96px);
   @include breakpoint($mq-desktop-hd) {
     margin: 0 -20px;
-    padding: 0 20px;
     width: calc(100% + 40px);
   }
   &--visible {
@@ -64,6 +63,14 @@
     }
     &__row {
       margin-bottom: 0;
+      @include breakpoint($mq-desktop-medium) {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+      @include breakpoint($mq-desktop-hd) {
+        padding-left: 0;
+        padding-right: 0;
+      }
     }
     &__field {
       @include breakpoint($mq-desktop-medium) {
