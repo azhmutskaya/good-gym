@@ -25,6 +25,7 @@
     "@angular/router": "8.1.1",
     "@ismaestro/ngx-scroll-to-first-invalid": "^3.0.0",
     "@types/moment": "^2.13.0",
+    "angular-in-memory-web-api": "^0.8.0",
     "fsevents": "^2.0.7",
     "ng-svg-icon-sprite": "^1.6.0",
     "ngx-mask": "^8.0.1",

@@ -18,6 +18,9 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { fakeBackendProvider } from './helpers/fake-backend';
 
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from '../in-memory-data.service';
+
 @NgModule({
   declarations: [AdminComponent, NavigationComponent, ClearnLayoutComponent],
   imports: [
@@ -26,13 +29,14 @@ import { fakeBackendProvider } from './helpers/fake-backend';
     IconSpriteModule,
     ClientsModule,
     SubscriptionsModule,
-    LoginModule
+    LoginModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-    // provider used to create fake backend
     fakeBackendProvider
   ]
 })

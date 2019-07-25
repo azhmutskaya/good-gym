@@ -9,7 +9,7 @@ import { Filter } from '../interfaces/filter';
   providedIn: 'root'
 })
 export class ClientsService {
-  private api = './assets/data/clients.json';
+  private api = 'api/clients';
 
   private currentClientSource = new BehaviorSubject(null);
   currentClient = this.currentClientSource.asObservable().pipe(share());

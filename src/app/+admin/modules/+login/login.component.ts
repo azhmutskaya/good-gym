@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   loginForm = this.fb.group({
-    userName: [null, Validators.required],
+    username: [null, Validators.required],
     password: [null, Validators.required],
   });
 
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin';
   }
 
   trimField([key, index]: [string, number?]): void {
@@ -59,15 +59,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('login');
       this.error = false;
-      this.authenticationService.login(this.loginForm.get('userName').value, this.loginForm.get('password').value)
+      this.authenticationService.login(this.loginForm.get('username').value, this.loginForm.get('password').value)
         .pipe(first())
         .subscribe(
-          data => {
+          () => {
             this.router.navigate([this.returnUrl]);
           },
-          error => {
+          () => {
             this.error = true;
           });
     }
@@ -81,5 +80,4 @@ export class LoginComponent implements OnInit {
       $password.setAttribute('type', 'password');
     }
   }
-
 }

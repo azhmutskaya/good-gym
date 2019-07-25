@@ -6,14 +6,13 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { User } from '../interfaces/user';
 
 
-const users: User[] = [{id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User'}];
+const users: User[] = [{username: 'Admin', password: 'Admin'}];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const {url, method, headers, body} = request;
 
-    // wrap in delayed observable to simulate server api call
     return of(null)
       .pipe(mergeMap(handleRoute))
       .pipe(materialize())
@@ -22,17 +21,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     function handleRoute() {
       switch (true) {
-        case url.endsWith('/users/authenticate') && method === 'POST':
+        case url.endsWith('api/users/authenticate') && method === 'POST':
           return authenticate();
-        case url.endsWith('/users') && method === 'GET':
-          return getUsers();
         default:
-          // pass through any requests not handled above
           return next.handle(request);
       }
     }
-
-    // route functions
 
     function authenticate() {
       const {username, password} = body;
@@ -41,10 +35,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return error('Username or password is incorrect');
       }
       return ok({
-        id: user.id,
         username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
         token: 'fake-jwt-token'
       });
     }
@@ -55,8 +46,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
       return ok(users);
     }
-
-    // helper functions
 
     function ok(body?) {
       return of(new HttpResponse({status: 200, body}));
@@ -77,7 +66,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 }
 
 export let fakeBackendProvider = {
-  // use fake backend in place of Http service for backend-less development
   provide: HTTP_INTERCEPTORS,
   useClass: FakeBackendInterceptor,
   multi: true

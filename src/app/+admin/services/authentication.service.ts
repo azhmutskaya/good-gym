@@ -5,8 +5,10 @@ import { map } from 'rxjs/operators';
 
 import { User } from '../interfaces/user';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthenticationService {
+  private api = 'api/users/authenticate';
+
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -20,9 +22,8 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>(`/users/authenticate`, { username, password })
+    return this.http.post<User>(this.api, {username, password})
       .pipe(map(user => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
         return user;
@@ -30,7 +31,6 @@ export class AuthenticationService {
   }
 
   logout() {
-    // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }

@@ -8,7 +8,7 @@ import { SubscriptionsApi } from '../interfaces/subscriptions';
   providedIn: 'root'
 })
 export class SubscriptionsService {
-  private api = './assets/data/subscriptions.json';
+  private api = 'api/subscriptions';
 
   constructor(private http: HttpClient) {
   }
