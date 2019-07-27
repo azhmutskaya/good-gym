@@ -1,4 +1,5 @@
 <div class="main-containter" fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
+
   <header class="header">
     <div class="frame">
       ghjx
@@ -8,7 +9,7 @@
   <section id="banner" class="banner fp-section fp-table">
     <div class="banner__wrap">
       <div class="banner__video">
-        <video loop muted autoplay data-keepplaying poster="assets/images/content/video.jpg">
+        <video [loop]="true" [muted]="true" [autoplay]="true" data-keepplaying poster="assets/images/content/video.jpg">
           <source src="assets/images/content/video.mp4" type="video/mp4">
         </video>
       </div>
@@ -27,32 +28,33 @@
     </div>
   </section>
 
-
-  <!--  <section class="promo fp-section fp-table" data-anchor="#About">-->
-  <!--    <div class="promo__wrap">-->
-  <!--      <div class="frame">-->
-  <!--        <div class="promo__content">-->
-  <!--          <h2 class="title-main promo__title">-->
-  <!--            Good Day!-->
-  <!--          </h2>-->
-  <!--          <div class="descr promo__descr">-->
-  <!--            <p>-->
-  <!--              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam-->
-  <!--              rem-->
-  <!--              aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt-->
-  <!--              explicabo.-->
-  <!--            </p>-->
-  <!--            <p>-->
-  <!--              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.-->
-  <!--            </p>-->
-  <!--          </div>-->
-  <!--          <button class="link link&#45;&#45;arrow">-->
-  <!--            Learn More-->
-  <!--          </button>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </section>-->
+  <section class="promo fp-section fp-table" data-anchor="#About">
+    <div class="promo__img" style="background-image: url('assets/images/content/about.jpg');"></div>
+    <div class="promo__wrap">
+      <div class="frame">
+        <div class="promo__content">
+          <h2 class="title-main promo__title">
+            Good Day!
+          </h2>
+          <div class="descr promo__descr">
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+              rem
+              aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+              explicabo.
+            </p>
+            <p>
+              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+            </p>
+          </div>
+          <button class="link link--arrow promo__link">
+            <span>Learn More</span>
+            <i class="arrow"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
   <!--  <section class="workout fp-section fp-table" data-anchor="Workout">-->
   <!--    <div class="workout__wrap">-->
   <!--      <div class="frame">-->

@@ -21,10 +21,10 @@ export class FrontendComponent implements OnInit {
     this.config = {
       //licenseKey: 'YOUR LICENSE KEY HERE',
       anchors: ['home', 'about', 'workout', 'plans', 'interior', 'contacts', 'map', 'sign-up', ''],
-      lazyLoading: true,
+      lazyLoading: false,
       slidesNavigation: true,
       responsiveHeight: 420,
-      //keyboardScrolling: false,
+      keyboardScrolling: false,
       touchSensitivity: 17,
       afterLoad: (origin, destination) => {
         destination.item.classList.add('is-animated');
