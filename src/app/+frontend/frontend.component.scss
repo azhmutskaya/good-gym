@@ -253,6 +253,79 @@
   }
 }
 .workout {
+  &__wrap {
+    height: inherit;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: calc(25vw + 120px) 0 calc(4vw + 120px);
+    background: linear-gradient(45deg, rgba($clr-primary, 1) 0%, rgba(248, 179, 34, 1) 100%);
+    @include breakpoint($mq-tablet-small) {
+      padding: calc(58vw + 120px) 0 120px;
+    }
+    @include breakpoint($mq-mobile-small) {
+      padding: calc(58vw + 120px) 0 70px;
+    }
+  }
+  &__title {
+    position: absolute;
+    z-index: 1;
+    font-family: $font-title;
+    color: $clr-white;
+    font-size: 22vw;
+    line-height: 22vw;
+    white-space: nowrap;
+    top: 10vw;
+    right: -14vw;
+    transform: translateX(160vw);
+    transition: transform 3s .1s cubic-bezier(0.4, 0, 0.2, 1);
+    @include breakpoint($mq-tablet-small) {
+      top: 68vmin;
+    }
+  }
+  &__img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    min-width: 152.6vh;
+    right: 0;
+    bottom: 0;
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    z-index: 2;
+  }
+  &__content {
+    max-width: 50%;
+    padding-right: 20px;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: translateX(-500px);
+    transition: opacity 1.5s .1s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s .1s cubic-bezier(0.4, 0, 0.2, 1);
+    @include breakpoint($mq-tablet) {
+      max-width: 60%;
+    }
+    @include breakpoint($mq-tablet-small) {
+      max-width: 100%;
+      width: 100%;
+      padding-right: 0;
+    }
+  }
+  &__descr {
+    color: $clr-white;
+  }
+  &.is-animated {
+    .workout {
+      &__content,
+      &__title {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  }
 }
 .slider {
   &__container {
@@ -286,6 +359,9 @@
     }
     @include breakpoint($mq-mobile-medium) {
       padding-left: 20px;
+    }
+    @include breakpoint($mq-mobile-min) {
+      top: calc(100% + 20px);
     }
     &.fp-slidesNav ul {
       &::ng-deep {
@@ -460,6 +536,9 @@
     justify-content: flex-end;
     padding: 120px 0 calc(6.6vw + 120px);
     pointer-events: none;
+    @include breakpoint($mq-mobile-small) {
+      padding: 120px 0 70px;
+    }
     &:before {
       position: absolute;
       content: '';
@@ -688,6 +767,9 @@
     @include breakpoint($mq-tablet-small) {
       padding-bottom: 100px;
       justify-content: space-between;
+    }
+    @include breakpoint($mq-mobile-small) {
+      padding-bottom: 70px;
     }
   }
   &__logo {

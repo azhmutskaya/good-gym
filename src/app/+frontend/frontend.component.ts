@@ -24,7 +24,7 @@ export class FrontendComponent implements OnInit {
       lazyLoading: false,
       slidesNavigation: true,
       responsiveHeight: 420,
-      keyboardScrolling: false,
+      //keyboardScrolling: false,
       touchSensitivity: 17,
       afterLoad: (origin, destination) => {
         destination.item.classList.add('is-animated');

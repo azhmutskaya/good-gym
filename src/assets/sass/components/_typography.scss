@@ -24,6 +24,9 @@
     font-size: 16px;
     line-height: 20px;
   }
+  @include breakpoint($mq-mobile-min) {
+    font-size: 14px;
+  }
   p + p {
     margin-top: 30px;
     @include breakpoint($mq-desktop-medium) {
