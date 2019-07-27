@@ -10,6 +10,8 @@
     padding: 11px 16px;
     transition: all .3s;
     background: transparent;
+    -webkit-appearance: none;
+
     &:focus {
       border-color: $clr-primary;
     }
