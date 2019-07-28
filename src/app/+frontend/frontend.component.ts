@@ -9,6 +9,7 @@ export class FrontendComponent implements OnInit {
 
   config: any;
   fullpageApi: any;
+  mapIsOpen: false;
 
   constructor() {
   }
@@ -20,7 +21,7 @@ export class FrontendComponent implements OnInit {
   ngOnInit() {
     this.config = {
       //licenseKey: 'YOUR LICENSE KEY HERE',
-      anchors: ['home', 'about', 'workout', 'plans', 'interior', 'contacts', 'map', 'sign-up', ''],
+      anchors: ['home', 'about', 'workout', 'plans', 'interior', 'contacts', 'map', 'sign-up', 'copyright'],
       lazyLoading: false,
       slidesNavigation: true,
       responsiveHeight: 420,

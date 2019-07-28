@@ -28,9 +28,9 @@
     </div>
   </section>
 
-  <section class="promo fp-section fp-table" data-anchor="#About">
-    <div class="promo__img" style="background-image: url('assets/images/content/about.jpg');"></div>
+  <section class="promo fp-section fp-table">
     <div class="promo__wrap">
+      <div class="promo__img" style="background-image: url('assets/images/content/about.jpg');"></div>
       <div class="frame">
         <div class="promo__content">
           <h2 class="title-main promo__title">
@@ -56,7 +56,7 @@
     </div>
   </section>
 
-  <section class="workout fp-section fp-table" data-anchor="Workout">
+  <section class="workout fp-section fp-table">
     <div class="workout__wrap">
       <div class="workout__img" style="background-image: url('assets/images/content/workout.png');"></div>
       <div class="workout__title">
@@ -184,7 +184,7 @@
     </div>
   </section>
 
-  <section class="interior fp-section fp-table" data-anchor="Interior">
+  <section class="interior fp-section fp-table">
     <div class="interior__view" style="background-image: url('assets/images/content/panorama.jpg');">
       <a-scene>
         <a-assets>
@@ -203,55 +203,56 @@
       </div>
     </div>
   </section>
-  <!--  <section id="contacts" class="contacts fp-section fp-table">-->
-  <!--    <div class="contacts__wrap">-->
-  <!--      <div class="frame">-->
-  <!--        <div class="contacts__content">-->
-  <!--          <div class="contacts__info">-->
-  <!--            <h2 class="title-main contacts__title">-->
-  <!--              Good Location-->
-  <!--            </h2>-->
-  <!--            <div class="descr contacts__descr">-->
-  <!--              <p>-->
-  <!--                Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta-->
-  <!--                sunt-->
-  <!--                explicabo.-->
-  <!--              </p>-->
-  <!--            </div>-->
-  <!--            <div class="contact__list">-->
-  <!--              <div class="contact__item">-->
-  <!--                <div class="contact__icon">-->
 
-  <!--                </div>-->
-  <!--                <a href="https://www.google.ca/maps/place/732+Ave+E+Bayonne+NJ+07002+USA" target="_blank">-->
-  <!--                  732 Ave E, Bayonne, NJ 07002, USA-->
-  <!--                </a>-->
-  <!--              </div>-->
-  <!--              <div class="contact__item">-->
-  <!--                <div class="contact__icon">-->
+  <section class="contacts fp-section fp-table">
+    <div class="contacts__wrap">
+      <div class="contacts__map" style="background-image: url('assets/images/content/map.jpg');" [class.is-open]="mapIsOpen">
+        <button class="contacts__btn" (click)="mapIsOpen = !mapIsOpen"></button>
+      </div>
+      <div class="frame">
+        <div class="contacts__content">
+          <h2 class="title-main contacts__title">
+            Good Location
+          </h2>
+          <div class="descr contacts__descr">
+            <p>
+              Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
+              sunt explicabo.
+            </p>
+          </div>
+          <div class="contacts__list">
+            <div class="contacts__item">
+              <div class="contacts__icon">
+                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#pin'" [classes]="'svg-icon'"></svg-icon-sprite>
+              </div>
+              <a href="https://www.google.ca/maps/place/732+Ave+E+Bayonne+NJ+07002+USA" target="_blank">
+                732 Ave E, Bayonne, NJ 07002, USA
+              </a>
+            </div>
+            <div class="contacts__item">
+              <div class="contacts__icon">
+                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#phone'"
+                                 [classes]="'svg-icon'"></svg-icon-sprite>
+              </div>
+              <a href="tel:+1 201-455-2644">
+                +1 201-455-2644
+              </a>
+            </div>
+            <div class="contacts__item">
+              <div class="contacts__icon">
+                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#email'"
+                                 [classes]="'svg-icon'"></svg-icon-sprite>
+              </div>
+              <a href="mailto:goodgym_ny@gmail.com">
+                goodgym_ny@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!--                </div>-->
-  <!--                <a href="tel:+1 201-455-2644">-->
-  <!--                  +1 201-455-2644-->
-  <!--                </a>-->
-  <!--              </div>-->
-  <!--              <div class="contact__item">-->
-  <!--                <div class="contact__icon">-->
-
-  <!--                </div>-->
-  <!--                <a href="mailto:goodgym_ny@gmail.com">-->
-  <!--                  goodgym_ny@gmail.com-->
-  <!--                </a>-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          </div>-->
-  <!--          <div class="contacts__map">-->
-
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </section>-->
   <section class="sign-up fp-section fp-table">
     <div class="sign-up__logo">
       <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#good'" [classes]="'svg-icon'"></svg-icon-sprite>
