@@ -1,0 +1,157 @@
+@import '~src/assets/sass/styles';
+@import '~fullpage.js/dist/fullpage.min.css';
+.sign-up {
+  height: inherit;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 0 calc(12.7vw + 120px);
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300vh;
+    height: 300vh;
+    background: radial-gradient(ellipse at center, rgba($clr-bg-dark, .4) 0%, rgba($clr-bg-dark, 0) 60%);
+    z-index: -1;
+  }
+  &__content {
+    opacity: 0;
+    transform: translateY(-100px);
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  &__logo {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 21.5vw;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    &::ng-deep {
+      .svg-icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        use {
+          fill: $clr-white;
+        }
+      }
+    }
+  }
+  &__title {
+    text-align: center;
+  }
+  &__descr {
+    max-width: 900px;
+    margin: 96px auto;
+    text-align: center;
+    @include breakpoint($mq-desktop-medium) {
+      margin: 40px auto;
+    }
+    @include breakpoint($mq-mobile-medium) {
+      margin: 20px auto;
+    }
+  }
+  &__form {
+    display: flex;
+    max-width: 852px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    input {
+      font-family: $font-primary;
+      width: calc(100% - 88px - 20px);
+      border: 1px solid $clr-line;
+      font-size: 31px;
+      line-height: 34px;
+      padding: 26px 16px;
+      transition: all .3s;
+      background: $clr-white;
+      font-weight: 400;
+      -webkit-appearance: none;
+      @include breakpoint($mq-desktop-medium) {
+        width: calc(100% - 48px - 10px);
+        font-size: 17px;
+        line-height: 24px;
+        padding: 11px 16px;
+      }
+      &::-webkit-input-placeholder {
+        color: $clr-font;
+      }
+      &::-moz-placeholder {
+        color: $clr-font;
+      }
+      &:-ms-input-placeholder {
+        color: $clr-font;
+      }
+      &:-moz-placeholder {
+        color: $clr-font;
+      }
+      &:focus {
+        background: $clr-primary;
+        color: $clr-white;
+        border-color: $clr-primary;
+        &::-webkit-input-placeholder {
+          color: $clr-white;
+        }
+        &::-moz-placeholder {
+          color: $clr-white;
+        }
+        &:-ms-input-placeholder {
+          color: $clr-white;
+        }
+        &:-moz-placeholder {
+          color: $clr-white;
+        }
+      }
+    }
+    button {
+      width: 88px;
+      height: 88px;
+      background: $clr-primary;
+      position: relative;
+      @include breakpoint($mq-desktop-medium) {
+        width: 48px;
+        height: 48px;
+      }
+      &:hover {
+        background: $clr-secondary;
+      }
+      &:before {
+        position: absolute;
+        content: '';
+        width: 30px;
+        height: 50px;
+        border-radius: 1px;
+        border-right: 2px solid $clr-white;
+        border-bottom: 2px solid $clr-white;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        margin-top: -12%;
+        @include breakpoint($mq-desktop-medium) {
+          width: 16px;
+          height: 28px;
+        }
+      }
+    }
+  }
+}
+:host.is-animated {
+  .sign-up {
+    &__content,
+    &__logo {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

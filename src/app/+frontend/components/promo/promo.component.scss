@@ -1,0 +1,73 @@
+@import '~src/assets/sass/styles';
+@import '~fullpage.js/dist/fullpage.min.css';
+.promo {
+  height: inherit;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 0 calc(9.6vw + 120px);
+  &__content {
+    max-width: 50%;
+    margin: 0 0 0 auto;
+    padding-left: 20px;
+    opacity: 0;
+    transform: translateX(500px);
+    transition: opacity 1.5s .1s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s .1s cubic-bezier(0.4, 0, 0.2, 1);
+    @include breakpoint($mq-tablet) {
+      max-width: 60%;
+    }
+    @include breakpoint($mq-tablet-small) {
+      max-width: 100%;
+      width: 100%;
+      padding-left: 0;
+    }
+  }
+  &__link {
+    margin-top: 96px;
+    @include breakpoint($mq-desktop-medium) {
+      margin-top: 40px;
+    }
+    @include breakpoint($mq-mobile-medium) {
+      margin-top: 20px;
+    }
+  }
+  &__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: auto 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transform: translateX(-500px);
+    transition: opacity 1.5s .1s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s .1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  &__title {
+    margin-bottom: 82px;
+    @include breakpoint($mq-desktop-medium) {
+      margin-bottom: 40px;
+    }
+    @include breakpoint($mq-mobile-medium) {
+      margin-bottom: 20px;
+    }
+  }
+}
+:host.is-animated {
+  .promo {
+    &__content {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    &__img {
+      opacity: 1;
+      transform: translateX(0);
+      @include breakpoint($mq-tablet-small) {
+        opacity: .2;
+      }
+    }
+  }
+}

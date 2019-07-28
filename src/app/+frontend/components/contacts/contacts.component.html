@@ -1,0 +1,45 @@
+<section class="contacts">
+  <div class="contacts__map" style="background-image: url('assets/images/content/map.jpg');"
+       [class.is-open]="mapIsOpen">
+    <button class="contacts__btn" (click)="mapIsOpen = !mapIsOpen"></button>
+  </div>
+  <div class="frame">
+    <div class="contacts__content">
+      <h2 class="title-main contacts__title">
+        Good Location
+      </h2>
+      <div class="descr contacts__descr">
+        <p>
+          Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
+          sunt explicabo.
+        </p>
+      </div>
+      <div class="contacts__list">
+        <div class="contacts__item">
+          <div class="contacts__icon">
+            <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#pin'" [classes]="'svg-icon'"></svg-icon-sprite>
+          </div>
+          <a href="https://www.google.ca/maps/place/732+Ave+E+Bayonne+NJ+07002+USA" target="_blank">
+            732 Ave E, Bayonne, NJ 07002, USA
+          </a>
+        </div>
+        <div class="contacts__item">
+          <div class="contacts__icon">
+            <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#phone'" [classes]="'svg-icon'"></svg-icon-sprite>
+          </div>
+          <a href="tel:+1 201-455-2644">
+            +1 201-455-2644
+          </a>
+        </div>
+        <div class="contacts__item">
+          <div class="contacts__icon">
+            <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#email'" [classes]="'svg-icon'"></svg-icon-sprite>
+          </div>
+          <a href="mailto:goodgym_ny@gmail.com">
+            goodgym_ny@gmail.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

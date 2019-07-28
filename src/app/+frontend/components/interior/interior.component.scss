@@ -1,0 +1,65 @@
+@import '~src/assets/sass/styles';
+@import '~fullpage.js/dist/fullpage.min.css';
+.interior {
+  height: inherit;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 120px 0 calc(6.6vw + 120px);
+  @include breakpoint($mq-mobile-small) {
+    padding: 120px 0 70px;
+  }
+  &:before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $clr-font;
+    transition: opacity 2s .3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  &__view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-position: 50% 50%;
+    background-size: cover;
+    &::ng-deep {
+      .a-canvas {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        @include breakpoint($mq-desktop-fullhd, 420px, max-height) {
+          display: none;
+        }
+      }
+      .a-enter-vr-button {
+        display: none;
+      }
+    }
+  }
+  &__title {
+    color: $clr-white;
+    opacity: 0;
+    transform: translateX(-500px);
+    transition: opacity 1.5s .1s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s .1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+:host.is-animated {
+  .interior {
+    &:before {
+      opacity: 0;
+    }
+    &__title {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}

@@ -1,0 +1,218 @@
+@import '~src/assets/sass/styles';
+@import '~fullpage.js/dist/fullpage.min.css';
+.contacts {
+  height: inherit;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 0;
+  background: url('~src/assets/images/ui/bg.jpg');
+  color: $clr-white;
+  &__map {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: calc(50vw - 20px);
+    background-size: cover;
+    background-position: 50% 50%;
+    @include breakpoint($mq-tablet) {
+      width: calc(40vw - 20px);
+    }
+    @include breakpoint($mq-tablet-small) {
+      width: 100%;
+      height: 100%;
+      max-width: 80px;
+      max-height: 80px;
+      top: auto;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      opacity: 0;
+      transform: translate(-40px, 300px);
+      transition: max-width .3s cubic-bezier(0.4, 0, 0.2, 1), max-height .3s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s .3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s .3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @include breakpoint($mq-mobile) {
+      max-width: 40px;
+      max-height: 40px;
+      transform: translate(-20px, 300px);
+    }
+    &:before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('~src/assets/images/ui/bg.jpg');
+      transition: max-width 0.8s .1s cubic-bezier(0.4, 0, 0.2, 1);
+      max-width: 100%;
+      @include breakpoint($mq-tablet-small) {
+        display: none;
+      }
+    }
+    &.is-open {
+      @include breakpoint($mq-tablet-small) {
+        max-width: 100%;
+        max-height: 100%;
+        transform: translate(0, 0) !important;
+        transition: max-width .3s cubic-bezier(0.4, 0, 0.2, 1), max-height .3s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s .3s cubic-bezier(0.4, 0, 0.2, 1), transform .3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      .contacts__btn {
+        opacity: 1;
+      }
+    }
+  }
+  &__btn {
+    display: none;
+    @include breakpoint($mq-tablet-small) {
+      display: block;
+      background: $clr-primary;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 80px;
+      opacity: 0;
+      transition: all .3s;
+      &:before {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 26px;
+        height: 26px;
+        border-right: 2px solid $clr-white;
+        border-bottom: 2px solid $clr-white;
+        border-radius: 1px;
+      }
+      &:after {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 36px;
+        height: 2px;
+        background: $clr-white;
+      }
+    }
+    @include breakpoint($mq-mobile) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  &__content {
+    max-width: 50%;
+    padding-right: 20px;
+    opacity: 0;
+    transform: translateX(-500px);
+    transition: opacity 1.5s .1s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s .1s cubic-bezier(0.4, 0, 0.2, 1);
+    @include breakpoint($mq-tablet) {
+      max-width: 60%;
+    }
+    @include breakpoint($mq-tablet-small) {
+      max-width: 100%;
+      width: 100%;
+      padding-right: 0;
+    }
+  }
+  &__title {
+    margin-bottom: 78px;
+    @include breakpoint($mq-desktop-medium) {
+      margin-bottom: 40px;
+    }
+    @include breakpoint($mq-mobile-medium) {
+      margin-bottom: 20px;
+    }
+  }
+  &__list {
+    margin-top: 64px;
+    @include breakpoint($mq-desktop-medium) {
+      margin-top: 40px;
+    }
+    @include breakpoint($mq-mobile-medium) {
+      margin-top: 20px;
+    }
+  }
+  &__item {
+    position: relative;
+    padding-left: 58px;
+    margin-bottom: 42px;
+    @include breakpoint($mq-desktop-medium) {
+      margin-bottom: 20px;
+      padding-left: 56px;
+    }
+    @include breakpoint($mq-mobile-medium) {
+      margin-bottom: 10px;
+      padding-left: 34px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+    a {
+      color: $clr-white;
+      font-size: 27px;
+      line-height: 28px;
+      @include breakpoint($mq-desktop-medium) {
+        font-size: 20px;
+        line-height: 20px;
+      }
+      @include breakpoint($mq-mobile-medium) {
+        font-size: 16px;
+        line-height: 16px;
+      }
+      @include breakpoint($mq-mobile-min) {
+        font-size: 14px;
+        line-height: 14px;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  &__icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    &::ng-deep {
+      .svg-icon {
+        display: block;
+        width: 48px;
+        height: 48px;
+        @include breakpoint($mq-desktop-medium) {
+          width: 36px;
+          height: 36px;
+        }
+        @include breakpoint($mq-mobile-medium) {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+}
+:host.is-animated {
+  .contacts {
+    &__map {
+      opacity: 1;
+      @include breakpoint($mq-tablet-small) {
+        transform: translate(-40px, -40px);
+      }
+      @include breakpoint($mq-mobile) {
+        transform: translate(-20px, -20px);
+      }
+      &:before {
+        max-width: 0;
+      }
+    }
+    &__content {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}

@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-frontend',
   templateUrl: './frontend.component.html',
-  styleUrls: ['./frontend.component.scss']
+  styleUrls: ['./frontend.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class FrontendComponent implements OnInit {
 
   config: any;
   fullpageApi: any;
-  mapIsOpen: false;
 
   constructor() {
   }
@@ -21,7 +21,7 @@ export class FrontendComponent implements OnInit {
   ngOnInit() {
     this.config = {
       //licenseKey: 'YOUR LICENSE KEY HERE',
-      anchors: ['home', 'about', 'workout', 'plans', 'interior', 'contacts', 'map', 'sign-up', 'copyright'],
+      anchors: ['home', 'about', 'workout', 'plans', 'interior', 'contacts', 'sign-up', 'copyright'],
       lazyLoading: false,
       slidesNavigation: true,
       responsiveHeight: 420,

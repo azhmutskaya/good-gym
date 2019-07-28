@@ -1,307 +1,71 @@
-<div class="main-containter" fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
+<header class="header">
+  <div class="frame">
+    ghjx
+  </div>
+</header>
 
-  <header class="header">
-    <div class="frame">
-      ghjx
-    </div>
-  </header>
+<div class="content" fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
 
-  <section id="banner" class="banner fp-section fp-table">
-    <div class="banner__wrap">
-      <div class="banner__video">
-        <video [loop]="true" [muted]="true" [autoplay]="true" data-keepplaying poster="assets/images/content/video.jpg">
-          <source src="assets/images/content/video.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="frame">
-        <div class="banner__content">
-          <h1 class="banner__logo">
-            GoodGym
-            <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#logo'" [classes]="'svg-icon'"></svg-icon-sprite>
-          </h1>
-          <h3 class="banner__motto">
-            Where Health Meets Sport
-          </h3>
-          <button class="banner__btn"><span></span></button>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-banner class="fp-section fp-table"></app-banner>
 
-  <section class="promo fp-section fp-table">
-    <div class="promo__wrap">
-      <div class="promo__img" style="background-image: url('assets/images/content/about.jpg');"></div>
-      <div class="frame">
-        <div class="promo__content">
-          <h2 class="title-main promo__title">
-            Good Day!
-          </h2>
-          <div class="descr promo__descr">
-            <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-              rem
-              aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-              explicabo.
-            </p>
-            <p>
-              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-            </p>
-          </div>
-          <button class="link link--arrow promo__link">
-            <span>Learn More</span>
-            <i class="arrow"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-promo class="fp-section fp-table"></app-promo>
 
-  <section class="workout fp-section fp-table">
-    <div class="workout__wrap">
-      <div class="workout__img" style="background-image: url('assets/images/content/workout.png');"></div>
-      <div class="workout__title">
-        Good Workout
-      </div>
-      <div class="frame">
-        <div class="workout__content">
-          <div class="descr workout__descr">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumpsan
-              lacus
-              vel facilisis.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-workout class="fp-section fp-table"></app-workout>
 
-  <section class="slider fp-section fp-table">
-    <div class="slider__container">
-      <div class="slider__list">
-        <div class="slider__item slide fp-auto-height fp-table" data-anchor="good-fitness">
-          <div class="frame">
-            <div class="slider__wrap">
-              <div class="slider__img">
-                <div class="slider__img-wrap">
-                  <img src="assets/images/content/slide1.jpg" alt="Good Fitness">
-                </div>
-              </div>
-              <div class="slider__content">
-                <h3 class="title-main slider__title">
-                  Good Fitness
-                </h3>
-                <div class="descr slider__descr">
-                  <p>
-                    Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-                    dicta sunt explicabo.
-                  </p>
-                  <p>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="slider__item slide fp-auto-height fp-table" data-anchor="good-machines">
-          <div class="frame">
-            <div class="slider__wrap">
-              <div class="slider__img">
-                <div class="slider__img-wrap">
-                  <img src="assets/images/content/slide2.jpg" alt="Good Machines">
-                </div>
-              </div>
-              <div class="slider__content">
-                <h3 class="title-main slider__title">
-                  Good Machines
-                </h3>
-                <div class="descr slider__descr">
-                  <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-                    dicta sunt explicabo.
-                  </p>
-                  <p>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                    magni dolores eos qui ratione voluptatem sequi nesciunt.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="slider__item slide fp-auto-height fp-table" data-anchor="good-pool">
-          <div class="frame">
-            <div class="slider__wrap">
-              <div class="slider__img">
-                <div class="slider__img-wrap">
-                  <img src="assets/images/content/slide3.jpg" alt="Good Pool">
-                </div>
-              </div>
-              <div class="slider__content">
-                <h3 class="title-main slider__title">
-                  Good Pool
-                </h3>
-                <div class="descr slider__descr">
-                  <p>
-                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                    deleniti atque corrupti quos dolores et quas molestias excepturi similique sunt in culpa qui
-                    officia
-                    deserunt mollitia animi, id est laborum et dolorum fuga.
-                  </p>
-                  <p>
-                    Et harum quidem rerum facilis est et expedita distinctio.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="slider__nav fp-slidesNav">
-          <ul>
-            <li class="is-custom">
-              <a href="#GoodPool">
-                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#square'" [classes]="'svg-icon'"></svg-icon-sprite>
-              </a>
-            </li>
-            <li class="is-custom">
-              <a href="#GoodMachines">
-                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#pentagon'"
-                                 [classes]="'svg-icon'"></svg-icon-sprite>
-              </a>
-            </li>
-            <li class="is-custom">
-              <a href="#GoodFitness">
-                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#triangle'"
-                                 [classes]="'svg-icon'"></svg-icon-sprite>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-slider class="fp-section fp-table"></app-slider>
 
-  <section class="interior fp-section fp-table">
-    <div class="interior__view" style="background-image: url('assets/images/content/panorama.jpg');">
-      <a-scene>
-        <a-assets>
-          <img id="panorama" src="assets/images/content/panorama.jpg"/>
-        </a-assets>
-        <a-sky src="#panorama" rotation="0 -35 0"></a-sky>
-      </a-scene>
-    </div>
-    <div class="interior__wrap">
-      <div class="frame">
-        <div class="interior__content">
-          <h2 class="title-main interior__title">
-            Good Interior
-          </h2>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-interior class="fp-section fp-table"></app-interior>
 
-  <section class="contacts fp-section fp-table">
-    <div class="contacts__wrap">
-      <div class="contacts__map" style="background-image: url('assets/images/content/map.jpg');" [class.is-open]="mapIsOpen">
-        <button class="contacts__btn" (click)="mapIsOpen = !mapIsOpen"></button>
-      </div>
-      <div class="frame">
-        <div class="contacts__content">
-          <h2 class="title-main contacts__title">
-            Good Location
-          </h2>
-          <div class="descr contacts__descr">
-            <p>
-              Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
-              sunt explicabo.
-            </p>
-          </div>
-          <div class="contacts__list">
-            <div class="contacts__item">
-              <div class="contacts__icon">
-                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#pin'" [classes]="'svg-icon'"></svg-icon-sprite>
-              </div>
-              <a href="https://www.google.ca/maps/place/732+Ave+E+Bayonne+NJ+07002+USA" target="_blank">
-                732 Ave E, Bayonne, NJ 07002, USA
-              </a>
-            </div>
-            <div class="contacts__item">
-              <div class="contacts__icon">
-                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#phone'"
-                                 [classes]="'svg-icon'"></svg-icon-sprite>
-              </div>
-              <a href="tel:+1 201-455-2644">
-                +1 201-455-2644
-              </a>
-            </div>
-            <div class="contacts__item">
-              <div class="contacts__icon">
-                <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#email'"
-                                 [classes]="'svg-icon'"></svg-icon-sprite>
-              </div>
-              <a href="mailto:goodgym_ny@gmail.com">
-                goodgym_ny@gmail.com
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-contacts class="fp-section fp-table"></app-contacts>
 
-  <section class="sign-up fp-section fp-table">
-    <div class="sign-up__logo">
-      <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#good'" [classes]="'svg-icon'"></svg-icon-sprite>
-    </div>
-    <div class="sign-up__wrap">
-      <div class="frame">
-        <div class="sign-up__content">
-          <h2 class="title-main sign-up__title">
-            Sign Up Today
-          </h2>
-          <div class="descr sign-up__descr">
-            <p>
-              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-              sed quia consequuntur magni dolores eos qui ratione.
-            </p>
-          </div>
-          <form class="sign-up__form">
-            <input type="text" placeholder="samplemail@gmail.com">
-            <button class="submit"></button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-sign-up class="fp-section fp-table"></app-sign-up>
 
-  <footer class="footer fp-auto-height fp-section fp-table">
-    <div class="footer__wrap">
-      <div class="footer__logo">
-        <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#gym'" [classes]="'svg-icon'"></svg-icon-sprite>
-      </div>
-      <div class="frame">
-        <div class="footer__content">
-          <div class="footer__copyright">
-            © 2019 GoodGym Inc. All rights reserved.
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <app-footer class="fp-auto-height fp-section fp-table"></app-footer>
 
-  <a href="https://www.instagram.com/" class="instagram" target="_blank">
-  <span>
-
-  </span>
-  </a>
-
-  <button class="to-top">
-  <span>
-
-  </span>
-  </button>
 </div>
+
+<div class="sticky">
+  <span class="sticky__to-top">
+    <a href="#home"><span></span></a>
+  </span>
+  <span class="sticky__instagram">
+    <a href="https://www.instagram.com/" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 555.1 555.1">
+        <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="119.9594" y1="546.9883" x2="431.0061" y2="8.2397">
+          <stop offset="0" style="stop-color:#FECC5E"/>
+          <stop offset="0.3" style="stop-color:#EF7638"/>
+          <stop offset="0.6" style="stop-color:#D62F84"/>
+          <stop offset="1" style="stop-color:#9838DC"/>
+        </linearGradient>
+        <path fill="url(#SVGID_1_)" d="M534.5,98c-6.9-18.3-17.6-34.7-31.5-48.3c-13.6-13.8-30.1-24.6-48.2-31.4C437.4,11.7,417.6,7,388.7,5.7
+          C359.5,4.3,350.3,4,276.4,4s-83.2,0.3-112.2,1.6c-28.9,1.3-48.8,6-66.1,12.7c-18.3,6.9-34.7,17.6-48.3,31.5
+          C35.9,63.4,25.2,79.9,18.4,97.9C11.7,115.3,7,135.1,5.7,164C4.3,193.2,4,202.4,4,276.4s0.3,83.2,1.6,112.2
+          c1.3,28.9,6,48.8,12.7,66.1c6.9,18.3,17.7,34.7,31.5,48.3c13.6,13.8,30.1,24.6,48.2,31.4c17.3,6.7,37.1,11.4,66.1,12.7
+          c29,1.3,38.3,1.6,112.2,1.6s83.2-0.3,112.2-1.6c28.9-1.3,48.8-6,66.1-12.7c36.6-14.2,65.5-43.1,79.7-79.7
+          c6.7-17.3,11.4-37.1,12.7-66.1c1.3-29,1.6-38.3,1.6-112.2s-0.1-83.2-1.4-112.2C545.8,135.2,541.2,115.3,534.5,98z M498.1,386.5
+          c-1.2,26.6-5.6,41-9.4,50.5c-9.2,23.7-28,42.6-51.7,51.7c-9.6,3.7-24,8.2-50.5,9.4c-28.7,1.3-37.3,1.6-110,1.6s-81.4-0.3-110-1.6
+          c-26.6-1.2-41-5.6-50.5-9.4c-11.8-4.4-22.6-11.3-31.3-20.3c-9-8.8-16-19.5-20.3-31.3c-3.7-9.6-8.2-24-9.4-50.5
+          c-1.3-28.7-1.6-37.3-1.6-110s0.3-81.4,1.6-110c1.2-26.6,5.6-41,9.4-50.5c4.4-11.8,11.3-22.6,20.4-31.3c8.8-9,19.5-16,31.3-20.3
+          c7.3-2.8,17.4-6.1,33.4-8c2.4-0.3,4.8-0.6,7.3-0.7c3.1-0.3,6.4-0.5,9.8-0.6c28.7-1.3,37.3-1.6,110-1.6c72.8,0,81.4,0.3,110,1.6
+          c26.6,1.2,41,5.6,50.5,9.4c11.8,4.4,22.6,11.3,31.3,20.3c9,8.8,16,19.5,20.3,31.3c3.7,9.6,8.2,24,9.4,50.5
+          c1.3,28.7,1.6,37.3,1.6,110S499.3,357.7,498.1,386.5z"/>
+        <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="86.2428" y1="466.4655" x2="464.6083" y2="88.1001">
+          <stop offset="0" style="stop-color:#EFB10C"/>
+          <stop offset="0.6474" style="stop-color:#CA328C"/>
+          <stop offset="0.9951" style="stop-color:#CA328C"/>
+        </linearGradient>
+        <path fill="url(#SVGID_2_)" d="M276.4,136.5c-77.2,0-139.9,62.7-139.9,139.9s62.7,139.9,139.9,139.9c77.2,0,139.9-62.7,139.9-139.9
+          S353.6,136.5,276.4,136.5z M276.4,367.1c-50.1,0-90.8-40.6-90.8-90.7c0-50.1,40.6-90.8,90.8-90.8c50.1,0,90.7,40.6,90.7,90.8
+          C367.1,326.5,326.5,367.1,276.4,367.1z"/>
+        <linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="420.7877" y1="528.1635" x2="420.7877" y2="6.7935">
+          <stop offset="0" style="stop-color:#C23099"/>
+          <stop offset="1" style="stop-color:#B433A6"/>
+        </linearGradient>
+        <path fill="url(#SVGID_3_)" d="M453.5,130.9c0,18-14.6,32.7-32.7,32.7c-18,0-32.7-14.6-32.7-32.7c0-18,14.6-32.7,32.7-32.7
+          C438.8,98.3,453.5,112.9,453.5,130.9z"/>
+      </svg>
+    </a>
+  </span>
+</div>
+
+

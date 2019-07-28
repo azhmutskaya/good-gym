@@ -1,0 +1,208 @@
+@import '~src/assets/sass/styles';
+@import '~fullpage.js/dist/fullpage.min.css';
+.slider {
+  height: inherit;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 0 calc(7vw + 120px);
+  &__list {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    &::ng-deep {
+      .fp-slides {
+        overflow: visible;
+      }
+      .fp-controlArrow {
+        display: none;
+      }
+    }
+  }
+  &__nav {
+    width: 50%;
+    left: auto !important;
+    padding-left: 20px;
+    top: calc(100% + 60px);
+    opacity: 0;
+    transform: translateY(500px);
+    transition: opacity 1.5s .1s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s .1s cubic-bezier(0.4, 0, 0.2, 1);
+    @include breakpoint($mq-desktop-medium) {
+      top: calc(100% + 40px);
+    }
+    @include breakpoint($mq-tablet-small) {
+      width: 100%;
+      padding-left: 40px;
+    }
+    @include breakpoint($mq-mobile-medium) {
+      padding-left: 20px;
+    }
+    @include breakpoint($mq-mobile-min) {
+      top: calc(100% + 20px);
+    }
+    &.fp-slidesNav ul {
+      &::ng-deep {
+        li {
+          display: none;
+          margin: 0 40px 0 0;
+          width: 88px;
+          height: 88px;
+          @include breakpoint($mq-mobile) {
+            margin: 0 20px 0 0;
+            width: 48px;
+            height: 48px;
+          }
+          &.is-custom {
+            display: inline-block;
+          }
+        }
+      }
+    }
+    a {
+      &::ng-deep {
+        .svg-icon {
+          width: 88px;
+          height: 88px;
+          @include breakpoint($mq-mobile) {
+            width: 48px;
+            height: 48px;
+          }
+          use {
+            stroke: $clr-primary;
+            stroke-width: 2px;
+            fill: transparent;
+            transition: all .3s;
+          }
+        }
+      }
+      &:hover,
+      &.active {
+        &::ng-deep {
+          .svg-icon {
+            use {
+              fill: $clr-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+  &__item {
+    position: relative;
+  }
+  &__wrap {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__img {
+    flex: 0 0 50%;
+    max-width: 50%;
+    position: relative;
+    opacity: 0;
+    transform: translateX(-500px);
+    transition: opacity 1.5s .1s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s .1s cubic-bezier(0.4, 0, 0.2, 1);
+    @include breakpoint($mq-tablet) {
+      flex: 0 0 40%;
+      max-width: 40%;
+    }
+    @include breakpoint($mq-tablet-small) {
+      flex: 1 0 auto;
+      max-width: 100%;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+    }
+    &-wrap {
+      right: 0;
+      top: calc(50% + 5vw);
+      transform: translateY(-50%);
+      position: absolute;
+      height: 80vh;
+      max-height: 854px;
+      width: 50vw;
+      overflow: hidden;
+      @include breakpoint($mq-tablet-small) {
+        width: 100vw;
+      }
+    }
+    img {
+      position: absolute;
+      right: 6vw;
+      height: 100%;
+      width: auto;
+      @include breakpoint($mq-tablet) {
+        right: 0;
+      }
+      @include breakpoint($mq-tablet-small) {
+        left: 0;
+        margin: auto;
+        opacity: .2;
+      }
+      @include breakpoint($mq-mobile) {
+        right: 0;
+        left: auto;
+      }
+    }
+  }
+  &__content {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-left: 20px;
+    opacity: 0;
+    transform: translateX(500px);
+    transition: opacity 1.5s .1s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s .1s cubic-bezier(0.4, 0, 0.2, 1);
+    @include breakpoint($mq-tablet) {
+      flex: 0 0 60%;
+      max-width: 60%;
+    }
+    @include breakpoint($mq-tablet-small) {
+      flex: 1 0 auto;
+      max-width: 100%;
+      width: 100%;
+      padding-left: 0;
+    }
+  }
+  &__title {
+    white-space: nowrap;
+    margin-bottom: 82px;
+    @include breakpoint($mq-desktop-medium) {
+      margin-bottom: 40px;
+    }
+    @include breakpoint($mq-mobile-medium) {
+      margin-bottom: 20px;
+    }
+  }
+  &__item.is-animated {
+    .slider {
+      &__img,
+      &__content {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  }
+}
+:host.is-animated {
+  .slider {
+    &__nav {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &__item:first-child {
+      .slider {
+        &__img,
+        &__content {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+}
+

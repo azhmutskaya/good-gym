@@ -26,7 +26,9 @@ const adminRoutes: Routes = [
       },
     ]
   },
-  {path: '**', redirectTo: ''}
+  {
+    path: '**', redirectTo: ''
+  }
 ];
 
 @NgModule({

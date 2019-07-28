@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate:svg-sprite": "svg2sprite ./src/assets/images/svg-icons ./src/assets/images/svg-sprite.svg --stripAttrs width --stripAttrs height --stripAttrs xmlns --stripAttrs id"
+    "generate:svg-sprite": "svg2sprite ./src/assets/images/svg-icons ./src/assets/images/svg-sprite.svg --stripAttrs width --stripAttrs height --stripAttrs xmlns"
   },
   "private": true,
   "dependencies": {
