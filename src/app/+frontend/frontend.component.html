@@ -1,34 +1,38 @@
-<header class="header">
-  <div class="frame">
-    ghjx
+<div class="landing" (mousemove)="cursorMove($event)" (click)="cursorClick()">
+  <header class="header">
+    <div class="frame">
+
+    </div>
+    <div class="header__navigation">
+      <div class="header__waves" #waves></div>
+    </div>
+  </header>
+
+  <div class="content" fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
+
+    <app-banner class="fp-section fp-table"></app-banner>
+
+    <app-promo class="fp-section fp-table"></app-promo>
+
+    <app-workout class="fp-section fp-table"></app-workout>
+
+    <app-slider class="fp-section fp-table"></app-slider>
+
+    <app-interior class="fp-section fp-table"></app-interior>
+
+    <app-contacts class="fp-section fp-table"></app-contacts>
+
+    <app-sign-up class="fp-section fp-table"></app-sign-up>
+
+    <app-footer class="fp-auto-height fp-section fp-table"></app-footer>
+
   </div>
-</header>
 
-<div class="content" fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
-
-  <app-banner class="fp-section fp-table"></app-banner>
-
-  <app-promo class="fp-section fp-table"></app-promo>
-
-  <app-workout class="fp-section fp-table"></app-workout>
-
-  <app-slider class="fp-section fp-table"></app-slider>
-
-  <app-interior class="fp-section fp-table"></app-interior>
-
-  <app-contacts class="fp-section fp-table"></app-contacts>
-
-  <app-sign-up class="fp-section fp-table"></app-sign-up>
-
-  <app-footer class="fp-auto-height fp-section fp-table"></app-footer>
-
-</div>
-
-<div class="sticky">
+  <div class="sticky">
   <span class="sticky__to-top">
     <a href="#home"><span></span></a>
   </span>
-  <span class="sticky__instagram">
+    <span class="sticky__instagram">
     <a href="https://www.instagram.com/" target="_blank">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 555.1 555.1">
         <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="119.9594" y1="546.9883" x2="431.0061" y2="8.2397">
@@ -66,6 +70,7 @@
       </svg>
     </a>
   </span>
+  </div>
+
+  <div class="cursor" #cursor></div>
 </div>
-
-

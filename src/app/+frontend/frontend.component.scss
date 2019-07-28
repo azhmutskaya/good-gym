@@ -5,6 +5,7 @@
   color: $clr-white;
 }
 .content {
+  will-change: transform;
   @include breakpoint($mq-desktop-fullhd, 420px, max-height) {
     width: 100vw;
     overflow: hidden;
@@ -16,6 +17,20 @@
 .header {
   position: fixed;
   z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $clr-primary;
+  &__waves {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $clr-primary;
+  }
 }
 .sticky {
   position: fixed;
@@ -23,7 +38,7 @@
   right: 60px;
   width: 96px;
   z-index: 2000;
-  transition: transform .3s ease-in-out;
+  transition: transform .7s ease-in-out;
   @include breakpoint($mq-desktop-medium) {
     bottom: 40px;
     right: 40px;
@@ -96,6 +111,9 @@
     a {
       width: 66.666%;
       margin: 0 auto;
+      @include breakpoint($mq-mobile) {
+        width: 80%;
+      }
       &:before {
         transform: scale(.1);
         transition: transform .5s .2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -205,4 +223,69 @@ body {
 }
 html.a-fullscreen {
   position: static;
+}
+
+
+body {
+  cursor: none;
+}
+
+.cursor {
+  width: 60px;
+  height: 60px;
+  border: 2px solid $clr-white;
+  border-radius: 50%;
+  position: fixed;
+  z-index: 5000;
+  transition: all .1s ease-in-out;
+  transition-timing-function: ease-out;
+  animation: cursorAnim .5s infinite alternate;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  will-change: top, left;
+  @include breakpoint($mq-desktop-medium) {
+    width: 30px;
+    height: 30px;
+  }
+  &:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    border: 3px solid $clr-white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    background: $clr-white;
+    transform: translate(-50%, -50%) scale(.3);
+    mix-blend-mode: difference;
+    transition: all .3s;
+  }
+  &.is-expand {
+    animation: cursorAnimExpand .5s infinite alternate;
+    border: 1px solid $clr-white;
+    &:after {
+      background: transparent;
+      border: 4px solid $clr-white;
+      transform: translate(-50%, -50%) scale(.3);
+    }
+  }
+}
+
+@keyframes cursorAnim {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(.7);
+  }
+}
+
+@keyframes cursorAnimExpand {
+  from {
+    transform: scale(1.6);
+  }
+  to {
+    transform: scale(1.2);
+  }
 }

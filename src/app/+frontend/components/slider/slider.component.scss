@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 120px 0 calc(7vw + 120px);
+  background: $clr-white;
   &__list {
     display: flex;
     flex-direction: column;
@@ -18,6 +19,9 @@
       }
       .fp-controlArrow {
         display: none;
+      }
+      .fp-slidesContainer {
+        will-change: transform;
       }
     }
   }

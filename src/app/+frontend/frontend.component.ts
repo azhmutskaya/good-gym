@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-frontend',
@@ -7,6 +7,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class FrontendComponent implements OnInit {
+
+  @ViewChild('cursor', {static: true}) cursor: ElementRef;
+  @ViewChild('waves', {static: true}) waves: ElementRef;
 
   config: any;
   fullpageApi: any;
@@ -34,6 +37,19 @@ export class FrontendComponent implements OnInit {
         destination.item.classList.add('is-animated');
       }
     };
+
+
   }
 
+  cursorMove($event) {
+    this.cursor.nativeElement.setAttribute('style', 'top: ' + ($event.pageY - 10) + 'px; left: ' + ($event.pageX - 10) + 'px;');
+  }
+
+  cursorClick() {
+    this.cursor.nativeElement.classList.add('is-expand');
+
+    setTimeout(() => {
+      this.cursor.nativeElement.classList.remove('is-expand');
+    }, 500);
+  }
 }

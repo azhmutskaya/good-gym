@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 120px 0 calc(9.6vw + 120px);
+  background: $clr-white;
   &__content {
     max-width: 50%;
     margin: 0 0 0 auto;
