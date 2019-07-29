@@ -1,4 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import * as THREE from 'three';
+
 
 @Component({
   selector: 'app-frontend',
@@ -10,9 +12,11 @@ export class FrontendComponent implements OnInit {
 
   @ViewChild('cursor', {static: true}) cursor: ElementRef;
   @ViewChild('waves', {static: true}) waves: ElementRef;
+  @ViewChild('nav', {static: true}) nav: ElementRef;
 
   config: any;
   fullpageApi: any;
+  navIsOpen = false;
 
   constructor() {
   }

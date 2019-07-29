@@ -1,12 +1,35 @@
-<div class="landing" (mousemove)="cursorMove($event)" (click)="cursorClick()">
+<div class="landing" (mousemove)="cursorMove($event)" (click)="cursorClick()" [class.nav-is-open]="navIsOpen">
   <header class="header">
-    <div class="frame">
-
-    </div>
-    <div class="header__navigation">
+    <a href="tel:050-300-21-22" class="header__phone">
+      <svg-icon-sprite [src]="'assets/images/svg-sprite.svg#phone'" [classes]="'svg-icon'"></svg-icon-sprite>
+      050-300-21-22
+    </a>
+    <button class="header__toggle" [class.nav-is-open]="navIsOpen" (click)="navIsOpen = !navIsOpen">
+      <span class="lines">
+        <span></span>
+      </span>
+    </button>
+    <nav class="header__navigation" [class.is-visible]="navIsOpen">
       <div class="header__waves" #waves></div>
-    </div>
+      <div class="frame">
+        <ul>
+          <li>
+            <a href="#home" class="title-main" (click)="navIsOpen = false"><span>Home</span><i></i></a>
+          </li>
+          <li>
+            <a href="#about" class="title-main" (click)="navIsOpen = false"><span>About</span><i></i></a>
+          </li>
+          <li>
+            <a href="#plans" class="title-main" (click)="navIsOpen = false"><span>Plans</span><i></i></a>
+          </li>
+          <li>
+            <a href="#contacts" class="title-main" (click)="navIsOpen = false"><span>Contacts</span><i></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </header>
+
 
   <div class="content" fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
 
