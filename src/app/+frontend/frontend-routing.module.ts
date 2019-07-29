@@ -7,9 +7,6 @@ import { FrontendComponent } from './frontend.component';
 const frontendRoutes: Routes = [
   {
     path: '', component: FrontendComponent
-  },
-  {
-    path: '**', redirectTo: ''
   }
 ];
 
