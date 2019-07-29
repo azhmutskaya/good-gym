@@ -26,6 +26,7 @@
     "@fullpage/angular-fullpage": "0.0.14",
     "@ismaestro/ngx-scroll-to-first-invalid": "^3.0.0",
     "@types/moment": "^2.13.0",
+    "@types/three": "^0.103.2",
     "aframe": "^0.9.2",
     "angular-in-memory-web-api": "^0.8.0",
     "fsevents": "^2.0.7",
@@ -33,6 +34,7 @@
     "ngx-mask": "^8.0.1",
     "rxjs": "6.4.0",
     "saturn-datepicker": "^7.4.0",
+    "three": "^0.56.4",
     "tslib": "1.9.0",
     "zone.js": "0.9.1"
   },

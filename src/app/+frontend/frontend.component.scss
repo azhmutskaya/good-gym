@@ -29,7 +29,7 @@ body {
     font-size: 32px;
     line-height: 42px;
     opacity: 0;
-    transition: opacity .3s 1s ease-in-out;
+    transition: opacity .3s .3s ease-in-out;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -67,15 +67,17 @@ body {
       }
     }
   }
-  //&__waves {
-  //  position: fixed;
-  //  z-index: 1000;
-  //  top: 0;
-  //  left: 0;
-  //  right: 0;
-  //  bottom: 0;
-  //  background: $clr-primary;
-  //}
+  &__waves {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+  }
   &__toggle {
     cursor: pointer;
     display: block;
@@ -198,7 +200,8 @@ body {
       width: 100px;
       height: 100px;
       z-index: -1;
-      transition: transform 1s .5s ease-in-out;
+      transition: transform 1s .5s;
+      will-change: transform;
       @include breakpoint($mq-desktop-medium) {
         width: 74px;
         height: 74px;
@@ -213,10 +216,9 @@ body {
       }
     }
     &.is-visible {
-      pointer-events: auto;
       &:before {
         transform: scale(90);
-        transition: transform .7s .3s ease-in-out;
+        transition: transform .7s .3s;
         @include breakpoint($mq-desktop-fullhd) {
           transform: scale(45);
         }
@@ -225,7 +227,7 @@ body {
         opacity: 1;
         transform: translateX(0);
         transition: opacity 1.5s .7s cubic-bezier(0.4, 0, 0.2, 1), transform .8s .7s cubic-bezier(0.4, 0, 0.2, 1);
-        li a i:before {
+        i:before {
           position: absolute;
           content: '';
           top: 50%;
@@ -236,6 +238,11 @@ body {
           max-width: 0;
           right: -100vw;
         }
+      }
+      .header__waves {
+        opacity: 1;
+        pointer-events: auto;
+        transition: opacity .3s 1s ease-in-out;
       }
     }
     ul {
@@ -254,42 +261,42 @@ body {
         &:last-child {
           margin-bottom: 0;
         }
-        a {
-          color: $clr-font;
-          transition: color .3s ease-in-out;
-          display: flex;
-          width: 100%;
+      }
+      a {
+        color: $clr-font;
+        transition: color .3s ease-in-out;
+        display: flex;
+        width: 100%;
+        position: relative;
+        flex-wrap: wrap;
+        align-items: center;
+        pointer-events: none;
+        span {
+          display: block;
+          pointer-events: auto;
+          padding-right: 50px;
+          @include breakpoint($mq-desktop-medium) {
+            padding-right: 32px;
+          }
+          @include breakpoint($mq-mobile-medium) {
+            padding-right: 20px;
+          }
+        }
+        i {
+          display: block;
           position: relative;
-          flex-wrap: wrap;
-          align-items: center;
-          pointer-events: none;
-          span {
-            display: block;
-            pointer-events: auto;
-            padding-right: 50px;
-            @include breakpoint($mq-desktop-medium) {
-              padding-right: 32px;
-            }
-            @include breakpoint($mq-mobile-medium) {
-              padding-right: 20px;
-            }
-          }
+          flex-grow: 1;
+          max-width: 0;
+          transition: all .7s cubic-bezier(0.4, 0, 0.2, 1);
+          pointer-events: auto;
+        }
+        &:hover {
+          color: $clr-white;
+          pointer-events: auto;
           i {
-            display: block;
-            position: relative;
-            flex-grow: 1;
-            max-width: 0;
-            transition: all .7s cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: auto;
-          }
-          &:hover {
-            color: $clr-white;
-            pointer-events: auto;
-            i {
-              max-width: 100%;
-              &:before {
-                max-width: 100vw;
-              }
+            max-width: 100%;
+            &:before {
+              max-width: 100vw;
             }
           }
         }
@@ -527,6 +534,9 @@ body {
   @include breakpoint($mq-desktop-medium) {
     width: 30px;
     height: 30px;
+  }
+  @include breakpoint($mq-tablet) {
+    display: none;
   }
   &:after {
     content: '';
